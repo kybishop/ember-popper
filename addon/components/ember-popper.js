@@ -2,11 +2,19 @@ import Ember from 'ember';
 //import Popper from 'popper.js';
 
 export default Ember.Component.extend({
-  options: {},
   target: null,
+
+  init() {
+    this._super(...arguments);
+
+    if (!this.get('options')) {
+      this.options = {};
+    }
+  },
 
   didInsertElement() {
     this._super(...arguments);
+
     this.addPopper();
   },
 
@@ -14,16 +22,13 @@ export default Ember.Component.extend({
     this._super(...arguments);
 
     Ember.run.schedule('render', () => {
-      this.removeElement(this.element);
-      this.removePopper(this._popper);
+      this._popper.destroy();
     });
   },
 
   addPopper() {
-    let popperTarget = this.get('_popperTarget');
-
     if (this.element) {
-      this._popper = new Popper(popperTarget, this.element, this.get('options'));
+      this._popper = new Popper(this.get('_popperTarget'), this.element, this.get('options'));
     }
   },
 
@@ -35,9 +40,6 @@ export default Ember.Component.extend({
       return this.element.parentNode;
     }
 
-    // TODO(kjb) decide how to handle selector which returns multiple elements.
-    // 1. Error?
-    // 2. Popper for each?
     return (target instanceof Element) ? target : document.querySelectorAll(target)[0];
   }),
 
@@ -45,20 +47,9 @@ export default Ember.Component.extend({
     'target',
     'options',
     function() {
-      this.removePopper(this._popper);
+      this._popper.destroy();
+
       this.addPopper();
     }
   ),
-
-  removeElement(element) {
-    if (element.parentNode) {
-      element.parentNode.removeChild(element);
-    }
-  },
-
-  removePopper(popper) {
-    if (popper) {
-      popper.destroy();
-    }
-  },
 });

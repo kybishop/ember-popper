@@ -1,5 +1,10 @@
-.container {
+.row {
   display: flex;
+}
+
+.box {
+  display: flex;
+  flex-grow: 1;
 }
 
 .left {
@@ -12,7 +17,7 @@
   width: 20%;
 }
 
-.left, .right {
+.left, .right, .box {
   height: 100px;
 }
 
