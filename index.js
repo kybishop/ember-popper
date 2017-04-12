@@ -2,5 +2,14 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-popper'
+  name: 'ember-popper',
+
+  options: {
+    nodeAssets: {
+      'popper.js': {
+        srcDir: 'dist',
+        import: ['popper.js']
+      }
+    }
+  }
 };

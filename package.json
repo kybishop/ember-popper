@@ -1,24 +1,32 @@
 {
   "name": "ember-popper",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "An Ember-centric wrapper around Popper.js",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "tooltips",
+    "popovers"
   ],
   "license": "MIT",
-  "author": "",
+  "author": {
+    "name" : "Kyle Bishop",
+    "email" : "kybishop@gmail.com",
+    "url" : "http://kybishop.com"
+  },
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "https://github.com/kybishop/ember-popper",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
     "test": "ember try:each"
   },
   "dependencies": {
-    "ember-cli-babel": "^5.1.7"
+    "ember-cli-babel": "^5.1.7",
+    "ember-cli-node-assets": "^0.1.6",
+    "popper.js": "^1.0.8"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",

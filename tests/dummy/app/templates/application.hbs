@@ -1,5 +1,25 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+<div class="container">
+  <div class="left">
+    {{#ember-popper class="popper"}}
+      Hello from the left! I have no explicit target.
+      <div class="popper-arrow" x-arrow></div>
 
-{{outlet}}
+      {{#ember-popper class="popper"}}
+        <span style="white-space: nowrap">P O P P E R C E P T I O N</span>
+        <br>
+        I also have no explicit target,
+        <br>
+        but am a child of the popper above
+        <div class="popper-arrow" x-arrow></div>
+      {{/ember-popper}}
+    {{/ember-popper}}
+  </div>
+  <div class="right"></div>
+</div>
+
+{{#ember-popper class="popper" target=".right" options=popperOptions}}
+  Hello from the right!
+  <br>
+  I explicitly target the right div
+  <div class="popper-arrow" x-arrow></div>
+{{/ember-popper}}
