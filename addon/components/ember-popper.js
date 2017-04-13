@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { assert } from '../-debug/helpers';
 //import Popper from 'popper.js';
 
 export default Ember.Component.extend({
@@ -38,9 +39,15 @@ export default Ember.Component.extend({
     // If there is no target, set the target to the parent element
     if (!target) {
       return this.element.parentNode;
-    }
+    } else if (target instanceof Element) {
+      return target;
+    } else {
+      const nodes = document.querySelectorAll(target);
 
-    return (target instanceof Element) ? target : document.querySelectorAll(target)[0];
+      assert(`ember-popper with target selector "${target}" found ${nodes.length} possible targets when there should be exactly 1`, nodes.length === 1);
+
+      return nodes[0];
+    }
   }),
 
   popperDidChange: Ember.observer(
