@@ -12,8 +12,8 @@ module.exports = {
   options: {
     nodeAssets: {
       'popper.js': {
-        srcDir: 'dist',
-        import: ['popper.es5.js']
+        srcDir: 'dist/umd',
+        import: ['popper.js']
       }
     }
   },

@@ -29,7 +29,7 @@
     "babel6-plugin-strip-class-callcheck": "^6.0.0",
     "broccoli-funnel": "^1.0.7",
     "ember-cli-node-assets": "^0.1.6",
-    "popper.js": "^1.0.8"
+    "popper.js": "^1.8.2"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",

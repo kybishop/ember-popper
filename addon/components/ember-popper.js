@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import { assert } from '../-debug/helpers';
-//import Popper from 'popper.js';
 
 export default Ember.Component.extend({
   target: null,
