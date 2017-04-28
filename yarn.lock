@@ -4130,9 +4130,9 @@ pluralize@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/pluralize/-/pluralize-1.2.1.tgz#d1a21483fd22bb41e58a12fa3421823140897c45"
 
-popper.js@^1.8.2:
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.8.2.tgz#c6256b39dc20b3da58f0f2231407b126da017d40"
+popper.js@^1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.9.1.tgz#aedce56910172595e30aa7f33a1ede72e00d172c"
 
 portfinder@^1.0.7:
   version "1.0.13"
