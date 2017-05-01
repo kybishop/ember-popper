@@ -1,0 +1,9 @@
+{{#if renderInPlace}}
+  {{yield (hash popper=_popper popperTarget=_popperTarget popperElement=_popperElement)}}
+{{else}}
+  {{#-in-element popperContainer}}
+    <div class="popper-{{elementId}} {{popperClass}}">
+      {{yield (hash popper=_popper popperTarget=_popperTarget popperElement=_popperElement)}}
+    </div>
+  {{/-in-element}}
+{{/if}}
