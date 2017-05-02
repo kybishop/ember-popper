@@ -9,10 +9,22 @@ export default Ember.Component.extend({
    * ================== PUBLIC CONFIG OPTIONS ==================
    */
 
+  // Options for Popper.js
   options: null,
+
+  // Classes to be applied to the popper element
   popperClass: null,
+
+  // The popper element needs to be moved higher in the DOM tree to avoid z-index issues.
+  // See the block-comment in the template for more details.
   popperContainer: document.body,
+
+  // If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
+  // z-index issues where your popper will be overlapped by DOM elements that are nested as deeply
+  // in the DOM tree.
   renderInPlace: false,
+
+  // The element the popper will target. If left blank, will be set to the ember-popper's parent.
   target: null,
 
   /**
@@ -45,24 +57,35 @@ export default Ember.Component.extend({
 
   classNameBindings: ['_popperClass'],
   layout,
-  isVisible: Ember.computed(function() {
-    return this.get('renderInPlace')
+  isVisible: Ember.computed.alias('renderInPlace'),
+
+  // Set in didInsertElement() once the Popper is initialized.
+  // Passed to consumers via a named yield.
+  _popper: null,
+
+  // Used to set a classNameBinding on the popper if rendering in place, else we just pass the
+  // class to the popper element.
+  _popperClass: Ember.computed(function() {
+    return this.get('renderInPlace') ? this.get('popperClass') : false;
   }),
 
-  // set in didInsertElement() once the Popper is initialized. Passed to consumers via  anamed yield
-  _popper: null,
-  _popperClass: Ember.computed(function() {
+  // The element to be positioned by the Popper.
+  _popperElement: Ember.computed('renderInPlace', function() {
     if (this.get('renderInPlace')) {
-      return this.get('popperClass');
+      return this.element;
     } else {
-      return false;
+      // Our wrapper around yielded elements. See template for details.
+      return document.querySelector(`.popper-${this.elementId}`);
     }
   }),
-  // set in didInsertElement() once the Popper is initialized. Passed to consumers via  anamed yield
+
+  // Set in didInsertElement() once the Popper is initialized.
+  // Passed to consumers via a named yield.
   _popperTarget: null,
 
+
   _addPopper() {
-    let popperTarget = this.set('_popperTarget', this._getPopperTarget());
+    let popperTarget = this._getAndSetPopperTarget();
 
     this.set('_popper', new Popper(popperTarget,
                                   this.get('_popperElement'),
@@ -70,35 +93,32 @@ export default Ember.Component.extend({
   },
 
   /**
-   * This is a function so it can be called after elements have been rendered.
-   * If set to a computed property, it is called too early b/c of the named yield for popperTarget.
-   * In this case, the target might be a selector but the element may not yet exist.
+   * Used to manually set _popperTarget in `didInsertElement()`. Need to wait until
+   * `didInsertElement()` to avoid calling `document.querySelectorAll(this.get('target'))`
+   * before the target exists.
    */
-  _getPopperTarget() {
+  _getAndSetPopperTarget() {
     let target = this.get('target');
+
+    let popperTarget;
 
     // If there is no target, set the target to the parent element
     if (!target) {
-      return this.element.parentNode;
+      popperTarget = this.element.parentNode;
     } else if (target instanceof Element) {
-      return target;
+      popperTarget = target;
     } else {
       const nodes = document.querySelectorAll(target);
 
       assert(`ember-popper with target selector "${target}" found ${nodes.length}`
              + 'possible targets when there should be exactly 1', nodes.length === 1);
 
-      return nodes[0];
+      popperTarget = nodes[0];
     }
+
+    return this.set('_popperTarget', popperTarget);
   },
 
-  _popperElement: Ember.computed('renderInPlace', function() {
-    if (this.get('renderInPlace')) {
-      return this.element;
-    } else {
-      return document.querySelector(`.popper-${this.elementId}`);
-    }
-  }),
 
   // This will be used to support Ember versions before Glimmer 2.0
   _moveElementToBody() {
@@ -112,8 +132,14 @@ export default Ember.Component.extend({
     this.element.parentNode.removeChild(this.element);
   },
 
-  popperDidChange: Ember.observer(
+  /**
+   * These events necessitate a new Popper because either the target, popper element,
+   * or options on the Popper must change.
+   */
+  popperShouldBeReplaced: Ember.observer(
     'options',
+    'popperContainer',
+    'renderInPlace',
     'target',
     function() {
       this._popper.destroy();
