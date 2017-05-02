@@ -1,7 +1,14 @@
 {{#if renderInPlace}}
   {{yield (hash popper=_popper popperTarget=_popperTarget popperElement=_popperElement)}}
 {{else}}
+  {{!-- Elements that exist deep within the document tree are given an implicitly lower z-index
+        value than elements that aren't as deep in the tree; this has the effect of hiding our
+        ember-popper behind less-nested elements. Due to the way z-indexing works, we cannot simply
+        add a higher z-index value to our ember-popper. To avoid this issue, we render the element
+        on the document body, giving it the highest default z-index value. --}}
+
   {{#-in-element popperContainer}}
+    {{!-- Add a wrapper around the yielded block so we have something for the Popper to target --}}
     <div class="popper-{{elementId}} {{popperClass}}">
       {{yield (hash popper=_popper popperTarget=_popperTarget popperElement=_popperElement)}}
     </div>
