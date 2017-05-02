@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.0.3](https://github.com/kybishop/ember-popper/tree/v0.0.3) (2017-05-02)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.0.2...v0.0.3)
+
+**Merged pull requests:**
+
+- fixups\(lots of comments and a few minor changes\) [\#5](https://github.com/kybishop/ember-popper/pull/5) ([kybishop](https://github.com/kybishop))
+- fix\(z-index issues\) render poppers in the body by default [\#4](https://github.com/kybishop/ember-popper/pull/4) ([kybishop](https://github.com/kybishop))
+
 ## [v0.0.2](https://github.com/kybishop/ember-popper/tree/v0.0.2) (2017-04-20)
 **Merged pull requests:**
 
