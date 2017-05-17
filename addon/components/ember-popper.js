@@ -65,7 +65,7 @@ export default Ember.Component.extend({
 
   // Used to set a classNameBinding on the popper if rendering in place, else we just pass the
   // class to the popper element.
-  _popperClass: Ember.computed(function() {
+  _popperClass: Ember.computed('renderInPlace', 'popperClass', function() {
     return this.get('renderInPlace') ? this.get('popperClass') : false;
   }),
 
