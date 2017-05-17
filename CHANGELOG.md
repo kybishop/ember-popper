@@ -1,5 +1,18 @@
 # Change Log
 
+## [v0.1.0](https://github.com/kybishop/ember-popper/tree/v0.1.0) (2017-05-17)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.0.3...v0.1.0)
+
+This release includes a dependency bump which allows ember-popper to be used in other addons without needing to be a peer dependency.
+
+**Closed issues:**
+
+- Support for tagless components? [\#3](https://github.com/kybishop/ember-popper/issues/3)
+
+**Merged pull requests:**
+
+- fix\(missing import warning\) for popper.js sourcemap [\#7](https://github.com/kybishop/ember-popper/pull/7) ([kybishop](https://github.com/kybishop))
+
 ## [v0.0.3](https://github.com/kybishop/ember-popper/tree/v0.0.3) (2017-05-02)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.0.2...v0.0.3)
 
