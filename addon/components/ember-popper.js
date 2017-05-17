@@ -144,7 +144,9 @@ export default Ember.Component.extend({
     function() {
       this._popper.destroy();
 
-      this._addPopper();
+      Ember.run.next(() => {
+        this._addPopper();
+      });
     }
   ),
 });
