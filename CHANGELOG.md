@@ -1,9 +1,15 @@
 # Change Log
 
+## [v0.1.1](https://github.com/kybishop/ember-popper/tree/v0.1.1) (2017-05-17)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.1.0...v0.1.1)
+
+**Merged pull requests:**
+
+- fix\(popper recreation\) wait until the element has rerendered [\#9](https://github.com/kybishop/ember-popper/pull/9) ([kybishop](https://github.com/kybishop))
+- recalculate popper class when dependent props change [\#8](https://github.com/kybishop/ember-popper/pull/8) ([kybishop](https://github.com/kybishop))
+
 ## [v0.1.0](https://github.com/kybishop/ember-popper/tree/v0.1.0) (2017-05-17)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.0.3...v0.1.0)
-
-This release includes a dependency bump which allows ember-popper to be used in other addons without needing to be a peer dependency.
 
 **Closed issues:**
 
