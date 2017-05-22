@@ -9,8 +9,15 @@ export default Ember.Component.extend({
    * ================== PUBLIC CONFIG OPTIONS ==================
    */
 
-  // Options for Popper.js
-  options: null,
+  // Whether event listeners, resize and scroll, for repositioning the popper are initially enabled.
+  eventsEnabled: true,
+
+  // Modifiers that will be merged into the Popper instance's options hash.
+  // https://popper.js.org/popper-documentation.html#Popper.DEFAULTS
+  modifiers: null,
+
+  // Placement of the popper. One of ['top', 'right', 'bottom', 'left'].
+  placement: 'bottom',
 
   // Classes to be applied to the popper element
   popperClass: null,
@@ -20,8 +27,8 @@ export default Ember.Component.extend({
   popperContainer: document.body,
 
   // If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
-  // z-index issues where your popper will be overlapped by DOM elements that are nested as deeply
-  // in the DOM tree.
+  // z-index issues where your popper will be overlapped by DOM elements that aren't nested as
+  // deeply in the DOM tree.
   renderInPlace: false,
 
   // The element the popper will target. If left blank, will be set to the ember-popper's parent.
@@ -33,10 +40,6 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-
-    if (!this.get('options')) {
-      this.options = {};
-    }
   },
 
   didInsertElement() {
@@ -58,6 +61,14 @@ export default Ember.Component.extend({
   classNameBindings: ['_popperClass'],
   layout,
   isVisible: Ember.computed.alias('renderInPlace'),
+
+  _options: Ember.computed('eventsEnabled', 'modifiers', 'placement', function() {
+    return {
+      eventsEnabled: this.get('eventsEnabled'),
+      modifiers: this.get('modifiers') || {},
+      placement: this.get('placement')
+    };
+  }),
 
   // Set in didInsertElement() once the Popper is initialized.
   // Passed to consumers via a named yield.
@@ -83,13 +94,12 @@ export default Ember.Component.extend({
   // Passed to consumers via a named yield.
   _popperTarget: null,
 
-
   _addPopper() {
     let popperTarget = this._getAndSetPopperTarget();
 
     this.set('_popper', new Popper(popperTarget,
-                                  this.get('_popperElement'),
-                                  this.get('options')));
+                                   this.get('_popperElement'),
+                                   this.get('_options')));
   },
 
   /**
@@ -137,7 +147,7 @@ export default Ember.Component.extend({
    * or options on the Popper must change.
    */
   popperShouldBeReplaced: Ember.observer(
-    'options',
+    '_options',
     'popperContainer',
     'renderInPlace',
     'target',
