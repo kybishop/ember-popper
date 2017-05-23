@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.2.0](https://github.com/kybishop/ember-popper/tree/v0.2.0) (2017-05-23)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.1.1...v0.2.0)
+
+**Merged pull requests:**
+
+- chore\(upgrade deps\) [\#13](https://github.com/kybishop/ember-popper/pull/13) ([kybishop](https://github.com/kybishop))
+- feat\(flatten top-level options\) placement, modifiers, eventsEnabled [\#11](https://github.com/kybishop/ember-popper/pull/11) ([kybishop](https://github.com/kybishop))
+
 ## [v0.1.1](https://github.com/kybishop/ember-popper/tree/v0.1.1) (2017-05-17)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.1.0...v0.1.1)
 
