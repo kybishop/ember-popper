@@ -5,12 +5,16 @@ const StripClassCallCheck = require('babel6-plugin-strip-class-callcheck');
 const FilterImports = require('babel-plugin-filter-imports');
 const RemoveImports = require('./lib/babel-plugin-remove-imports');
 const Funnel = require('broccoli-funnel');
+const path = require('path');
+const map = require('broccoli-stew').map;
 
 module.exports = {
   name: 'ember-popper',
 
   included: function(app) {
     this._super.included.apply(this, arguments);
+
+    app.import('vendor/popper.js');
 
     this._env = app.env;
     this._setupBabelOptions(app.env);
@@ -54,5 +58,18 @@ module.exports = {
     }
 
     return tree;
+  },
+
+  treeForVendor: function() {
+    var popperTree = new Funnel(path.join(this.project.root, 'node_modules', 'popper.js'), {
+      srcDir: 'dist/umd',
+      files: ['popper.js', 'popper.js.map']
+    });
+
+    popperTree = map(popperTree, function(content) {
+      return `if (typeof FastBoot === 'undefined') { ${content} }`;
+    });
+
+    return popperTree;
   }
 };
