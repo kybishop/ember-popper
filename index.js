@@ -9,16 +9,6 @@ const Funnel = require('broccoli-funnel');
 module.exports = {
   name: 'ember-popper',
 
-  options: {
-    nodeAssets: {
-      'popper.js': {
-        srcDir: 'dist/umd',
-        import: ['popper.js'],
-        vendor: ['popper.js.map']
-      }
-    }
-  },
-
   included: function(app) {
     this._super.included.apply(this, arguments);
 
