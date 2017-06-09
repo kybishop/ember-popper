@@ -24,7 +24,7 @@ export default Ember.Component.extend({
 
   // The popper element needs to be moved higher in the DOM tree to avoid z-index issues.
   // See the block-comment in the template for more details.
-  popperContainer: document.body,
+  popperContainer: self.document ? self.document.body : '',
 
   // If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
   // z-index issues where your popper will be overlapped by DOM elements that aren't nested as

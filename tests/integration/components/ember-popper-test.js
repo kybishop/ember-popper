@@ -5,18 +5,15 @@ moduleForComponent('ember-popper', 'Integration | Component | ember popper', {
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders in place', function(assert) {
+  assert.expect(2);
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{ember-popper}}`);
+  this.render(hbs`{{ember-popper renderInPlace=true}}`);
 
   assert.equal(this.$().text().trim(), '');
 
-  // Template block usage:
   this.render(hbs`
-    {{#ember-popper}}
+    {{#ember-popper renderInPlace=true}}
       template block text
     {{/ember-popper}}
   `);
