@@ -1,10 +1,11 @@
 /* eslint-env node */
 'use strict';
 
-const StripClassCallCheck = require('babel6-plugin-strip-class-callcheck');
 const FilterImports = require('babel-plugin-filter-imports');
-const RemoveImports = require('./lib/babel-plugin-remove-imports');
 const Funnel = require('broccoli-funnel');
+const RemoveImports = require('./lib/babel-plugin-remove-imports');
+const StripClassCallCheck = require('babel6-plugin-strip-class-callcheck');
+const fastbootTransform = require('fastboot-transform');
 
 module.exports = {
   name: 'ember-popper',
@@ -13,7 +14,12 @@ module.exports = {
     nodeAssets: {
       'popper.js': {
         srcDir: 'dist/umd',
-        import: ['popper.js'],
+        import: {
+          include: ['popper.js'],
+          processTree(input) {
+            return fastbootTransform(input);
+          },
+        },
         vendor: ['popper.js.map']
       }
     }
