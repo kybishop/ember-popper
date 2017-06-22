@@ -6,20 +6,14 @@ moduleForComponent('ember-popper', 'Integration | Component | ember popper', {
 });
 
 test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{ember-popper}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
   this.render(hbs`
-    {{#ember-popper}}
-      template block text
-    {{/ember-popper}}
+    <div>
+      {{#ember-popper popperClass="hello"}}
+        template block text
+      {{/ember-popper}}
+    </div>
   `);
 
-  assert.equal(this.$().text().trim(), 'template block text');
+  let popper = document.querySelector('.hello');
+  assert.equal(popper.innerHTML.trim(), 'template block text');
 });
