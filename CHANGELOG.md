@@ -1,7 +1,22 @@
 # Change Log
 
+## [v0.3.0](https://github.com/kybishop/ember-popper/tree/v0.3.0) (2017-06-22)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.2.0...v0.3.0)
+
+**Closed issues:**
+
+- FastBoot support: ReferenceError: navigator is not defined [\#14](https://github.com/kybishop/ember-popper/issues/14)
+
+**Merged pull requests:**
+
+- feat\(fastboot\) fastboot compat and popper bump to 1.10.2 [\#16](https://github.com/kybishop/ember-popper/pull/16) ([kybishop](https://github.com/kybishop))
+
 ## [v0.2.0](https://github.com/kybishop/ember-popper/tree/v0.2.0) (2017-05-23)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.1.1...v0.2.0)
+
+**Closed issues:**
+
+- META: API Discussion [\#6](https://github.com/kybishop/ember-popper/issues/6)
 
 **Merged pull requests:**
 
