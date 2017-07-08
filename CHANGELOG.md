@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.3.2](https://github.com/kybishop/ember-popper/tree/v0.3.2) (2017-07-08)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.3.1...v0.3.2)
+
+**Merged pull requests:**
+
+- fix\[babel options\] don't overwrite existing options [\#19](https://github.com/kybishop/ember-popper/pull/19) ([kybishop](https://github.com/kybishop))
+
 ## [v0.3.1](https://github.com/kybishop/ember-popper/tree/v0.3.1) (2017-07-08)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.3.0...v0.3.1)
 
