@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.3.1](https://github.com/kybishop/ember-popper/tree/v0.3.1) (2017-07-08)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.3.0...v0.3.1)
+
+**Merged pull requests:**
+
+- Fix broken build for consuming apps on ember-cli 2.10-2.13 when in test or prod mode [\#18](https://github.com/kybishop/ember-popper/pull/18) ([kybishop](https://github.com/kybishop))
+- popper.js to v1.10.8 and upgrade ember-cli [\#17](https://github.com/kybishop/ember-popper/pull/17) ([kybishop](https://github.com/kybishop))
+
 ## [v0.3.0](https://github.com/kybishop/ember-popper/tree/v0.3.0) (2017-06-22)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.2.0...v0.3.0)
 
