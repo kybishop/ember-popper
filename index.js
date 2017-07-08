@@ -50,6 +50,9 @@ module.exports = {
         ]
       };
 
+      // In some versions of Ember, this.options is undefined during tests
+      this.options = this.options || {};
+
       this.options.babel = {
         plugins: [
           [FilterImports, strippedImports],

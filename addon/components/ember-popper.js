@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/components/ember-popper';
-import { assert } from '../-debug/helpers';
+import { assert } from 'ember-popper/-debug/helpers';
 
 
 export default Ember.Component.extend({
