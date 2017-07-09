@@ -22,9 +22,27 @@ export default Ember.Component.extend({
   // Classes to be applied to the popper element
   popperClass: null,
 
-  // The popper element needs to be moved higher in the DOM tree to avoid z-index issues.
-  // See the block-comment in the template for more details.
-  popperContainer: self.document ? self.document.body : '',
+  popperContainer: Ember.computed({
+    set(_, value) {
+      if (value instanceof Element) {
+        return value;
+      }
+
+      const possibleContainers = document.querySelectorAll(value);
+
+      assert(`ember-popper with popperContainer selector "${value}" found `
+             + `${possibleContainers.length} possible containers when there should be exactly 1`,
+             possibleContainers.length === 1);
+
+      return possibleContainers[0];
+    },
+
+    get() {
+      // The popper element needs to be moved higher in the DOM tree to avoid z-index issues.
+      // See the block-comment in the template for more details.
+      return self.document ? self.document.body : '';
+    }
+  }),
 
   // If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
   // z-index issues where your popper will be overlapped by DOM elements that aren't nested as
