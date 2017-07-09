@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('ember-popper/render-in-place', 'Integration | Component | renderInPlace', {
+moduleForComponent('ember-popper', 'Integration | Component | renderInPlace', {
   integration: true
 });
 
