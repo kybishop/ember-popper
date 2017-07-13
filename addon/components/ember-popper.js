@@ -49,20 +49,10 @@ export default Ember.Component.extend({
   // If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
   // z-index issues where your popper will be overlapped by DOM elements that aren't nested as
   // deeply in the DOM tree.
-  renderInPlace: Ember.computed({
-    set(_, value) {
-      // self.document is undefined in Fastboot, so we always render in place when it is undefined.
-      if (self.document) {
-        return value;
-      }
-
-      return true;
-    },
-
-    get() {
-      // self.document is undefined in Fastboot, so we always render in place when it is undefined.
-      return self.document ? false : true;
-    }
+  renderInPlace: Ember.computed(function() {
+    // self.document is undefined in Fastboot, so we have to render in place for the popper to show
+    // up at all.
+    return self.document ? false : true;
   }),
 
   // The element the popper will target. If left blank, will be set to the ember-popper's parent.
