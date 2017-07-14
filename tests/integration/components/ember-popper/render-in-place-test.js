@@ -8,13 +8,13 @@ moduleForComponent('ember-popper', 'Integration | Component | renderInPlace', {
 test('false: renders in the body', function(assert) {
   this.render(hbs`
     <div>
-      {{#ember-popper popperClass='hello' renderInPlace=false}}
+      {{#ember-popper class='hello' renderInPlace=false}}
         template block text
       {{/ember-popper}}
     </div>
   `);
 
-  let popper = document.querySelector('.hello');
+  const popper = document.querySelector('.hello');
 
   // Sanity check
   assert.equal(popper.innerHTML.trim(), 'template block text');
@@ -29,13 +29,13 @@ test('false with an explicit popperContainer: renders in the popperContainer', f
     </div>
 
     <div>
-      {{#ember-popper popperClass='hello' popperContainer='.poppers-plz' renderInPlace=false}}
+      {{#ember-popper class='hello' popperContainer='.poppers-plz' renderInPlace=false}}
         template block text
       {{/ember-popper}}
     </div>
   `);
 
-  let popper = document.querySelector('.hello');
+  const popper = document.querySelector('.hello');
 
   // Sanity check
   assert.equal(popper.innerHTML.trim(), 'template block text');
@@ -47,13 +47,13 @@ test('false with an explicit popperContainer: renders in the popperContainer', f
 test('true: renders in place', function(assert) {
   this.render(hbs`
     <div class='parent'>
-      {{#ember-popper popperClass='hello' renderInPlace=true}}
+      {{#ember-popper class='hello' renderInPlace=true}}
         template block text
       {{/ember-popper}}
     </div>
   `);
 
-  let popper = document.querySelector('.hello');
+  const popper = document.querySelector('.hello');
 
   // Sanity check
   assert.equal(popper.innerHTML.trim(), 'template block text');

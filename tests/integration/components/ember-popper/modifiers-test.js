@@ -12,20 +12,20 @@ test('it passes the modifiers to the Popper.js instance', function(assert) {
 
   this.render(hbs`
     <div class='parent'>
-      {{#ember-popper popperClass='arrow-enabled' modifiers=arrowsEnabledModifier}}
+      {{#ember-popper class='arrow-enabled' modifiers=arrowsEnabledModifier}}
         modifiers test
         <div class='popper-arrow' x-arrow></div>
       {{/ember-popper}}
 
-      {{#ember-popper popperClass='arrow-disabled' modifiers=arrowsDisabledModifier}}
+      {{#ember-popper class='arrow-disabled' modifiers=arrowsDisabledModifier}}
         modifiers test
         <div class='popper-arrow' x-arrow></div>
       {{/ember-popper}}
     </div>
   `);
 
-  let arrowEnabledPopper = document.querySelector('.arrow-enabled');
-  let arrowDisabledPopper = document.querySelector('.arrow-disabled');
+  const arrowEnabledPopper = document.querySelector('.arrow-enabled');
+  const arrowDisabledPopper = document.querySelector('.arrow-disabled');
 
   return wait().then(() => {
     assert.ok(arrowEnabledPopper.querySelector('.popper-arrow').hasAttribute('style'));
