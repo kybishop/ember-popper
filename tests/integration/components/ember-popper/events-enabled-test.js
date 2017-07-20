@@ -3,7 +3,6 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import { triggerEvent } from 'ember-native-dom-helpers';
 
-
 moduleForComponent('ember-popper', 'Integration | Component | eventsEnabled', {
   integration: true
 });
@@ -11,24 +10,24 @@ moduleForComponent('ember-popper', 'Integration | Component | eventsEnabled', {
 test('sets eventsEnabled in the Popper instance', function(assert) {
   this.render(hbs`
     <div class='parent' style='position: fixed; bottom: 0; height: 100px; width: 100vw;'>
-      {{#ember-popper placement='top' popperClass='events-enabled'}}
+      {{#ember-popper placement='top' class='events-enabled'}}
         eventsEnabled test
       {{/ember-popper}}
 
-      {{#ember-popper eventsEnabled=false placement='top' popperClass='events-disabled'}}
+      {{#ember-popper eventsEnabled=false placement='top' class='events-disabled'}}
         eventsEnabled test
       {{/ember-popper}}
     </div>
   `);
 
-  let parent = document.querySelector('.parent');
-  let eventsEnabledPopper = document.querySelector('.events-enabled');
-  let eventsDisabledPopper = document.querySelector('.events-disabled');
+  const parent = document.querySelector('.parent');
+  const eventsEnabledPopper = document.querySelector('.events-enabled');
+  const eventsDisabledPopper = document.querySelector('.events-disabled');
 
   return wait().then(() => {
-    let initialTopOfParent = parent.getBoundingClientRect().top;
-    let eventsEnabledInitialPosition = eventsEnabledPopper.getBoundingClientRect().bottom;
-    let eventsDisabledInitialPosition = eventsDisabledPopper.getBoundingClientRect().bottom;
+    const initialTopOfParent = parent.getBoundingClientRect().top;
+    const eventsEnabledInitialPosition = eventsEnabledPopper.getBoundingClientRect().bottom;
+    const eventsDisabledInitialPosition = eventsDisabledPopper.getBoundingClientRect().bottom;
 
     // Sanity check
     assert.equal(initialTopOfParent,

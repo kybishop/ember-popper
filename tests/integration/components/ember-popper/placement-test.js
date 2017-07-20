@@ -8,25 +8,25 @@ moduleForComponent('ember-popper', 'Integration | Component | placement', {
 test('it places the popper appropriately', function(assert) {
   this.render(hbs`
     <div>
-      {{#ember-popper popperClass='left-plz' placement="left"}}
+      {{#ember-popper class='left-plz' placement="left"}}
         template block text
       {{/ember-popper}}
-      {{#ember-popper popperClass='right-plz' placement="right"}}
+      {{#ember-popper class='right-plz' placement="right"}}
         template block text
       {{/ember-popper}}
-      {{#ember-popper popperClass='top-plz' placement="top"}}
+      {{#ember-popper class='top-plz' placement="top"}}
         template block text
       {{/ember-popper}}
-      {{#ember-popper popperClass='bottom-plz' placement="bottom"}}
+      {{#ember-popper class='bottom-plz' placement="bottom"}}
         template block text
       {{/ember-popper}}
     </div>
   `);
 
-  let leftPopper = document.querySelector('.left-plz');
-  let rightPopper = document.querySelector('.right-plz');
-  let topPopper = document.querySelector('.top-plz');
-  let bottomPopper = document.querySelector('.bottom-plz');
+  const leftPopper = document.querySelector('.left-plz');
+  const rightPopper = document.querySelector('.right-plz');
+  const topPopper = document.querySelector('.top-plz');
+  const bottomPopper = document.querySelector('.bottom-plz');
 
   assert.equal('left', leftPopper.getAttribute('x-placement'));
   assert.equal('right', rightPopper.getAttribute('x-placement'));

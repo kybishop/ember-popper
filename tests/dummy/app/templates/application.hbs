@@ -1,10 +1,10 @@
 <div class="row">
   <div class="left">
-    {{#ember-popper popperClass="popper"}}
+    {{#ember-popper class="popper"}}
       Hello from the left! I have no explicit target.
       <div class="popper-arrow" x-arrow></div>
 
-      {{#ember-popper popperClass="popper" renderInPlace=true}}
+      {{#ember-popper class="popper" renderInPlace=true}}
         <span style="white-space: nowrap">P O P P E R C E P T I O N</span>
         <br>
         I also have no explicit target,
@@ -18,7 +18,7 @@
 </div>
 
 {{#if showTargetedPopper}}
-  {{#ember-popper popperClass="popper" target=".right"}}
+  {{#ember-popper class="popper" target=".right"}}
     Hello from the right!
     <br>
     I explicitly target the right div
