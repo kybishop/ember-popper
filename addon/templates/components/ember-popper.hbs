@@ -1,9 +1,13 @@
+{{unbound _parentFinder}}
+
 {{#if renderInPlace}}
-  {{yield (hash
-    update=(action 'update')
-    enableEventListeners=(action 'enableEventListeners')
-    disableEventListeners=(action 'disableEventListeners')
-  )}}
+  <div id={{id}} class={{class}}>
+    {{yield (hash
+      scheduleUpdate=(action 'scheduleUpdate')
+      enableEventListeners=(action 'enableEventListeners')
+      disableEventListeners=(action 'disableEventListeners')
+    )}}
+  </div>
 {{else}}
   {{!-- Elements that exist deep within the document tree are given an implicitly lower z-index
         value than elements that aren't as deep in the tree; this has the effect of hiding our
@@ -13,9 +17,9 @@
 
   {{#-in-element _popperContainer}}
     {{!-- Add a wrapper around the yielded block so we have something for the Popper to target --}}
-    <div class="popper-{{elementId}} {{_popperClass}}">
+    <div id={{id}} class={{class}}>
       {{yield (hash
-        update=(action 'update')
+        scheduleUpdate=(action 'scheduleUpdate')
         enableEventListeners=(action 'enableEventListeners')
         disableEventListeners=(action 'disableEventListeners')
       )}}

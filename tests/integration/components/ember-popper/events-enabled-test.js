@@ -9,12 +9,12 @@ moduleForComponent('ember-popper', 'Integration | Component | eventsEnabled', {
 
 test('sets eventsEnabled in the Popper instance', function(assert) {
   this.render(hbs`
-    <div class='parent' style='position: fixed; bottom: 0; height: 100px; width: 100vw;'>
-      {{#ember-popper placement='top' class='events-enabled'}}
+    <div class='parent' style='height: 100px; width: 100%;'>
+      {{#ember-popper placement='bottom' class='events-enabled'}}
         eventsEnabled test
       {{/ember-popper}}
 
-      {{#ember-popper eventsEnabled=false placement='top' class='events-disabled'}}
+      {{#ember-popper eventsEnabled=false placement='bottom' class='events-disabled'}}
         eventsEnabled test
       {{/ember-popper}}
     </div>
@@ -25,15 +25,15 @@ test('sets eventsEnabled in the Popper instance', function(assert) {
   const eventsDisabledPopper = document.querySelector('.events-disabled');
 
   return wait().then(() => {
-    const initialTopOfParent = parent.getBoundingClientRect().top;
-    const eventsEnabledInitialPosition = eventsEnabledPopper.getBoundingClientRect().bottom;
-    const eventsDisabledInitialPosition = eventsDisabledPopper.getBoundingClientRect().bottom;
+    const initialBottomOfParent = parent.getBoundingClientRect().bottom;
+    const eventsEnabledInitialPosition = eventsEnabledPopper.getBoundingClientRect().top;
+    const eventsDisabledInitialPosition = eventsDisabledPopper.getBoundingClientRect().top;
 
     // Sanity check
-    assert.equal(initialTopOfParent,
+    assert.equal(initialBottomOfParent,
                  eventsEnabledInitialPosition,
                  'initial eventsEnabled position is correct');
-    assert.equal(initialTopOfParent,
+    assert.equal(initialBottomOfParent,
                  eventsDisabledInitialPosition,
                  'initial eventsDisabled position is correct');
 
@@ -43,13 +43,13 @@ test('sets eventsEnabled in the Popper instance', function(assert) {
 
     return wait().then(() => {
       // Sanity check
-      assert.notEqual(initialTopOfParent, parent.getBoundingClientRect().top, 'the parent moved');
+      assert.notEqual(initialBottomOfParent, parent.getBoundingClientRect().bottom, 'the parent moved');
 
-      assert.equal(eventsEnabledPopper.getBoundingClientRect().bottom,
-                   parent.getBoundingClientRect().top,
+      assert.equal(eventsEnabledPopper.getBoundingClientRect().top,
+                   parent.getBoundingClientRect().bottom,
                    'events enabled poppers move on scroll');
 
-      assert.equal(eventsDisabledPopper.getBoundingClientRect().bottom,
+      assert.equal(eventsDisabledPopper.getBoundingClientRect().top,
                    eventsDisabledInitialPosition,
                    "events not enabled poppers don't move on scroll");
     });

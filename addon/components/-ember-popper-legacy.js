@@ -1,26 +1,14 @@
 import EmberPopperBase from './ember-popper-base';
 import { computed } from 'ember-decorators/object';
-import { assert } from '@ember/debug';
 import { property } from '../-private/utils/class';
 
 export default class EmberPopper extends EmberPopperBase {
 
-  // ================== PRIVATE PROPERTIES ==================
-
-  /**
-   * Tracks the state of the element, if it was moved in the DOM at all
-   */
-  @property _wasMoved = false
-
-  /**
-   * Parent of the element on didInsertElement, before it may have been moved
-   */
-  @property _initialParentNode = null
+  @property tagName = 'div'
 
   // ================== LIFECYCLE HOOKS ==================
 
   didInsertElement() {
-    // Store the initial parent node
     this._initialParentNode = this.element.parentNode;
 
     super.didInsertElement(...arguments);
@@ -29,15 +17,17 @@ export default class EmberPopper extends EmberPopperBase {
   willDestroyElement() {
     super.willDestroyElement(...arguments);
 
-    if (this._wasMoved) {
-      this.element.parentNode.removeChild(this.element);
+    const element = this._getPopperElement();
+
+    if (element.parentNode !== this._initialParentNode) {
+      element.parentNode.removeChild(element);
     }
   }
 
   // ================== PRIVATE IMPLEMENTATION DETAILS ==================
 
-  _addPopper() {
-    const element = this.get('_popperElement');
+  _updatePopper() {
+    const element = this._getPopperElement();
     const renderInPlace = this.get('_renderInPlace');
     const popperContainer = this.get('_popperContainer');
 
@@ -45,46 +35,19 @@ export default class EmberPopper extends EmberPopperBase {
     // See renderInPlace for more details.
     if (renderInPlace === false && element.parentNode !== popperContainer) {
       popperContainer.appendChild(element);
-      this._wasMoved = true;
     }
 
-    super._addPopper();
+    super._updatePopper();
   }
 
-  @computed()
-  _popperElement() {
-    assert('_popperElement must only be used after the component is rendered', !!this.element);
-
+  _getPopperElement() {
     return this.element;
-  }
-
-  @computed()
-  _popperTarget() {
-    const target = this.get('target');
-
-    let popperTarget;
-
-    // If there is no target, set the target to the parent element
-    if (!target) {
-      popperTarget = this._initialParentNode;
-    } else if (target instanceof Element) {
-      popperTarget = target;
-    } else {
-      const nodes = document.querySelectorAll(target);
-
-      assert(`ember-popper with target selector "${target}" found ${nodes.length}`
-             + 'possible targets when there should be exactly 1', nodes.length === 1);
-
-      popperTarget = nodes[0];
-    }
-
-    return popperTarget;
   }
 
   @computed()
   _popperHash() {
     return {
-      update: this.update.bind(this),
+      scheduleUpdate: this.scheduleUpdate.bind(this),
       enableEventListeners: this.enableEventListeners.bind(this),
       disableEventListeners: this.disableEventListeners.bind(this)
     };

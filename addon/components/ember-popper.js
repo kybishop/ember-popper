@@ -1,19 +1,21 @@
+import Ember from 'ember';
 import EmberPopperBase from './ember-popper-base';
+
+const { generateGuid } = Ember;
 
 export default class EmberPopper extends EmberPopperBase {
 
   // ================== LIFECYCLE HOOKS ==================
 
   init() {
-    this._popperClass = this.get('class');
+    this.id = this.id || generateGuid();
+    this._parentFinder = self.document ? self.document.createTextNode('') : '';
 
     super.init(...arguments);
   }
 
   didInsertElement() {
-    if (this.get('_renderInPlace') === false) {
-      this.element.className = '';
-    }
+    this._initialParentNode = this._parentFinder.parentNode;
 
     super.didInsertElement(...arguments);
   }

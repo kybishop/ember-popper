@@ -20,7 +20,7 @@ test('false: renders in the body', function(assert) {
   assert.equal(popper.innerHTML.trim(), 'template block text');
   assert.ok(popper.hasAttribute('x-placement'));
 
-  assert.equal(popper.parentElement, document.body);
+  assert.equal(popper.parentElement, document.querySelector('.ember-application'));
 });
 
 test('false with an explicit popperContainer: renders in the popperContainer', function(assert) {
