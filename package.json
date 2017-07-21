@@ -1,6 +1,6 @@
 {
   "name": "ember-popper",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "An Ember-centric wrapper around Popper.js",
   "keywords": [
     "ember-addon",
@@ -31,9 +31,9 @@
     "ember-cli-babel": "^6.3.0",
     "ember-cli-htmlbars": "^2.0.0",
     "ember-cli-node-assets": "^0.2.2",
+    "ember-cli-version-checker": "^2.0.0",
     "ember-decorators": "^1.2.0",
     "fastboot-transform": "^0.1.0",
-    "ember-cli-version-checker": "^2.0.0",
     "popper.js": "^1.10.8"
   },
   "devDependencies": {
