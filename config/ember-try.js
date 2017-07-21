@@ -6,11 +6,11 @@ module.exports = {
       bower: {
         dependencies: {
           'ember': '~1.11.0',
-          'ember-cli-shims': 'ember-cli/ember-cli-shims#0.0.3'
+          'ember-cli-shims': '0.0.6'
         },
         resolutions: {
           'ember': '~1.11.0',
-          'ember-cli-shims': '0.0.3'
+          'ember-cli-shims': '0.0.6'
         }
       },
       npm: {

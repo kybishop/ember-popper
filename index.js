@@ -24,10 +24,16 @@ module.exports = {
     }
   },
 
-  included(app) {
+  included(parent) {
     this._super.included.apply(this, arguments);
 
-    const checker = new VersionChecker(this);
+    let app = parent;
+
+    while (!app.import) {
+      app = app.parent;
+    }
+
+    const checker = new VersionChecker(app);
 
     this._emberChecker = checker.forEmber();
     this._env = app.env;

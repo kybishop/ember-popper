@@ -7,8 +7,11 @@ import layout from '../templates/components/ember-popper';
 import { property } from '../-private/utils/class';
 
 const { Component } = Ember;
+
 export default class EmberPopperBase extends Component {
   @property layout = layout
+
+  @property tagName = ''
 
   // ================== PUBLIC CONFIG OPTIONS ==================
 
@@ -30,9 +33,10 @@ export default class EmberPopperBase extends Component {
 
   /**
    * The popper element needs to be moved higher in the DOM tree to avoid z-index issues.
-   * See the block-comment in the template for more details.
+   * See the block-comment in the template for more details. `.ember-application` is applied
+   * to the root element of the ember app by default, so we move it up to there.
    */
-  @property popperContainer = null
+  @property popperContainer = '.ember-application'
 
   /**
    * If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
@@ -55,6 +59,36 @@ export default class EmberPopperBase extends Component {
   @property _popper = null
 
   /**
+   * Parent of the element on didInsertElement, before it may have been moved
+   */
+  @property _initialParentNode = null
+
+  /**
+   * Tracks current/previous state of `_renderInPlace`.
+   */
+  @property _didRenderInPlace = false
+
+  /**
+   * Tracks current/previous value of popper target
+   */
+  @property _popperTarget = null
+
+  /**
+   * Tracks current/previous value of `eventsEnabled` option
+   */
+  @property _eventsEnabled = null
+
+  /**
+   * Tracks current/previous value of `placement` option
+   */
+  @property _placement = null
+
+  /**
+   * Tracks current/previous value of `modifiers` option
+   */
+  @property _modifiers = null
+
+  /**
    * ID for the requestAnimationFrame used for updates, used to cancel
    * the RAF on component destruction
    */
@@ -63,17 +97,15 @@ export default class EmberPopperBase extends Component {
   // ================== LIFECYCLE HOOKS ==================
 
   didUpdateAttrs() {
-    this._popper.destroy();
-
     this._updateRAF = requestAnimationFrame(() => {
-      this._addPopper();
+      this._updatePopper();
     });
   }
 
   didInsertElement() {
     super.didInsertElement(...arguments);
 
-    this._addPopper();
+    this._updatePopper();
   }
 
   willDestroyElement() {
@@ -88,8 +120,8 @@ export default class EmberPopperBase extends Component {
    */
 
   @action
-  update() {
-    this._popper.update();
+  scheduleUpdate() {
+    this._popper.scheduleUpdate();
   }
 
   @action
@@ -104,41 +136,56 @@ export default class EmberPopperBase extends Component {
 
   // ================== PRIVATE IMPLEMENTATION DETAILS ==================
 
-  _addPopper() {
-    const target = this.get('_popperTarget');
-    const element = this.get('_popperElement');
-    const options = this.get('_options');
-
-    this._popper = new Popper(target, element, options);
-  }
-
-  /**
-   * The element to be positioned by the Popper.
-   */
-  @computed('_renderInPlace')
-  _popperElement() {
-    assert('_popperElement must only be used after the component is rendered', !!this.element);
-
+  _updatePopper() {
+    const popperTarget = this._getPopperTarget();
     const renderInPlace = this.get('_renderInPlace');
+    const eventsEnabled = this.get('eventsEnabled');
+    const modifiers = this.get('modifiers');
+    const placement = this.get('placement');
 
-    // If not rendering in place, return the wrapper around yielded elements. See template for details.
-    return renderInPlace ? this.element : document.querySelector(`.popper-${this.elementId}`);
+    // Compare against previous values to see if anything has changed
+    const didChange = renderInPlace !== this._didRenderInPlace
+      || popperTarget !== this._popperTarget
+      || eventsEnabled !== this._eventsEnabled
+      || modifiers !== this._modifiers
+      || placement !== this._placement;
+
+    if (didChange === true) {
+      if (this._popper !== null) {
+        this._popper.destroy();
+      }
+
+      const popperElement = this._getPopperElement();
+
+      // Store current values to check against on updates
+      this._didRenderInPlace = renderInPlace;
+      this._popperTarget = popperTarget;
+      this._eventsEnabled = eventsEnabled;
+      this._modifiers = modifiers;
+      this._placement = placement;
+
+      this._popper = new Popper(popperTarget, popperElement, { eventsEnabled, modifiers, placement });
+    }
   }
 
   /**
-   * Used to manually set _popperTarget in `didInsertElement()`. Need to wait until
-   * `didInsertElement()` to avoid calling `document.querySelectorAll(this.get('target'))`
-   * before the target exists.
+   * Used to get the popper element
    */
-  @computed('target')
-  _popperTarget() {
+  _getPopperElement() {
+    return self.document.getElementById(this.id);
+  }
+
+  /**
+   * Used to get the popper target whenever updating the Popper
+   */
+  _getPopperTarget() {
     const target = this.get('target');
 
     let popperTarget;
 
     // If there is no target, set the target to the parent element
     if (!target) {
-      popperTarget = this.element.parentNode;
+      popperTarget = this._initialParentNode;
     } else if (target instanceof Element) {
       popperTarget = target;
     } else {
@@ -153,7 +200,7 @@ export default class EmberPopperBase extends Component {
     return popperTarget;
   }
 
-  @computed('popperContainer', '_renderInPlace')
+  @computed('_renderInPlace', 'popperContainer')
   _popperContainer() {
     const renderInPlace = this.get('_renderInPlace');
     const maybeContainer = this.get('popperContainer');
@@ -161,7 +208,7 @@ export default class EmberPopperBase extends Component {
     let popperContainer;
 
     if (renderInPlace) {
-      popperContainer = self.document ? this.element.parentNode : '';
+      popperContainer = this._initialParentNode;
     } else if (maybeContainer instanceof Element) {
       popperContainer = maybeContainer;
     } else if (typeof maybeContainer === 'string') {
@@ -173,20 +220,9 @@ export default class EmberPopperBase extends Component {
              possibleContainers.length === 1);
 
       popperContainer = possibleContainers[0];
-    } else {
-      popperContainer = self.document.body;
     }
 
     return popperContainer;
-  }
-
-  @computed('eventsEnabled', 'modifiers', 'placement')
-  _options() {
-    const eventsEnabled = this.get('eventsEnabled');
-    const modifiers = this.get('modifiers') || {};
-    const placement = this.get('placement');
-
-    return { eventsEnabled, modifiers, placement };
   }
 
   @computed('renderInPlace')

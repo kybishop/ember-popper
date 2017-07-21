@@ -8,8 +8,8 @@ moduleForComponent('ember-popper', 'Integration | Component | target', {
 
 test('undefined target: it targets the parent', function(assert) {
   this.render(hbs`
-    <div class='parent' style='position: fixed; bottom: 0; height: 100px; width: 100vw;'>
-      {{#ember-popper class='popper-element' placement='top'}}
+    <div class='parent' style='height: 50px; width: 100%;'>
+      {{#ember-popper class='popper-element' placement='bottom'}}
         template block text
       {{/ember-popper}}
     </div>
@@ -19,15 +19,15 @@ test('undefined target: it targets the parent', function(assert) {
   const popper = document.querySelector('.popper-element');
 
   return wait().then(() => {
-    assert.equal(parent.getBoundingClientRect().top,
-                 popper.getBoundingClientRect().bottom);
+    assert.equal(parent.getBoundingClientRect().bottom,
+                 popper.getBoundingClientRect().top);
 
   });
 });
 
 test('explicit target: it targets the explicit target', function(assert) {
   this.render(hbs`
-    <div class='parent' style='position: fixed; bottom: 0; height: 100px; width: 100vw;'>
+    <div class='parent' style='height: 50px; width: 100%;'>
     </div>
 
     {{#ember-popper class='popper-element' placement='top' target='.parent'}}
@@ -39,8 +39,8 @@ test('explicit target: it targets the explicit target', function(assert) {
   const popper = document.querySelector('.popper-element');
 
   return wait().then(() => {
-    assert.equal(parent.getBoundingClientRect().top,
-                 popper.getBoundingClientRect().bottom);
+    assert.equal(parent.getBoundingClientRect().bottom,
+                 popper.getBoundingClientRect().top);
   });
 });
 
