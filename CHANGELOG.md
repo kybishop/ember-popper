@@ -1,5 +1,35 @@
 # Change Log
 
+## [v0.5.0](https://github.com/kybishop/ember-popper/tree/v0.5.0) (2017-07-21)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.4.0...v0.5.0)
+
+**Closed issues:**
+
+- Use `class` instead of `popperClass` [\#12](https://github.com/kybishop/ember-popper/issues/12)
+
+**Merged pull requests:**
+
+- bugfix\(update/id\): Makes id work and less aggressively updates [\#29](https://github.com/kybishop/ember-popper/pull/29) ([pzuraq](https://github.com/pzuraq))
+
+## [v0.4.0](https://github.com/kybishop/ember-popper/tree/v0.4.0) (2017-07-20)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.3.2...v0.4.0)
+
+**Closed issues:**
+
+- Legacy support \(Ember \<= 2.9\) [\#20](https://github.com/kybishop/ember-popper/issues/20)
+- Testing [\#2](https://github.com/kybishop/ember-popper/issues/2)
+
+**Merged pull requests:**
+
+- refactor\(major\): ES6 classes, legacy build support, linting, only yield actions [\#28](https://github.com/kybishop/ember-popper/pull/28) ([kybishop](https://github.com/kybishop))
+- fix\(renderInPlace\) allow renderInplace to be false in fastboot [\#27](https://github.com/kybishop/ember-popper/pull/27) ([kybishop](https://github.com/kybishop))
+- chore\(tests\) eventsEnabled [\#26](https://github.com/kybishop/ember-popper/pull/26) ([kybishop](https://github.com/kybishop))
+- chore\(tests\) modifiers tests [\#25](https://github.com/kybishop/ember-popper/pull/25) ([kybishop](https://github.com/kybishop))
+- chore\(tests\) test target param [\#24](https://github.com/kybishop/ember-popper/pull/24) ([kybishop](https://github.com/kybishop))
+- feat\(better fastboot compat\) render in place in Fastboot [\#23](https://github.com/kybishop/ember-popper/pull/23) ([kybishop](https://github.com/kybishop))
+- chore\(tests\) placement tests [\#22](https://github.com/kybishop/ember-popper/pull/22) ([kybishop](https://github.com/kybishop))
+- feat\(popperContainer\) allow popperContainer to be set via selector + chore\(tests\) renderInPlace [\#21](https://github.com/kybishop/ember-popper/pull/21) ([kybishop](https://github.com/kybishop))
+
 ## [v0.3.2](https://github.com/kybishop/ember-popper/tree/v0.3.2) (2017-07-08)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.3.1...v0.3.2)
 
