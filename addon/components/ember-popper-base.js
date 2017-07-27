@@ -120,6 +120,11 @@ export default class EmberPopperBase extends Component {
    */
 
   @action
+  update() {
+    this._popper.update();
+  }
+
+  @action
   scheduleUpdate() {
     this._popper.scheduleUpdate();
   }

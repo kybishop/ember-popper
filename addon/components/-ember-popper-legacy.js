@@ -47,6 +47,7 @@ export default class EmberPopper extends EmberPopperBase {
   @computed()
   _popperHash() {
     return {
+      update: this.update.bind(this),
       scheduleUpdate: this.scheduleUpdate.bind(this),
       enableEventListeners: this.enableEventListeners.bind(this),
       disableEventListeners: this.disableEventListeners.bind(this)
