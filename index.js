@@ -3,8 +3,8 @@
 
 const Funnel = require('broccoli-funnel');
 const StripClassCallCheck = require('babel6-plugin-strip-class-callcheck');
-const fastbootTransform = require('fastboot-transform');
 const VersionChecker = require('ember-cli-version-checker');
+const fastbootTransform = require('fastboot-transform');
 
 module.exports = {
   name: 'ember-popper',
