@@ -150,7 +150,7 @@ export default class EmberPopperBase extends Component {
 
     // Compare against previous values to see if anything has changed
     const didChange = renderInPlace !== this._didRenderInPlace
-      || popperTarget !== this._popperTarget
+      || popperTarget !== this.get('_popperTarget')
       || eventsEnabled !== this._eventsEnabled
       || modifiers !== this._modifiers
       || placement !== this._placement;
@@ -164,10 +164,11 @@ export default class EmberPopperBase extends Component {
 
       // Store current values to check against on updates
       this._didRenderInPlace = renderInPlace;
-      this._popperTarget = popperTarget;
       this._eventsEnabled = eventsEnabled;
       this._modifiers = modifiers;
       this._placement = placement;
+      // NOTE: This property is yielded, so we have to use set to notify of a change
+      this.set('_popperTarget', popperTarget);
 
       this._popper = new Popper(popperTarget, popperElement, { eventsEnabled, modifiers, placement });
     }
