@@ -1,5 +1,5 @@
 import EmberPopperBase from './ember-popper-base';
-import { computed } from 'ember-decorators/object';
+import { computed, observes } from 'ember-decorators/object';
 import { property } from '../-private/utils/class';
 
 export default class EmberPopper extends EmberPopperBase {
@@ -12,6 +12,12 @@ export default class EmberPopper extends EmberPopperBase {
     this._initialParentNode = this.element.parentNode;
 
     super.didInsertElement(...arguments);
+  }
+
+  // Have to manually implement didUpdateAttrs() since it wasn't introduced until 1.13
+  @observes('eventsEnabled', 'modifiers', 'placement', 'renderInPlace', 'target')
+  didUpdateAttrs() {
+    super.didUpdateAttrs(...arguments);
   }
 
   willDestroyElement() {
