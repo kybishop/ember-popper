@@ -1,5 +1,19 @@
 # Change Log
 
+## [v0.6.0](https://github.com/kybishop/ember-popper/tree/v0.6.0) (2017-08-26)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.5.1...v0.6.0)
+
+**Merged pull requests:**
+
+- feat\(onFoundTarget\) hook executed if a new target is found [\#32](https://github.com/kybishop/ember-popper/pull/32) ([kybishop](https://github.com/kybishop))
+
+## [v0.5.1](https://github.com/kybishop/ember-popper/tree/v0.5.1) (2017-07-27)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.5.0...v0.5.1)
+
+**Merged pull requests:**
+
+- feature\(update\): Adds sync update action [\#30](https://github.com/kybishop/ember-popper/pull/30) ([pzuraq](https://github.com/pzuraq))
+
 ## [v0.5.0](https://github.com/kybishop/ember-popper/tree/v0.5.0) (2017-07-21)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.4.0...v0.5.0)
 
