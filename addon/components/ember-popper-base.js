@@ -27,6 +27,12 @@ export default class EmberPopperBase extends Component {
   @property modifiers = null
 
   /**
+   * An optional function to be called when a new target is located.
+   * The target is passed in as an argument to the function.
+   */
+  @property onFoundTarget = null
+
+  /**
    * Placement of the popper. One of ['top', 'right', 'bottom', 'left'].
    */
   @property placement = 'bottom'
@@ -148,9 +154,11 @@ export default class EmberPopperBase extends Component {
     const modifiers = this.get('modifiers');
     const placement = this.get('placement');
 
+    const isPopperTargetDifferent = popperTarget !== this._popperTarget;
+
     // Compare against previous values to see if anything has changed
     const didChange = renderInPlace !== this._didRenderInPlace
-      || popperTarget !== this._popperTarget
+      || isPopperTargetDifferent
       || eventsEnabled !== this._eventsEnabled
       || modifiers !== this._modifiers
       || placement !== this._placement;
@@ -170,6 +178,11 @@ export default class EmberPopperBase extends Component {
       this._placement = placement;
 
       this._popper = new Popper(popperTarget, popperElement, { eventsEnabled, modifiers, placement });
+
+      // Execute the onFoundTarget hook last to ensure the Popper is initialized on the target
+      if (isPopperTargetDifferent && this.get('onFoundTarget')) {
+        this.get('onFoundTarget')(popperTarget);
+      }
     }
   }
 
