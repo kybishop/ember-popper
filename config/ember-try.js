@@ -17,6 +17,7 @@ module.exports = {
         devDependencies: {
           'ember-cli-fastboot': null,
           'ember-cli-shims': null,
+          'ember-native-dom-event-dispatcher': null,
           'ember-source': null,
           'fastboot': null
         }
@@ -37,6 +38,7 @@ module.exports = {
       npm: {
         devDependencies: {
           'ember-cli-shims': null,
+          'ember-native-dom-event-dispatcher': null,
           'ember-source': null
         }
       }
@@ -53,6 +55,7 @@ module.exports = {
       },
       npm: {
         devDependencies: {
+          'ember-native-dom-event-dispatcher': null,
           'ember-source': null
         }
       }
@@ -69,6 +72,7 @@ module.exports = {
       },
       npm: {
         devDependencies: {
+          'ember-native-dom-event-dispatcher': null,
           'ember-source': null
         }
       }
