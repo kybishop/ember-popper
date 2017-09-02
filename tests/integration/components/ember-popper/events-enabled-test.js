@@ -39,19 +39,24 @@ test('sets eventsEnabled in the Popper instance', function(assert) {
 
     parent.style.height = '200px';
 
-    triggerEvent(document.querySelector('body'), 'scroll');
+    // Trigger multiple scroll events and a wait because we need to make sure the update completes.
+    return triggerEvent(document.querySelector('body'), 'scroll').then(() => {
+      return triggerEvent(document.querySelector('body'), 'scroll').then(() => {
+        return wait().then(() => {
+          // Sanity check
+          assert.notEqual(initialBottomOfParent,
+                          parent.getBoundingClientRect().bottom,
+                          'the parent moved');
 
-    return wait().then(() => {
-      // Sanity check
-      assert.notEqual(initialBottomOfParent, parent.getBoundingClientRect().bottom, 'the parent moved');
+          assert.equal(eventsEnabledPopper.getBoundingClientRect().top,
+                       parent.getBoundingClientRect().bottom,
+                       'events enabled poppers move on scroll');
 
-      assert.equal(eventsEnabledPopper.getBoundingClientRect().top,
-                   parent.getBoundingClientRect().bottom,
-                   'events enabled poppers move on scroll');
-
-      assert.equal(eventsDisabledPopper.getBoundingClientRect().top,
-                   eventsDisabledInitialPosition,
-                   "events not enabled poppers don't move on scroll");
+          assert.equal(eventsDisabledPopper.getBoundingClientRect().top,
+                       eventsDisabledInitialPosition,
+                       "events not enabled poppers don't move on scroll");
+        });
+      });
     });
   });
 });
