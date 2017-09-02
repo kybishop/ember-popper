@@ -180,8 +180,8 @@ export default class EmberPopperBase extends Component {
       this._popper = new Popper(popperTarget, popperElement, { eventsEnabled, modifiers, placement });
 
       // Execute the onFoundTarget hook last to ensure the Popper is initialized on the target
-      if (isPopperTargetDifferent && this.get('onFoundTarget')) {
-        this.get('onFoundTarget')(popperTarget);
+      if (isPopperTargetDifferent) {
+        this.sendAction('onFoundTarget', popperTarget);
       }
     }
   }
