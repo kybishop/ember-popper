@@ -20,6 +20,11 @@ module.exports = {
     'ember-suave/no-const-outside-module-scope': 0,
     'ember-suave/no-direct-property-access': 1,
     'ember-suave/require-access-in-comments': 0,
+    'indent': ['error', 2, {
+      "CallExpression": { 'arguments': 'first' },
+      'FunctionDeclaration': { 'parameters': 'first' },
+      'FunctionExpression': { 'parameters': 'first' }
+    }],
     'prefer-const': 2,
   }
 };
