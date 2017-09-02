@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.6.1](https://github.com/kybishop/ember-popper/tree/v0.6.1) (2017-09-02)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.0...v0.6.1)
+
+**Merged pull requests:**
+
+- chore\(bump deps\) [\#36](https://github.com/kybishop/ember-popper/pull/36) ([kybishop](https://github.com/kybishop))
+- chore\(remove jquery\) [\#35](https://github.com/kybishop/ember-popper/pull/35) ([kybishop](https://github.com/kybishop))
+
 ## [v0.6.0](https://github.com/kybishop/ember-popper/tree/v0.6.0) (2017-08-26)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.5.1...v0.6.0)
 
