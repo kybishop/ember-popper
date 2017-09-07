@@ -33,6 +33,18 @@ export default class EmberPopperBase extends Component {
   @property onFoundTarget = null
 
   /**
+   * onCreate callback merged (if present) into the Popper instance's options hash.
+   * https://popper.js.org/popper-documentation.html#Popper.Defaults.onCreate
+   */
+  @property onCreate = null
+
+  /**
+   * onUpdate callback merged (if present) into the Popper instance's options hash.
+   * https://popper.js.org/popper-documentation.html#Popper.Defaults.onUpdate
+   */
+  @property onUpdate = null
+
+  /**
    * Placement of the popper. One of ['top', 'right', 'bottom', 'left'].
    */
   @property placement = 'bottom'
@@ -100,6 +112,16 @@ export default class EmberPopperBase extends Component {
    */
   @property _updateRAF = null
 
+  /**
+   * Tracks current/previous value of `onCreate` callback
+   */
+  @property _onCreate = null
+
+  /**
+   * Tracks current/previous value of `onUpdate` callback
+   */
+  @property _onUpdate = null
+
   // ================== LIFECYCLE HOOKS ==================
 
   didUpdateAttrs() {
@@ -153,6 +175,7 @@ export default class EmberPopperBase extends Component {
     const eventsEnabled = this.get('eventsEnabled');
     const modifiers = this.get('modifiers');
     const placement = this.get('placement');
+    const { onCreate, onUpdate } = this;
 
     const isPopperTargetDifferent = popperTarget !== this._popperTarget;
 
@@ -161,7 +184,9 @@ export default class EmberPopperBase extends Component {
       || isPopperTargetDifferent
       || eventsEnabled !== this._eventsEnabled
       || modifiers !== this._modifiers
-      || placement !== this._placement;
+      || placement !== this._placement
+      || onCreate !== this._onCreate
+      || onUpdate !== this._onUpdate;
 
     if (didChange === true) {
       if (this._popper !== null) {
@@ -176,8 +201,26 @@ export default class EmberPopperBase extends Component {
       this._eventsEnabled = eventsEnabled;
       this._modifiers = modifiers;
       this._placement = placement;
+      this._onCreate = onCreate;
+      this._onUpdate = onUpdate;
 
-      this._popper = new Popper(popperTarget, popperElement, { eventsEnabled, modifiers, placement });
+      const options = {
+        eventsEnabled,
+        modifiers,
+        placement
+      };
+
+      if (onCreate) {
+        assert('onCreate of ember-popper must be a function', typeof onCreate === 'function');
+        options.onCreate = onCreate;
+      }
+
+      if (onUpdate) {
+        assert('onUpdate of ember-popper must be a function', typeof onUpdate === 'function');
+        options.onUpdate = onUpdate;
+      }
+
+      this._popper = new Popper(popperTarget, popperElement, options);
 
       // Execute the onFoundTarget hook last to ensure the Popper is initialized on the target
       if (isPopperTargetDifferent && this.get('onFoundTarget')) {
