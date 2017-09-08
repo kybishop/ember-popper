@@ -29,3 +29,15 @@ test('class is bound correctly', function(assert) {
 
   assert.ok(find('.foo'), 'class attribute bound correctly');
 });
+
+test('role is bound correctly', function(assert) {
+  this.render(hbs`
+    <div class='parent' style='position: fixed; bottom: 0; height: 100px; width: 100%;'>
+      {{#ember-popper id='foo' placement='top' ariaRole='tooltip'}}
+        test
+      {{/ember-popper}}
+    </div>
+  `);
+
+  assert.equal(find('#foo').getAttribute('role'), 'tooltip', 'role attribute bound correctly');
+});
