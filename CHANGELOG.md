@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.6.3](https://github.com/kybishop/ember-popper/tree/v0.6.3) (2017-09-09)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.2...v0.6.3)
+
+**Merged pull requests:**
+
+- Check for destroyed component [\#40](https://github.com/kybishop/ember-popper/pull/40) ([simonihmig](https://github.com/simonihmig))
+
 ## [v0.6.2](https://github.com/kybishop/ember-popper/tree/v0.6.2) (2017-09-08)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.1...v0.6.2)
 
