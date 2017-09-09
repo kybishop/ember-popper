@@ -1,5 +1,14 @@
 # Change Log
 
+## [v0.6.2](https://github.com/kybishop/ember-popper/tree/v0.6.2) (2017-09-08)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.1...v0.6.2)
+
+**Merged pull requests:**
+
+- Support ARIA role [\#39](https://github.com/kybishop/ember-popper/pull/39) ([simonihmig](https://github.com/simonihmig))
+- Add onCreate and onUpdate actions [\#38](https://github.com/kybishop/ember-popper/pull/38) ([simonihmig](https://github.com/simonihmig))
+- fix\(flakey eventsEnabled test\) [\#37](https://github.com/kybishop/ember-popper/pull/37) ([kybishop](https://github.com/kybishop))
+
 ## [v0.6.1](https://github.com/kybishop/ember-popper/tree/v0.6.1) (2017-09-02)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.0...v0.6.1)
 
