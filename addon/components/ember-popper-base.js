@@ -170,6 +170,10 @@ export default class EmberPopperBase extends Component {
   // ================== PRIVATE IMPLEMENTATION DETAILS ==================
 
   _updatePopper() {
+    if (this.isDestroying || this.isDestroyed) {
+      return;
+    }
+
     const popperTarget = this._getPopperTarget();
     const renderInPlace = this.get('_renderInPlace');
     const eventsEnabled = this.get('eventsEnabled');
