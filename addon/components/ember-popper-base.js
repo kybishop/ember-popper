@@ -170,7 +170,7 @@ export default class EmberPopperBase extends Component {
   // ================== PRIVATE IMPLEMENTATION DETAILS ==================
 
   _updatePopper() {
-    if (this.isDestroyed) {
+    if (this.isDestroying || this.isDestroyed) {
       return;
     }
 
