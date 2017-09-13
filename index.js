@@ -62,14 +62,14 @@ module.exports = {
   treeForAddonTemplates(tree) {
     const { _emberChecker } = this;
 
-    if (_emberChecker.satisfies('>= 2.10.0')) {
+    if (_emberChecker.gte('2.10.0')) {
       tree = new Funnel(tree, {
         exclude: [
           'components/-ember-popper-legacy.hbs',
           'components/-ember-popper-legacy-1.11.hbs'
         ]
       });
-    } else if (_emberChecker.satisfies('>= 1.13.0')) {
+    } else if (_emberChecker.gte('1.13.0')) {
       tree = new Funnel(tree, {
         exclude: [
           'components/ember-popper.hbs',
@@ -93,7 +93,7 @@ module.exports = {
   treeForAddon(tree) {
     const { _emberChecker } = this;
 
-    if (_emberChecker.satisfies('>= 2.10.0')) {
+    if (_emberChecker.gte('2.10.0')) {
       tree = new Funnel(tree, {
         exclude: [
           'components/-ember-popper-legacy.js'
