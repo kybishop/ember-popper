@@ -3,6 +3,7 @@
 {{#if renderInPlace}}
   <div id={{id}} class={{class}} role={{ariaRole}}>
     {{yield (hash
+      update=(action 'update')
       scheduleUpdate=(action 'scheduleUpdate')
       enableEventListeners=(action 'enableEventListeners')
       disableEventListeners=(action 'disableEventListeners')
