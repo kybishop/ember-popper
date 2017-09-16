@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.6.4](https://github.com/kybishop/ember-popper/tree/v0.6.4) (2017-09-16)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.3...v0.6.4)
+
+**Merged pull requests:**
+
+- fix\(renderInPlace\) added missing update action to yield [\#43](https://github.com/kybishop/ember-popper/pull/43) ([kybishop](https://github.com/kybishop))
+- Fix version detection for Ember beta and alpha \(canary\) [\#41](https://github.com/kybishop/ember-popper/pull/41) ([simonihmig](https://github.com/simonihmig))
+
 ## [v0.6.3](https://github.com/kybishop/ember-popper/tree/v0.6.3) (2017-09-09)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.2...v0.6.3)
 
