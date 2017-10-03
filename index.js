@@ -60,7 +60,7 @@ module.exports = {
   },
 
   treeForAddonTemplates(tree) {
-    const { _emberChecker } = this;
+    const _emberChecker = this._emberChecker;
 
     if (_emberChecker.gte('2.10.0')) {
       tree = new Funnel(tree, {
@@ -91,7 +91,7 @@ module.exports = {
   },
 
   treeForAddon(tree) {
-    const { _emberChecker } = this;
+    const _emberChecker = this._emberChecker;
 
     if (_emberChecker.gte('2.10.0')) {
       tree = new Funnel(tree, {
