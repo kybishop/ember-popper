@@ -1,12 +1,10 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import { action, computed } from 'ember-decorators/object';
 
 import { assert } from '@ember/debug';
 
 import layout from '../templates/components/ember-popper';
 import { property } from '../-private/utils/class';
-
-const { Component } = Ember;
 
 export default class EmberPopperBase extends Component {
   @property layout = layout
