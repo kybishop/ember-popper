@@ -19,7 +19,7 @@ module.exports = {
             return fastbootTransform(input);
           }
         },
-        vendor: ['popper.js.map']
+        public: ['popper.js.map']
       }
     }
   },
