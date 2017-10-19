@@ -1,5 +1,20 @@
 # Change Log
 
+## [v0.6.5](https://github.com/kybishop/ember-popper/tree/v0.6.5) (2017-10-19)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.4...v0.6.5)
+
+**Closed issues:**
+
+- Production build fails if sourcemaps are enabled [\#46](https://github.com/kybishop/ember-popper/issues/46)
+- How to add preventOverflow [\#44](https://github.com/kybishop/ember-popper/issues/44)
+- Fails for IE9/10 [\#42](https://github.com/kybishop/ember-popper/issues/42)
+
+**Merged pull requests:**
+
+- fix\(sourcemaps\) include sourcemaps in assets [\#48](https://github.com/kybishop/ember-popper/pull/48) ([kybishop](https://github.com/kybishop))
+- chore\(upgrade deps\) ember 2.16 and more [\#47](https://github.com/kybishop/ember-popper/pull/47) ([kybishop](https://github.com/kybishop))
+- Fix node 4 support [\#45](https://github.com/kybishop/ember-popper/pull/45) ([simonihmig](https://github.com/simonihmig))
+
 ## [v0.6.4](https://github.com/kybishop/ember-popper/tree/v0.6.4) (2017-09-16)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.3...v0.6.4)
 
