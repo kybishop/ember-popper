@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.6.6](https://github.com/kybishop/ember-popper/tree/v0.6.6) (2017-10-20)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.5...v0.6.6)
+
+**Merged pull requests:**
+
+- Remove unused debug helpers [\#50](https://github.com/kybishop/ember-popper/pull/50) ([simonihmig](https://github.com/simonihmig))
+
 ## [v0.6.5](https://github.com/kybishop/ember-popper/tree/v0.6.5) (2017-10-19)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.4...v0.6.5)
 
