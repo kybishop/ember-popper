@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "babel-eslint": "^8.0.1",
-    "babel-plugin-filter-imports": "^1.1.0",
     "babel6-plugin-strip-class-callcheck": "^6.0.0",
     "broccoli-funnel": "^2.0.0",
     "ember-cli-babel": "^6.8.2",
