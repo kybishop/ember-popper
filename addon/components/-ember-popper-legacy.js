@@ -1,10 +1,10 @@
 import EmberPopperBase from './ember-popper-base';
 import { computed } from 'ember-decorators/object';
-import { property } from '../-private/utils/class';
 
+import { tagName } from 'ember-decorators/component';
+
+@tagName('div')
 export default class EmberPopper extends EmberPopperBase {
-
-  @property tagName = 'div'
 
   // ================== LIFECYCLE HOOKS ==================
 
@@ -45,7 +45,7 @@ export default class EmberPopper extends EmberPopperBase {
   }
 
   @computed()
-  _popperHash() {
+  get _popperHash() {
     return {
       update: this.update.bind(this),
       scheduleUpdate: this.scheduleUpdate.bind(this),

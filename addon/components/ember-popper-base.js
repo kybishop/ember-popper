@@ -1,70 +1,90 @@
-import Component from '@ember/component';
-import { action, computed } from 'ember-decorators/object';
-
 import { assert } from '@ember/debug';
 
+import Component from '@ember/component';
+
+import { action, computed } from 'ember-decorators/object';
+import { tagName } from 'ember-decorators/component';
+import { argument, type } from 'ember-argument-decorators';
+import { unionOf } from 'ember-argument-decorators/types';
+
 import layout from '../templates/components/ember-popper';
-import { property } from '../-private/utils/class';
 
+@tagName('')
 export default class EmberPopperBase extends Component {
-  @property layout = layout
-
-  @property tagName = ''
+  layout = layout
 
   // ================== PUBLIC CONFIG OPTIONS ==================
 
   /**
    * Whether event listeners, resize and scroll, for repositioning the popper are initially enabled.
    */
-  @property eventsEnabled = true
+  @argument
+  @type('boolean')
+  eventsEnabled = true
 
   /**
    * Modifiers that will be merged into the Popper instance's options hash.
    * https://popper.js.org/popper-documentation.html#Popper.DEFAULTS
    */
-  @property modifiers = null
+  @argument
+  @type(unionOf(null, 'object'))
+  modifiers = null
 
   /**
    * An optional function to be called when a new target is located.
    * The target is passed in as an argument to the function.
    */
-  @property onFoundTarget = null
+  @argument
+  @type(unionOf(null, 'action'))
+  onFoundTarget = null
 
   /**
    * onCreate callback merged (if present) into the Popper instance's options hash.
    * https://popper.js.org/popper-documentation.html#Popper.Defaults.onCreate
    */
-  @property onCreate = null
+  @argument
+  @type(unionOf(null, 'function'))
+  onCreate = null
 
   /**
    * onUpdate callback merged (if present) into the Popper instance's options hash.
    * https://popper.js.org/popper-documentation.html#Popper.Defaults.onUpdate
    */
-  @property onUpdate = null
+  @argument
+  @type(unionOf(null, 'function'))
+  onUpdate = null
 
   /**
    * Placement of the popper. One of ['top', 'right', 'bottom', 'left'].
    */
-  @property placement = 'bottom'
+  @argument
+  @type('string')
+  placement = 'bottom'
 
   /**
    * The popper element needs to be moved higher in the DOM tree to avoid z-index issues.
    * See the block-comment in the template for more details. `.ember-application` is applied
    * to the root element of the ember app by default, so we move it up to there.
    */
-  @property popperContainer = '.ember-application'
+  @argument
+  @type(unionOf('string', Element))
+  popperContainer = '.ember-application'
 
   /**
    * If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
    * z-index issues where your popper will be overlapped by DOM elements that aren't nested as
    * deeply in the DOM tree.
    */
-  @property renderInPlace = false
+  @argument
+  @type('boolean')
+  renderInPlace = false
 
   /**
    * The element the popper will target. If left blank, will be set to the ember-popper's parent.
    */
-  @property target = null
+  @argument
+  @type(unionOf(null, 'string', Element))
+  target = null
 
   // ================== PRIVATE PROPERTIES ==================
 
@@ -72,53 +92,53 @@ export default class EmberPopperBase extends Component {
    * Set in didInsertElement() once the Popper is initialized.
    * Passed to consumers via a named yield.
    */
-  @property _popper = null
+  _popper = null
 
   /**
    * Parent of the element on didInsertElement, before it may have been moved
    */
-  @property _initialParentNode = null
+  _initialParentNode = null
 
   /**
    * Tracks current/previous state of `_renderInPlace`.
    */
-  @property _didRenderInPlace = false
+  _didRenderInPlace = false
 
   /**
    * Tracks current/previous value of popper target
    */
-  @property _popperTarget = null
+  _popperTarget = null
 
   /**
    * Tracks current/previous value of `eventsEnabled` option
    */
-  @property _eventsEnabled = null
+  _eventsEnabled = null
 
   /**
    * Tracks current/previous value of `placement` option
    */
-  @property _placement = null
+  _placement = null
 
   /**
    * Tracks current/previous value of `modifiers` option
    */
-  @property _modifiers = null
+  _modifiers = null
 
   /**
    * ID for the requestAnimationFrame used for updates, used to cancel
    * the RAF on component destruction
    */
-  @property _updateRAF = null
+  _updateRAF = null
 
   /**
    * Tracks current/previous value of `onCreate` callback
    */
-  @property _onCreate = null
+  _onCreate = null
 
   /**
    * Tracks current/previous value of `onUpdate` callback
    */
-  @property _onUpdate = null
+  _onUpdate = null
 
   // ================== LIFECYCLE HOOKS ==================
 
@@ -177,7 +197,8 @@ export default class EmberPopperBase extends Component {
     const eventsEnabled = this.get('eventsEnabled');
     const modifiers = this.get('modifiers');
     const placement = this.get('placement');
-    const { onCreate, onUpdate } = this;
+    const onCreate = this.get('onCreate');
+    const onUpdate = this.get('onUpdate');
 
     const isPopperTargetDifferent = popperTarget !== this._popperTarget;
 
@@ -264,7 +285,7 @@ export default class EmberPopperBase extends Component {
   }
 
   @computed('_renderInPlace', 'popperContainer')
-  _popperContainer() {
+  get _popperContainer() {
     const renderInPlace = this.get('_renderInPlace');
     const maybeContainer = this.get('popperContainer');
 
@@ -289,7 +310,7 @@ export default class EmberPopperBase extends Component {
   }
 
   @computed('renderInPlace')
-  _renderInPlace() {
+  get _renderInPlace() {
     // self.document is undefined in Fastboot, so we have to render in
     // place for the popper to show up at all.
     return self.document ? !!this.get('renderInPlace') : true;
