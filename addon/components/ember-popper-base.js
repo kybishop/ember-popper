@@ -7,6 +7,8 @@ import { tagName } from 'ember-decorators/component';
 import { argument, type } from 'ember-argument-decorators';
 import { unionOf } from 'ember-argument-decorators/types';
 
+import { Element } from '../utils/globals';
+
 import layout from '../templates/components/ember-popper';
 
 @tagName('')
