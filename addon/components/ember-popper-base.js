@@ -145,9 +145,7 @@ export default class EmberPopperBase extends Component {
   // ================== LIFECYCLE HOOKS ==================
 
   didUpdateAttrs() {
-    this._updateRAF = requestAnimationFrame(() => {
-      this._updatePopper();
-    });
+    this._updatePopper();
   }
 
   didInsertElement() {
@@ -249,7 +247,7 @@ export default class EmberPopperBase extends Component {
 
       // Execute the onFoundTarget hook last to ensure the Popper is initialized on the target
       if (isPopperTargetDifferent && this.get('onFoundTarget')) {
-        this.get('onFoundTarget')(popperTarget);
+        this.sendAction('onFoundTarget', popperTarget);
       }
     }
   }
