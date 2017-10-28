@@ -7,6 +7,8 @@ import { tagName } from 'ember-decorators/component';
 import { argument, type } from 'ember-argument-decorators';
 import { unionOf } from 'ember-argument-decorators/types';
 
+import { scheduler as raf } from 'ember-raf-scheduler';
+
 import { Element } from '../utils/globals';
 
 import layout from '../templates/components/ember-popper';
@@ -145,9 +147,7 @@ export default class EmberPopperBase extends Component {
   // ================== LIFECYCLE HOOKS ==================
 
   didUpdateAttrs() {
-    this._updateRAF = requestAnimationFrame(() => {
-      this._updatePopper();
-    });
+    this._updatePopper();
   }
 
   didInsertElement() {
@@ -160,7 +160,7 @@ export default class EmberPopperBase extends Component {
     super.willDestroyElement(...arguments);
 
     this._popper.destroy();
-    cancelAnimationFrame(this._updateRAF);
+    raf.forget(this._updateRAF);
   }
 
   /**
@@ -174,7 +174,14 @@ export default class EmberPopperBase extends Component {
 
   @action
   scheduleUpdate() {
-    this._popper.scheduleUpdate();
+    if (this._updateRAF !== null) {
+      return;
+    }
+
+    this._updateRAF = raf.schedule('affect', () => {
+      this._updateRAF = null;
+      this._popper.update();
+    });
   }
 
   @action
@@ -249,7 +256,7 @@ export default class EmberPopperBase extends Component {
 
       // Execute the onFoundTarget hook last to ensure the Popper is initialized on the target
       if (isPopperTargetDifferent && this.get('onFoundTarget')) {
-        this.get('onFoundTarget')(popperTarget);
+        this.sendAction('onFoundTarget', popperTarget);
       }
     }
   }
