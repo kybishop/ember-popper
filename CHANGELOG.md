@@ -1,5 +1,15 @@
 # Change Log
 
+## [v0.7.0](https://github.com/kybishop/ember-popper/tree/v0.7.0) (2017-11-01)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.6...v0.7.0)
+
+**Merged pull requests:**
+
+- refactor\(raf\): Remove requestAnimationFrame [\#54](https://github.com/kybishop/ember-popper/pull/54) ([pzuraq](https://github.com/pzuraq))
+- \[BREAKING\] feat\(api\): Normalizes registerAPI [\#53](https://github.com/kybishop/ember-popper/pull/53) ([pzuraq](https://github.com/pzuraq))
+- bugfix\(fastboot\): Adds element polyfill [\#52](https://github.com/kybishop/ember-popper/pull/52) ([pzuraq](https://github.com/pzuraq))
+- refactor\(decorators\): Refactor to use ember-argument-decorators [\#51](https://github.com/kybishop/ember-popper/pull/51) ([pzuraq](https://github.com/pzuraq))
+
 ## [v0.6.6](https://github.com/kybishop/ember-popper/tree/v0.6.6) (2017-10-20)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.5...v0.6.6)
 
