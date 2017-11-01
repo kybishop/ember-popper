@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.7.1](https://github.com/kybishop/ember-popper/tree/v0.7.1) (2017-11-01)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.0...v0.7.1)
+
+**Merged pull requests:**
+
+- bugfix\(legacy\): Bumps ember-legacy-class-transform [\#55](https://github.com/kybishop/ember-popper/pull/55) ([pzuraq](https://github.com/pzuraq))
+
 ## [v0.7.0](https://github.com/kybishop/ember-popper/tree/v0.7.0) (2017-11-01)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.6...v0.7.0)
 
