@@ -40,7 +40,7 @@ export default class EmberPopperBase extends Component {
    */
   @argument
   @type(unionOf(null, 'action'))
-  onFoundTarget = null
+  registerAPI = null
 
   /**
    * onCreate callback merged (if present) into the Popper instance's options hash.
@@ -144,6 +144,11 @@ export default class EmberPopperBase extends Component {
    */
   _onUpdate = null
 
+  /**
+   * Public API of the popper sent to external components in `registerAPI`
+   */
+  _publicAPI = null
+
   // ================== LIFECYCLE HOOKS ==================
 
   didUpdateAttrs() {
@@ -209,11 +214,9 @@ export default class EmberPopperBase extends Component {
     const onCreate = this.get('onCreate');
     const onUpdate = this.get('onUpdate');
 
-    const isPopperTargetDifferent = popperTarget !== this._popperTarget;
-
     // Compare against previous values to see if anything has changed
     const didChange = renderInPlace !== this._didRenderInPlace
-      || isPopperTargetDifferent
+      || popperTarget !== this._popperTarget
       || eventsEnabled !== this._eventsEnabled
       || modifiers !== this._modifiers
       || placement !== this._placement
@@ -254,9 +257,9 @@ export default class EmberPopperBase extends Component {
 
       this._popper = new Popper(popperTarget, popperElement, options);
 
-      // Execute the onFoundTarget hook last to ensure the Popper is initialized on the target
-      if (isPopperTargetDifferent && this.get('onFoundTarget')) {
-        this.sendAction('onFoundTarget', popperTarget);
+      // Execute the registerAPI hook last to ensure the Popper is initialized on the target
+      if (this.get('registerAPI') !== null) {
+        this.sendAction('registerAPI', this._getPublicAPI());
       }
     }
   }
@@ -291,6 +294,24 @@ export default class EmberPopperBase extends Component {
     }
 
     return popperTarget;
+  }
+
+  _getPublicAPI() {
+    if (this._publicAPI === null) {
+      // bootstrap the public API with fields that are guaranteed to be static,
+      // such as imperative actions
+      this._publicAPI = {
+        popperElement: this._getPopperElement(),
+        update: this.update.bind(this),
+        scheduleUpdate: this.scheduleUpdate.bind(this),
+        enableEventListeners: this.enableEventListeners.bind(this),
+        disableEventListeners: this.disableEventListeners.bind(this)
+      };
+    }
+
+    this._publicAPI.popperTarget = this._popperTarget;
+
+    return this._publicAPI;
   }
 
   @computed('_renderInPlace', 'popperContainer')

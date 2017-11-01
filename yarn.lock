@@ -2470,7 +2470,7 @@ ember-compatibility-helpers@^0.1.0:
     ember-cli-version-checker "^2.0.0"
     semver "^5.4.1"
 
-ember-compatibility-helpers@^0.1.1:
+ember-compatibility-helpers@^0.1.1, ember-compatibility-helpers@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/ember-compatibility-helpers/-/ember-compatibility-helpers-0.1.2.tgz#8eb1769ad761db273fd40242b1170d9f3841d0f0"
   dependencies:
