@@ -2513,9 +2513,9 @@ ember-hash-helper-polyfill@^0.1.2:
     ember-cli-babel "^5.1.7"
     ember-cli-version-checker "^1.2.0"
 
-ember-legacy-class-transform@~0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/ember-legacy-class-transform/-/ember-legacy-class-transform-0.1.2.tgz#f09e1b002ac4141096051a4ce387ba6828eddb16"
+ember-legacy-class-transform@^0.1.2:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/ember-legacy-class-transform/-/ember-legacy-class-transform-0.1.3.tgz#af943fd46aa050981b7f0927bf70ef8736878682"
   dependencies:
     babel-plugin-ember-legacy-class-constructor "^0.1.4"
     ember-cli-babel "^6.3.0"
