@@ -151,13 +151,7 @@ export default class EmberPopperBase extends Component {
 
   // ================== LIFECYCLE HOOKS ==================
 
-  didUpdateAttrs() {
-    this._updatePopper();
-  }
-
-  didInsertElement() {
-    super.didInsertElement(...arguments);
-
+  didRender() {
     this._updatePopper();
   }
 
@@ -301,7 +295,6 @@ export default class EmberPopperBase extends Component {
       // bootstrap the public API with fields that are guaranteed to be static,
       // such as imperative actions
       this._publicAPI = {
-        popperElement: this._getPopperElement(),
         update: this.update.bind(this),
         scheduleUpdate: this.scheduleUpdate.bind(this),
         enableEventListeners: this.enableEventListeners.bind(this),
@@ -309,6 +302,7 @@ export default class EmberPopperBase extends Component {
       };
     }
 
+    this._publicAPI.popperElement = this._getPopperElement();
     this._publicAPI.popperTarget = this._popperTarget;
 
     return this._publicAPI;

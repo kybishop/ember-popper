@@ -16,33 +16,33 @@ export default class EmberPopper extends EmberPopperBase {
     this._initialParentNode = this.element.parentNode;
 
     if (!GTE_EMBER_1_13) {
-      addObserver(this, 'renderInPlace', this, this.didUpdateAttrs);
-      addObserver(this, 'eventsEnabled', this, this.didUpdateAttrs);
-      addObserver(this, 'modifiers', this, this.didUpdateAttrs);
-      addObserver(this, 'registerAPI', this, this.didUpdateAttrs);
-      addObserver(this, 'onCreate', this, this.didUpdateAttrs);
-      addObserver(this, 'onUpdate', this, this.didUpdateAttrs);
-      addObserver(this, 'placement', this, this.didUpdateAttrs);
-      addObserver(this, 'popperContainer', this, this.didUpdateAttrs);
-      addObserver(this, 'target', this, this.didUpdateAttrs);
-    }
+      addObserver(this, 'renderInPlace', this, this._updatePopper);
+      addObserver(this, 'eventsEnabled', this, this._updatePopper);
+      addObserver(this, 'modifiers', this, this._updatePopper);
+      addObserver(this, 'registerAPI', this, this._updatePopper);
+      addObserver(this, 'onCreate', this, this._updatePopper);
+      addObserver(this, 'onUpdate', this, this._updatePopper);
+      addObserver(this, 'placement', this, this._updatePopper);
+      addObserver(this, 'popperContainer', this, this._updatePopper);
+      addObserver(this, 'target', this, this._updatePopper);
 
-    super.didInsertElement(...arguments);
+      super.didRender(...arguments);
+    }
   }
 
   willDestroyElement() {
     super.willDestroyElement(...arguments);
 
     if (!GTE_EMBER_1_13) {
-      removeObserver(this, 'renderInPlace', this, this.didUpdateAttrs);
-      removeObserver(this, 'eventsEnabled', this, this.didUpdateAttrs);
-      removeObserver(this, 'modifiers', this, this.didUpdateAttrs);
-      removeObserver(this, 'registerAPI', this, this.didUpdateAttrs);
-      removeObserver(this, 'onCreate', this, this.didUpdateAttrs);
-      removeObserver(this, 'onUpdate', this, this.didUpdateAttrs);
-      removeObserver(this, 'placement', this, this.didUpdateAttrs);
-      removeObserver(this, 'popperContainer', this, this.didUpdateAttrs);
-      removeObserver(this, 'target', this, this.didUpdateAttrs);
+      removeObserver(this, 'renderInPlace', this, this._updatePopper);
+      removeObserver(this, 'eventsEnabled', this, this._updatePopper);
+      removeObserver(this, 'modifiers', this, this._updatePopper);
+      removeObserver(this, 'registerAPI', this, this._updatePopper);
+      removeObserver(this, 'onCreate', this, this._updatePopper);
+      removeObserver(this, 'onUpdate', this, this._updatePopper);
+      removeObserver(this, 'placement', this, this._updatePopper);
+      removeObserver(this, 'popperContainer', this, this._updatePopper);
+      removeObserver(this, 'target', this, this._updatePopper);
     }
 
     const element = this._getPopperElement();
