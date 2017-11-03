@@ -1,5 +1,16 @@
 # Change Log
 
+## [v0.7.2](https://github.com/kybishop/ember-popper/tree/v0.7.2) (2017-11-03)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.1...v0.7.2)
+
+**Closed issues:**
+
+- Allow toggling of renderInPlace [\#57](https://github.com/kybishop/ember-popper/issues/57)
+
+**Merged pull requests:**
+
+- fix\(toggling renderInPlace\) [\#58](https://github.com/kybishop/ember-popper/pull/58) ([kybishop](https://github.com/kybishop))
+
 ## [v0.7.1](https://github.com/kybishop/ember-popper/tree/v0.7.1) (2017-11-01)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.0...v0.7.1)
 
