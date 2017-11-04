@@ -1,5 +1,16 @@
 # Change Log
 
+## [v0.7.3](https://github.com/kybishop/ember-popper/tree/v0.7.3) (2017-11-04)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.2...v0.7.3)
+
+**Closed issues:**
+
+- Type assertion fails in IE11 [\#56](https://github.com/kybishop/ember-popper/issues/56)
+
+**Merged pull requests:**
+
+- chore\(bump deps\) @ember-decorators/argument bugfix [\#59](https://github.com/kybishop/ember-popper/pull/59) ([kybishop](https://github.com/kybishop))
+
 ## [v0.7.2](https://github.com/kybishop/ember-popper/tree/v0.7.2) (2017-11-03)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.1...v0.7.2)
 
