@@ -3,9 +3,9 @@ import { assert } from '@ember/debug';
 import Component from '@ember/component';
 
 import { action, computed } from 'ember-decorators/object';
+import { argument } from '@ember-decorators/argument';
+import { type, unionOf } from '@ember-decorators/argument/type';
 import { tagName } from 'ember-decorators/component';
-import { argument, type } from 'ember-argument-decorators';
-import { unionOf } from 'ember-argument-decorators/types';
 
 import { scheduler as raf } from 'ember-raf-scheduler';
 
