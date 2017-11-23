@@ -18,8 +18,7 @@ module.exports = {
           processTree(input) {
             return fastbootTransform(input);
           }
-        },
-        public: ['popper.js.map']
+        }
       }
     }
   },
