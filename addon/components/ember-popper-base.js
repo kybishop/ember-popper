@@ -75,6 +75,13 @@ export default class EmberPopperBase extends Component {
   popperContainer = '.ember-application'
 
   /**
+   * The element the popper will target. If left blank, will be set to the ember-popper's parent.
+   */
+  @argument
+  @type(unionOf(null, 'string', Element))
+  popperTarget = null
+
+  /**
    * If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
    * z-index issues where your popper will be overlapped by DOM elements that aren't nested as
    * deeply in the DOM tree.
@@ -82,13 +89,6 @@ export default class EmberPopperBase extends Component {
   @argument
   @type('boolean')
   renderInPlace = false
-
-  /**
-   * The element the popper will target. If left blank, will be set to the ember-popper's parent.
-   */
-  @argument
-  @type(unionOf(null, 'string', Element))
-  target = null
 
   // ================== PRIVATE PROPERTIES ==================
 
@@ -269,19 +269,19 @@ export default class EmberPopperBase extends Component {
    * Used to get the popper target whenever updating the Popper
    */
   _getPopperTarget() {
-    const target = this.get('target');
+    const targetSelector = this.get('popperTarget');
 
     let popperTarget;
 
     // If there is no target, set the target to the parent element
-    if (!target) {
+    if (!targetSelector) {
       popperTarget = this._initialParentNode;
-    } else if (target instanceof Element) {
-      popperTarget = target;
+    } else if (targetSelector instanceof Element) {
+      popperTarget = targetSelector;
     } else {
-      const nodes = document.querySelectorAll(target);
+      const nodes = document.querySelectorAll(targetSelector);
 
-      assert(`ember-popper with target selector "${target}" found ${nodes.length}`
+      assert(`ember-popper with target selector "${targetSelector}" found ${nodes.length}`
              + 'possible targets when there should be exactly 1', nodes.length === 1);
 
       popperTarget = nodes[0];

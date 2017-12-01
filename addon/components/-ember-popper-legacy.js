@@ -24,7 +24,7 @@ export default class EmberPopper extends EmberPopperBase {
       addObserver(this, 'onUpdate', this, this._updatePopper);
       addObserver(this, 'placement', this, this._updatePopper);
       addObserver(this, 'popperContainer', this, this._updatePopper);
-      addObserver(this, 'target', this, this._updatePopper);
+      addObserver(this, 'popperTarget', this, this._updatePopper);
 
       super.didRender(...arguments);
     }
@@ -42,7 +42,7 @@ export default class EmberPopper extends EmberPopperBase {
       removeObserver(this, 'onUpdate', this, this._updatePopper);
       removeObserver(this, 'placement', this, this._updatePopper);
       removeObserver(this, 'popperContainer', this, this._updatePopper);
-      removeObserver(this, 'target', this, this._updatePopper);
+      removeObserver(this, 'popperTarget', this, this._updatePopper);
     }
 
     const element = this._getPopperElement();
