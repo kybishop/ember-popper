@@ -66,15 +66,6 @@ export default class EmberPopperBase extends Component {
   placement = 'bottom'
 
   /**
-   * If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
-   * z-index issues where your popper will be overlapped by DOM elements that aren't nested as
-   * deeply in the DOM tree.
-   */
-  @argument
-  @type('boolean')
-  renderInPlace = false
-
-  /**
    * The popper element needs to be moved higher in the DOM tree to avoid z-index issues.
    * See the block-comment in the template for more details. `.ember-application` is applied
    * to the root element of the ember app by default, so we move it up to there.
@@ -89,6 +80,15 @@ export default class EmberPopperBase extends Component {
   @argument
   @type(unionOf(null, 'string', Element))
   popperTarget = null
+
+  /**
+   * If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
+   * z-index issues where your popper will be overlapped by DOM elements that aren't nested as
+   * deeply in the DOM tree.
+   */
+  @argument
+  @type('boolean')
+  renderInPlace = false
 
   // ================== PRIVATE PROPERTIES ==================
 
