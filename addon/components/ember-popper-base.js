@@ -3,15 +3,17 @@ import { assert } from '@ember/debug';
 import Component from '@ember/component';
 
 import { action, computed } from 'ember-decorators/object';
-import { argument } from '@ember-decorators/argument';
-import { type, unionOf } from '@ember-decorators/argument/type';
 import { tagName } from 'ember-decorators/component';
+
+import { argument } from '@ember-decorators/argument';
+import { type, unionOf, optional } from '@ember-decorators/argument/type';
+import { Action, Element } from '@ember-decorators/argument/types';
 
 import { scheduler as raf } from 'ember-raf-scheduler';
 
-import { Element } from '../utils/globals';
-
 import layout from '../templates/components/ember-popper';
+
+const Selector = unionOf('string', Element);
 
 @tagName('')
 export default class EmberPopperBase extends Component {
@@ -22,7 +24,7 @@ export default class EmberPopperBase extends Component {
   /**
    * Whether event listeners, resize and scroll, for repositioning the popper are initially enabled.
    */
-  @argument
+  @argument({ defaultIfUndefined: true })
   @type('boolean')
   eventsEnabled = true
 
@@ -31,7 +33,7 @@ export default class EmberPopperBase extends Component {
    * https://popper.js.org/popper-documentation.html#Popper.DEFAULTS
    */
   @argument
-  @type(unionOf(null, 'object'))
+  @type(optional('object'))
   modifiers = null
 
   /**
@@ -39,7 +41,7 @@ export default class EmberPopperBase extends Component {
    * The target is passed in as an argument to the function.
    */
   @argument
-  @type(unionOf(null, 'action'))
+  @type(optional(Action))
   registerAPI = null
 
   /**
@@ -47,7 +49,7 @@ export default class EmberPopperBase extends Component {
    * https://popper.js.org/popper-documentation.html#Popper.Defaults.onCreate
    */
   @argument
-  @type(unionOf(null, 'function'))
+  @type(optional(Function))
   onCreate = null
 
   /**
@@ -55,13 +57,13 @@ export default class EmberPopperBase extends Component {
    * https://popper.js.org/popper-documentation.html#Popper.Defaults.onUpdate
    */
   @argument
-  @type(unionOf(null, 'function'))
+  @type(optional(Function))
   onUpdate = null
 
   /**
    * Placement of the popper. One of ['top', 'right', 'bottom', 'left'].
    */
-  @argument
+  @argument({ defaultIfUndefined: true })
   @type('string')
   placement = 'bottom'
 
@@ -70,15 +72,15 @@ export default class EmberPopperBase extends Component {
    * See the block-comment in the template for more details. `.ember-application` is applied
    * to the root element of the ember app by default, so we move it up to there.
    */
-  @argument
-  @type(unionOf('string', Element))
+  @argument({ defaultIfUndefined: true })
+  @type(Selector)
   popperContainer = '.ember-application'
 
   /**
    * The element the popper will target. If left blank, will be set to the ember-popper's parent.
    */
   @argument
-  @type(unionOf(null, 'string', Element))
+  @type(optional(Selector))
   popperTarget = null
 
   /**
@@ -86,7 +88,7 @@ export default class EmberPopperBase extends Component {
    * z-index issues where your popper will be overlapped by DOM elements that aren't nested as
    * deeply in the DOM tree.
    */
-  @argument
+  @argument({ defaultIfUndefined: true })
   @type('boolean')
   renderInPlace = false
 
