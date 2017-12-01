@@ -10,7 +10,7 @@ moduleForComponent('ember-popper', 'Integration | Component | registerAPI', {
   }
 });
 
-test('undefined target: registerAPI returns the popper element', function(assert) {
+test('undefined popperTarget: registerAPI returns the popper element', function(assert) {
   this.on('registerAPI', ({ popperElement }) => {
     const parent = document.querySelector('.popper-element');
     assert.equal(popperElement, parent);
@@ -25,7 +25,7 @@ test('undefined target: registerAPI returns the popper element', function(assert
   `);
 });
 
-test('undefined target: registerAPI returns the parent', function(assert) {
+test('undefined popperTarget: registerAPI returns the parent', function(assert) {
   this.on('registerAPI', ({ popperTarget }) => {
     const parent = document.querySelector('.parent');
     assert.equal(popperTarget, parent);
@@ -40,7 +40,7 @@ test('undefined target: registerAPI returns the parent', function(assert) {
   `);
 });
 
-test('explicit target: registerAPI returns the explicit target', function(assert) {
+test('explicit popperTarget: registerAPI returns the explicit target', function(assert) {
   this.on('registerAPI', ({ popperTarget }) => {
     const parent = document.querySelector('.parent');
     assert.equal(popperTarget, parent);
@@ -52,7 +52,7 @@ test('explicit target: registerAPI returns the explicit target', function(assert
 
     {{#ember-popper class='popper-element'
                     registerAPI='registerAPI'
-                    target='.parent'}}
+                    popperTarget='.parent'}}
       template block text
     {{/ember-popper}}
   `);
@@ -92,7 +92,7 @@ test('when the popper target changes the API reregisters with the new target', f
     <div class='newTarget'>
     </div>
 
-    {{#ember-popper class='popper-element' registerAPI='registerAPI' target=target}}
+    {{#ember-popper class='popper-element' registerAPI='registerAPI' popperTarget=target}}
       template block text
     {{/ember-popper}}
   `);

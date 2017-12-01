@@ -6,7 +6,7 @@ moduleForComponent('ember-popper', 'Integration | Component | target', {
   integration: true
 });
 
-test('undefined target: it targets the parent', function(assert) {
+test('undefined popperTarget: it targets the parent', function(assert) {
   this.render(hbs`
     <div class='parent' style='height: 50px; width: 100%;'>
       {{#ember-popper class='popper-element' placement='bottom'}}
@@ -25,12 +25,12 @@ test('undefined target: it targets the parent', function(assert) {
   });
 });
 
-test('explicit target: it targets the explicit target', function(assert) {
+test('explicit popperTarget: it targets the explicit target', function(assert) {
   this.render(hbs`
     <div class='parent' style='height: 50px; width: 100%;'>
     </div>
 
-    {{#ember-popper class='popper-element' placement='top' target='.parent'}}
+    {{#ember-popper class='popper-element' placement='top' popperTarget='.parent'}}
       template block text
     {{/ember-popper}}
   `);
