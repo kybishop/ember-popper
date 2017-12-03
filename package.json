@@ -24,7 +24,7 @@
     "test": "ember try:each"
   },
   "dependencies": {
-    "@ember-decorators/argument": "^0.8.2",
+    "@ember-decorators/argument": "^0.8.3",
     "babel-eslint": "^8.0.3",
     "babel6-plugin-strip-class-callcheck": "^6.0.0",
     "broccoli-funnel": "^2.0.0",
