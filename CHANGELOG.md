@@ -1,5 +1,18 @@
 # Change Log
 
+## [v0.8.2](https://github.com/kybishop/ember-popper/tree/v0.8.2) (2017-12-03)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.1...v0.8.2)
+
+**Closed issues:**
+
+- Include a test which ensures production builds complete without error [\#65](https://github.com/kybishop/ember-popper/issues/65)
+- Production builds for addon and consuming apps are broken [\#64](https://github.com/kybishop/ember-popper/issues/64)
+
+**Merged pull requests:**
+
+- fix\(production builds\) bump @ember-decorators/argument [\#67](https://github.com/kybishop/ember-popper/pull/67) ([kybishop](https://github.com/kybishop))
+- chore\(tests\): Adds a production test scenario [\#66](https://github.com/kybishop/ember-popper/pull/66) ([pzuraq](https://github.com/pzuraq))
+
 ## [v0.8.1](https://github.com/kybishop/ember-popper/tree/v0.8.1) (2017-12-03)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.0...v0.8.1)
 
