@@ -1,5 +1,20 @@
 # Change Log
 
+## [v0.8.1](https://github.com/kybishop/ember-popper/tree/v0.8.1) (2017-12-03)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.0...v0.8.1)
+
+**Merged pull requests:**
+
+- chore\(bump deps\) ember 2.17, etc. [\#63](https://github.com/kybishop/ember-popper/pull/63) ([kybishop](https://github.com/kybishop))
+
+## [v0.8.0](https://github.com/kybishop/ember-popper/tree/v0.8.0) (2017-12-01)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.3...v0.8.0)
+
+**Merged pull requests:**
+
+- bugfix\(target\): Changes the target property to avoid collisions - BREAKING [\#62](https://github.com/kybishop/ember-popper/pull/62) ([pzuraq](https://github.com/pzuraq))
+- update\(argument\): Updates @argument and types [\#61](https://github.com/kybishop/ember-popper/pull/61) ([pzuraq](https://github.com/pzuraq))
+
 ## [v0.7.3](https://github.com/kybishop/ember-popper/tree/v0.7.3) (2017-11-04)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.2...v0.7.3)
 
