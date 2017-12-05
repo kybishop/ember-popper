@@ -37,14 +37,6 @@ export default class EmberPopperBase extends Component {
   modifiers = null
 
   /**
-   * An optional function to be called when a new target is located.
-   * The target is passed in as an argument to the function.
-   */
-  @argument
-  @type(optional(Action))
-  registerAPI = null
-
-  /**
    * onCreate callback merged (if present) into the Popper instance's options hash.
    * https://popper.js.org/popper-documentation.html#Popper.Defaults.onCreate
    */
@@ -84,6 +76,14 @@ export default class EmberPopperBase extends Component {
   popperTarget = null
 
   /**
+   * An optional function to be called when a new target is located.
+   * The target is passed in as an argument to the function.
+   */
+  @argument
+  @type(optional(Action))
+  registerAPI = null
+
+  /**
    * If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
    * z-index issues where your popper will be overlapped by DOM elements that aren't nested as
    * deeply in the DOM tree.
@@ -95,25 +95,9 @@ export default class EmberPopperBase extends Component {
   // ================== PRIVATE PROPERTIES ==================
 
   /**
-   * Set in didInsertElement() once the Popper is initialized.
-   * Passed to consumers via a named yield.
-   */
-  _popper = null
-
-  /**
-   * Parent of the element on didInsertElement, before it may have been moved
-   */
-  _initialParentNode = null
-
-  /**
    * Tracks current/previous state of `_renderInPlace`.
    */
   _didRenderInPlace = false
-
-  /**
-   * Tracks current/previous value of popper target
-   */
-  _popperTarget = null
 
   /**
    * Tracks current/previous value of `eventsEnabled` option
@@ -121,20 +105,14 @@ export default class EmberPopperBase extends Component {
   _eventsEnabled = null
 
   /**
-   * Tracks current/previous value of `placement` option
+   * Parent of the element on didInsertElement, before it may have been moved
    */
-  _placement = null
+  _initialParentNode = null
 
   /**
    * Tracks current/previous value of `modifiers` option
    */
   _modifiers = null
-
-  /**
-   * ID for the requestAnimationFrame used for updates, used to cancel
-   * the RAF on component destruction
-   */
-  _updateRAF = null
 
   /**
    * Tracks current/previous value of `onCreate` callback
@@ -147,9 +125,31 @@ export default class EmberPopperBase extends Component {
   _onUpdate = null
 
   /**
+   * Tracks current/previous value of `placement` option
+   */
+  _placement = null
+
+  /**
+   * Set in didInsertElement() once the Popper is initialized.
+   * Passed to consumers via a named yield.
+   */
+  _popper = null
+
+  /**
+   * Tracks current/previous value of popper target
+   */
+  _popperTarget = null
+
+  /**
    * Public API of the popper sent to external components in `registerAPI`
    */
   _publicAPI = null
+
+  /**
+   * ID for the requestAnimationFrame used for updates, used to cancel
+   * the RAF on component destruction
+   */
+  _updateRAF = null
 
   // ================== LIFECYCLE HOOKS ==================
 
@@ -202,13 +202,13 @@ export default class EmberPopperBase extends Component {
       return;
     }
 
-    const popperTarget = this._getPopperTarget();
-    const renderInPlace = this.get('_renderInPlace');
     const eventsEnabled = this.get('eventsEnabled');
     const modifiers = this.get('modifiers');
-    const placement = this.get('placement');
     const onCreate = this.get('onCreate');
     const onUpdate = this.get('onUpdate');
+    const placement = this.get('placement');
+    const popperTarget = this._getPopperTarget();
+    const renderInPlace = this.get('_renderInPlace');
 
     // Compare against previous values to see if anything has changed
     const didChange = renderInPlace !== this._didRenderInPlace
@@ -228,12 +228,12 @@ export default class EmberPopperBase extends Component {
 
       // Store current values to check against on updates
       this._didRenderInPlace = renderInPlace;
-      this._popperTarget = popperTarget;
       this._eventsEnabled = eventsEnabled;
       this._modifiers = modifiers;
-      this._placement = placement;
       this._onCreate = onCreate;
       this._onUpdate = onUpdate;
+      this._placement = placement;
+      this._popperTarget = popperTarget;
 
       const options = {
         eventsEnabled,
@@ -297,10 +297,10 @@ export default class EmberPopperBase extends Component {
       // bootstrap the public API with fields that are guaranteed to be static,
       // such as imperative actions
       this._publicAPI = {
-        update: this.update.bind(this),
-        scheduleUpdate: this.scheduleUpdate.bind(this),
+        disableEventListeners: this.disableEventListeners.bind(this),
         enableEventListeners: this.enableEventListeners.bind(this),
-        disableEventListeners: this.disableEventListeners.bind(this)
+        scheduleUpdate: this.scheduleUpdate.bind(this),
+        update: this.update.bind(this)
       };
     }
 
