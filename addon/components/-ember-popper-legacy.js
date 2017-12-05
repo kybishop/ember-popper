@@ -16,15 +16,15 @@ export default class EmberPopper extends EmberPopperBase {
     this._initialParentNode = this.element.parentNode;
 
     if (!GTE_EMBER_1_13) {
-      addObserver(this, 'renderInPlace', this, this._updatePopper);
       addObserver(this, 'eventsEnabled', this, this._updatePopper);
       addObserver(this, 'modifiers', this, this._updatePopper);
-      addObserver(this, 'registerAPI', this, this._updatePopper);
       addObserver(this, 'onCreate', this, this._updatePopper);
       addObserver(this, 'onUpdate', this, this._updatePopper);
       addObserver(this, 'placement', this, this._updatePopper);
       addObserver(this, 'popperContainer', this, this._updatePopper);
       addObserver(this, 'popperTarget', this, this._updatePopper);
+      addObserver(this, 'registerAPI', this, this._updatePopper);
+      addObserver(this, 'renderInPlace', this, this._updatePopper);
 
       super.didRender(...arguments);
     }
@@ -34,15 +34,15 @@ export default class EmberPopper extends EmberPopperBase {
     super.willDestroyElement(...arguments);
 
     if (!GTE_EMBER_1_13) {
-      removeObserver(this, 'renderInPlace', this, this._updatePopper);
       removeObserver(this, 'eventsEnabled', this, this._updatePopper);
       removeObserver(this, 'modifiers', this, this._updatePopper);
-      removeObserver(this, 'registerAPI', this, this._updatePopper);
       removeObserver(this, 'onCreate', this, this._updatePopper);
       removeObserver(this, 'onUpdate', this, this._updatePopper);
       removeObserver(this, 'placement', this, this._updatePopper);
       removeObserver(this, 'popperContainer', this, this._updatePopper);
       removeObserver(this, 'popperTarget', this, this._updatePopper);
+      removeObserver(this, 'registerAPI', this, this._updatePopper);
+      removeObserver(this, 'renderInPlace', this, this._updatePopper);
     }
 
     const element = this._getPopperElement();
@@ -56,8 +56,8 @@ export default class EmberPopper extends EmberPopperBase {
 
   _updatePopper() {
     const element = this._getPopperElement();
-    const renderInPlace = this.get('_renderInPlace');
     const popperContainer = this.get('_popperContainer');
+    const renderInPlace = this.get('_renderInPlace');
 
     // If renderInPlace is false, move the element to the popperContainer to avoid z-index issues.
     // See renderInPlace for more details.
@@ -75,10 +75,10 @@ export default class EmberPopper extends EmberPopperBase {
   @computed()
   get _popperHash() {
     return {
-      update: this.update.bind(this),
-      scheduleUpdate: this.scheduleUpdate.bind(this),
+      disableEventListeners: this.disableEventListeners.bind(this),
       enableEventListeners: this.enableEventListeners.bind(this),
-      disableEventListeners: this.disableEventListeners.bind(this)
+      scheduleUpdate: this.scheduleUpdate.bind(this),
+      update: this.update.bind(this)
     };
   }
 }

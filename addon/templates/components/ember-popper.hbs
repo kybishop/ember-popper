@@ -3,10 +3,10 @@
 {{#if renderInPlace}}
   <div id={{id}} class={{class}} role={{ariaRole}}>
     {{yield (hash
-      update=(action 'update')
-      scheduleUpdate=(action 'scheduleUpdate')
-      enableEventListeners=(action 'enableEventListeners')
       disableEventListeners=(action 'disableEventListeners')
+      enableEventListeners=(action 'enableEventListeners')
+      scheduleUpdate=(action 'scheduleUpdate')
+      update=(action 'update')
     )}}
   </div>
 {{else}}
@@ -20,10 +20,10 @@
     {{!-- Add a wrapper around the yielded block so we have something for the Popper to target --}}
     <div id={{id}} class={{class}} role={{ariaRole}}>
       {{yield (hash
-        update=(action 'update')
-        scheduleUpdate=(action 'scheduleUpdate')
-        enableEventListeners=(action 'enableEventListeners')
         disableEventListeners=(action 'disableEventListeners')
+        enableEventListeners=(action 'enableEventListeners')
+        scheduleUpdate=(action 'scheduleUpdate')
+        update=(action 'update')
       )}}
     </div>
   {{/-in-element}}

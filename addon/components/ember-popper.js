@@ -1,5 +1,5 @@
-import { guidFor } from '@ember/object/internals';
 import EmberPopperBase from './ember-popper-base';
+import { guidFor } from '@ember/object/internals';
 
 export default class EmberPopper extends EmberPopperBase {
 
