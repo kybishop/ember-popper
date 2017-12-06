@@ -109,3 +109,36 @@ test('when the popper target changes the API reregisters with the new target', f
     assert.equal(foundTarget, newTarget, 'the target changed');
   });
 });
+
+test('when shouldRender changes the API reregisters with the newly created popper element', function(assert) {
+  let callCount = 0;
+  let foundPopperElement;
+
+  this.on('registerAPI', ({ popperElement }) => {
+    callCount += 1;
+    foundPopperElement = popperElement;
+  });
+  this.set('shouldRender', false);
+
+  this.render(hbs`
+    {{#ember-popper id='popper' registerAPI='registerAPI' shouldRender=shouldRender}}
+      template block text
+    {{/ember-popper}}
+  `);
+
+  assert.equal(callCount, 1, 'registerApi called an unexpected number of times');
+  assert.equal(foundPopperElement, null);
+
+  this.set('shouldRender', true);
+
+  return wait().then(() => {
+    assert.equal(callCount, 2, 'registerApi should have been called twice');
+
+    const popperElement = document.getElementById('popper');
+
+    // Sanity check
+    assert.ok(popperElement);
+
+    assert.equal(foundPopperElement, popperElement);
+  });
+});

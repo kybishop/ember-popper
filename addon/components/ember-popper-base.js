@@ -1,6 +1,5 @@
-import { assert } from '@ember/debug';
-
 import Component from '@ember/component';
+import { assert } from '@ember/debug';
 
 import { action, computed } from 'ember-decorators/object';
 import { tagName } from 'ember-decorators/component';
@@ -92,6 +91,13 @@ export default class EmberPopperBase extends Component {
   @type('boolean')
   renderInPlace = false
 
+  /**
+   * Determines whether or not the popper element should be rendered.
+   */
+  @argument({ defaultIfUndefined: true })
+  @type('boolean')
+  shouldRender = true
+
   // ================== PRIVATE PROPERTIES ==================
 
   /**
@@ -146,6 +152,11 @@ export default class EmberPopperBase extends Component {
   _publicAPI = null
 
   /**
+   * Tracks current/previous value of shouldRender
+   */
+  _shouldRender = null
+
+  /**
    * ID for the requestAnimationFrame used for updates, used to cancel
    * the RAF on component destruction
    */
@@ -160,7 +171,10 @@ export default class EmberPopperBase extends Component {
   willDestroyElement() {
     super.willDestroyElement(...arguments);
 
-    this._popper.destroy();
+    if (this._popper !== null) {
+      this._popper.destroy();
+    }
+
     raf.forget(this._updateRAF);
   }
 
@@ -209,15 +223,17 @@ export default class EmberPopperBase extends Component {
     const placement = this.get('placement');
     const popperTarget = this._getPopperTarget();
     const renderInPlace = this.get('_renderInPlace');
+    const shouldRender = this.get('shouldRender');
 
     // Compare against previous values to see if anything has changed
     const didChange = renderInPlace !== this._didRenderInPlace
-      || popperTarget !== this._popperTarget
       || eventsEnabled !== this._eventsEnabled
       || modifiers !== this._modifiers
-      || placement !== this._placement
       || onCreate !== this._onCreate
-      || onUpdate !== this._onUpdate;
+      || onUpdate !== this._onUpdate
+      || placement !== this._placement
+      || popperTarget !== this._popperTarget
+      || shouldRender !== this._shouldRender;
 
     if (didChange === true) {
       if (this._popper !== null) {
@@ -234,6 +250,7 @@ export default class EmberPopperBase extends Component {
       this._onUpdate = onUpdate;
       this._placement = placement;
       this._popperTarget = popperTarget;
+      this._shouldRender = shouldRender;
 
       const options = {
         eventsEnabled,
@@ -251,7 +268,10 @@ export default class EmberPopperBase extends Component {
         options.onUpdate = onUpdate;
       }
 
-      this._popper = new Popper(popperTarget, popperElement, options);
+      // There won't be a popper element if shouldRender is false
+      if (popperElement) {
+        this._popper = new Popper(popperTarget, popperElement, options);
+      }
 
       // Execute the registerAPI hook last to ensure the Popper is initialized on the target
       if (this.get('registerAPI') !== null) {

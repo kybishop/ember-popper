@@ -1,19 +1,24 @@
 import { addObserver, removeObserver } from '@ember/object/observers';
+import { guidFor } from '@ember/object/internals';
 
 import EmberPopperBase from './ember-popper-base';
 import { computed } from 'ember-decorators/object';
 
-import { tagName } from 'ember-decorators/component';
-
 import { GTE_EMBER_1_13 } from 'ember-compatibility-helpers';
 
-@tagName('div')
 export default class EmberPopper extends EmberPopperBase {
 
   // ================== LIFECYCLE HOOKS ==================
 
+  init() {
+    this.id = this.id || `${guidFor(this)}-popper`;
+    this._parentFinder = self.document ? self.document.createTextNode('') : '';
+
+    super.init(...arguments);
+  }
+
   didInsertElement() {
-    this._initialParentNode = this.element.parentNode;
+    this._initialParentNode = this._parentFinder.parentNode;
 
     if (!GTE_EMBER_1_13) {
       addObserver(this, 'eventsEnabled', this, this._updatePopper);
@@ -47,7 +52,7 @@ export default class EmberPopper extends EmberPopperBase {
 
     const element = this._getPopperElement();
 
-    if (element.parentNode !== this._initialParentNode) {
+    if (element && element.parentNode !== this._initialParentNode) {
       element.parentNode.removeChild(element);
     }
   }
@@ -61,15 +66,11 @@ export default class EmberPopper extends EmberPopperBase {
 
     // If renderInPlace is false, move the element to the popperContainer to avoid z-index issues.
     // See renderInPlace for more details.
-    if (renderInPlace === false && element.parentNode !== popperContainer) {
+    if (renderInPlace === false && element && element.parentNode !== popperContainer) {
       popperContainer.appendChild(element);
     }
 
     super._updatePopper();
-  }
-
-  _getPopperElement() {
-    return this.element;
   }
 
   @computed()
