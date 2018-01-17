@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@ember-decorators/argument": "^0.8.3",
+    "@ember-decorators/babel-transforms": "^0.1.1",
     "babel-eslint": "^8.0.3",
     "babel6-plugin-strip-class-callcheck": "^6.0.0",
     "broccoli-funnel": "^2.0.0",
