@@ -66,6 +66,15 @@
     ember-compatibility-helpers "^0.1.1"
     ember-get-config "^0.2.3"
 
+"@ember-decorators/babel-transforms@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@ember-decorators/babel-transforms/-/babel-transforms-0.1.1.tgz#c2be1677192e55ccfeb806002d57e314a0e728bc"
+  dependencies:
+    babel-plugin-transform-class-properties "^6.24.1"
+    babel-plugin-transform-decorators-legacy "^1.3.4"
+    ember-cli-babel "^6.6.0"
+    ember-cli-version-checker "^2.1.0"
+
 "@ember/test-helpers@^0.7.1":
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/@ember/test-helpers/-/test-helpers-0.7.2.tgz#ca33170a5ce82bc921d7e84e4132aee425b7e67a"
