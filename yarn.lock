@@ -55,9 +55,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@ember-decorators/argument@^0.8.3":
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/@ember-decorators/argument/-/argument-0.8.3.tgz#dd2f393ba7f50b46051d66fdef88076ae1fb170a"
+"@ember-decorators/argument@^0.8.10":
+  version "0.8.10"
+  resolved "https://registry.yarnpkg.com/@ember-decorators/argument/-/argument-0.8.10.tgz#c48af0c5c57b5ef3022eba1ce5797a18d1edb6eb"
   dependencies:
     babel-plugin-filter-imports "^1.1.1"
     broccoli-funnel "^2.0.1"
@@ -608,10 +608,6 @@ babel-plugin-debug-macros@^0.1.10, babel-plugin-debug-macros@^0.1.11:
   resolved "https://registry.yarnpkg.com/babel-plugin-debug-macros/-/babel-plugin-debug-macros-0.1.11.tgz#6c562bf561fccd406ce14ab04f42c218cf956605"
   dependencies:
     semver "^5.3.0"
-
-babel-plugin-ember-legacy-class-constructor@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/babel-plugin-ember-legacy-class-constructor/-/babel-plugin-ember-legacy-class-constructor-0.1.4.tgz#dfe715b9bdb66f6c7e9eccc620137c03b3fa89e0"
 
 babel-plugin-ember-modules-api-polyfill@^2.0.1:
   version "2.0.1"
@@ -2478,12 +2474,10 @@ ember-hash-helper-polyfill@^0.2.0:
     ember-cli-babel "^6.8.2"
     ember-cli-version-checker "^1.2.0"
 
-ember-legacy-class-transform@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/ember-legacy-class-transform/-/ember-legacy-class-transform-0.1.4.tgz#0dd588b8561a4d31c080d5d7ada64521365b3806"
+ember-legacy-class-shim@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-legacy-class-shim/-/ember-legacy-class-shim-1.0.0.tgz#569afce1419d3075e41b324fbf8195f6493e3396"
   dependencies:
-    babel-plugin-ember-legacy-class-constructor "^0.1.4"
-    ember-cli-babel "^6.3.0"
     ember-cli-version-checker "^2.0.0"
 
 ember-load-initializers@^1.0.0:
