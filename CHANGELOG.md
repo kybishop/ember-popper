@@ -1,5 +1,19 @@
 # Change Log
 
+## [v0.8.3](https://github.com/kybishop/ember-popper/tree/v0.8.3) (2018-02-05)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.2...v0.8.3)
+
+**Closed issues:**
+
+- WARNING [\#75](https://github.com/kybishop/ember-popper/issues/75)
+- '-start' & '-end' shift ? [\#74](https://github.com/kybishop/ember-popper/issues/74)
+
+**Merged pull requests:**
+
+- chore\(deps\): Update legacy shims and @argument [\#77](https://github.com/kybishop/ember-popper/pull/77) ([pzuraq](https://github.com/pzuraq))
+- chore\(deps\) add @ember-decorators/babel-transforms [\#76](https://github.com/kybishop/ember-popper/pull/76) ([kybishop](https://github.com/kybishop))
+- chore\(alphabetize unordered properties\) [\#68](https://github.com/kybishop/ember-popper/pull/68) ([kybishop](https://github.com/kybishop))
+
 ## [v0.8.2](https://github.com/kybishop/ember-popper/tree/v0.8.2) (2017-12-03)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.1...v0.8.2)
 
