@@ -59,29 +59,54 @@ module.exports = {
     this._hasSetupBabelOptions = true;
   },
 
+  treeForAddon(tree) {
+    const _emberChecker = this._emberChecker;
+
+    if (_emberChecker.gte('2.10.0')) {
+      tree = new Funnel(tree, {
+        exclude: [
+          'components/-ember-popper-legacy.js',
+          'components/-ember-popper-targeting-parent-legacy.js'
+        ]
+      });
+    } else {
+      tree = new Funnel(tree, {
+        exclude: [
+          'components/ember-popper-targeting-parent.js',
+          'components/ember-popper.js'
+        ],
+        getDestinationPath: replaceLegacyPath
+      });
+    }
+
+    return this._super.treeForAddon.call(this, tree);
+  },
+
   treeForAddonTemplates(tree) {
     const _emberChecker = this._emberChecker;
 
     if (_emberChecker.gte('2.10.0')) {
       tree = new Funnel(tree, {
         exclude: [
-          'components/-ember-popper-legacy.hbs',
-          'components/-ember-popper-legacy-1.11.hbs'
+          'components/-ember-popper-legacy-1.11.hbs',
+          'components/-ember-popper-legacy.hbs'
         ]
       });
     } else if (_emberChecker.gte('1.13.0')) {
       tree = new Funnel(tree, {
         exclude: [
-          'components/ember-popper.hbs',
-          'components/-ember-popper-legacy-1.11.hbs'
+          'components/-ember-popper-legacy-1.11.hbs',
+          'components/ember-popper-targeting-parent.hbs',
+          'components/ember-popper.hbs'
         ],
         getDestinationPath: replaceLegacyPath
       });
     } else {
       tree = new Funnel(tree, {
         exclude: [
-          'components/ember-popper.hbs',
-          'components/-ember-popper-legacy.hbs'
+          'components/-ember-popper-legacy.hbs',
+          'components/ember-popper-targeting-parent.hbs',
+          'components/ember-popper.hbs'
         ],
         getDestinationPath: replaceLegacyPath
       });
@@ -90,28 +115,33 @@ module.exports = {
     return this._super.treeForAddonTemplates.call(this, tree);
   },
 
-  treeForAddon(tree) {
-    const _emberChecker = this._emberChecker;
-
-    if (_emberChecker.gte('2.10.0')) {
+  treeForApp(tree) {
+    if (this._emberChecker.lt('2.10.0')) {
       tree = new Funnel(tree, {
         exclude: [
-          'components/-ember-popper-legacy.js'
+          'templates/components/ember-popper-targeting-parent.js'
         ]
-      });
-    } else {
-      tree = new Funnel(tree, {
-        exclude: [
-          'components/ember-popper.js'
-        ],
-        getDestinationPath: replaceLegacyPath
       });
     }
 
-    return this._super.treeForAddon.call(this, tree);
+    return this._super.treeForApp.call(this, tree);
+  },
+
+  treeForTemplates(tree) {
+    if (this._emberChecker.lt('2.10.0')) {
+      tree = new Funnel(tree, {
+        exclude: [
+          'components/ember-popper-targeting-parent.js'
+        ]
+      });
+    }
+
+    return this._super.treeForTemplates.call(this, tree);
   }
 };
 
 function replaceLegacyPath(relativePath) {
-  return relativePath.replace(/-ember-popper-legacy(-1.11)?/g, 'ember-popper');
+  return relativePath
+    .replace(/-ember-popper-legacy(-1.11)?/g, 'ember-popper')
+    .replace(/-ember-popper-targeting-parent-legacy/g, 'ember-popper-targeting-parent');
 }

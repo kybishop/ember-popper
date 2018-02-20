@@ -6,41 +6,38 @@ moduleForComponent('ember-popper', 'Integration | Component | target', {
   integration: true
 });
 
-test('undefined popperTarget: it targets the parent', function(assert) {
+test('it targets the explicit target', function(assert) {
+  // wait to show the ember-popper until we have set the popperTarget property.
+  this.set('show', false);
+
   this.render(hbs`
-    <div class='parent' style='height: 50px; width: 100%;'>
-      {{#ember-popper class='popper-element' placement='bottom'}}
+    <div id="target">
+      the target
+    </div>
+
+    {{#if show}}
+      {{#ember-popper id='attachment' popperTarget=popperTarget}}
         template block text
       {{/ember-popper}}
-    </div>
+    {{/if}}
   `);
 
-  const parent = document.querySelector('.parent');
-  const popper = document.querySelector('.popper-element');
+  const popperTarget = document.getElementById('target');
+
+  this.set('popperTarget', popperTarget);
+
+  // Show the ember-popper-targeted now that we have a target to pass it
+  this.set('show', true);
+
+  const popper = document.getElementById('attachment');
+
+  assert.equal(popper.innerHTML.trim(), 'template block text');
+  assert.ok(popper.hasAttribute('x-placement'));
+
+  assert.equal(popper.parentElement, document.querySelector('.ember-application'));
 
   return wait().then(() => {
-    assert.equal(parent.getBoundingClientRect().bottom,
-                 popper.getBoundingClientRect().top);
-
-  });
-});
-
-test('explicit popperTarget: it targets the explicit target', function(assert) {
-  this.render(hbs`
-    <div class='parent' style='height: 50px; width: 100%;'>
-    </div>
-
-    {{#ember-popper class='popper-element' placement='top' popperTarget='.parent'}}
-      template block text
-    {{/ember-popper}}
-  `);
-
-  const parent = document.querySelector('.parent');
-  const popper = document.querySelector('.popper-element');
-
-  return wait().then(() => {
-    assert.equal(parent.getBoundingClientRect().bottom,
+    assert.equal(popperTarget.getBoundingClientRect().bottom,
                  popper.getBoundingClientRect().top);
   });
 });
-

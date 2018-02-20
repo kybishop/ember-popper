@@ -2,60 +2,41 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import { moduleForComponent, test } from 'ember-qunit';
 
-moduleForComponent('ember-popper', 'Integration | Component | registerAPI', {
+moduleForComponent('ember-popper-targeting-parent', 'Integration | Component | registerAPI', {
   integration: true,
 
   beforeEach() {
     this.set('foundTarget', null);
+    this.set('show', false);
   }
 });
 
-test('undefined popperTarget: registerAPI returns the popper element', function(assert) {
-  this.on('registerAPI', ({ popperElement }) => {
-    const parent = document.querySelector('.popper-element');
-    assert.equal(popperElement, parent);
+test('registerAPI returns the explicit target', function(assert) {
+  assert.expect(1);
+
+  this.on('registerAPI', ({ popperTarget }) => {
+    const expectedTarget = document.getElementById('parent');
+    assert.equal(popperTarget, expectedTarget);
   });
 
   this.render(hbs`
-    <div class='parent'>
-      {{#ember-popper class='popper-element' registerAPI='registerAPI'}}
+    <div id='parent'>
+    </div>
+
+    {{#if show}}
+      {{#ember-popper class='popper-element'
+                      registerAPI='registerAPI'
+                      popperTarget=popperTarget}}
         template block text
       {{/ember-popper}}
-    </div>
+    {{/if}}
   `);
-});
 
-test('undefined popperTarget: registerAPI returns the parent', function(assert) {
-  this.on('registerAPI', ({ popperTarget }) => {
-    const parent = document.querySelector('.parent');
-    assert.equal(popperTarget, parent);
-  });
+  const popperTarget = document.getElementById('parent');
+  this.set('popperTarget', popperTarget);
+  this.set('show', true);
 
-  this.render(hbs`
-    <div class='parent'>
-      {{#ember-popper class='popper-element' registerAPI='registerAPI'}}
-        template block text
-      {{/ember-popper}}
-    </div>
-  `);
-});
-
-test('explicit popperTarget: registerAPI returns the explicit target', function(assert) {
-  this.on('registerAPI', ({ popperTarget }) => {
-    const parent = document.querySelector('.parent');
-    assert.equal(popperTarget, parent);
-  });
-
-  this.render(hbs`
-    <div class='parent'>
-    </div>
-
-    {{#ember-popper class='popper-element'
-                    registerAPI='registerAPI'
-                    popperTarget='.parent'}}
-      template block text
-    {{/ember-popper}}
-  `);
+  return wait();
 });
 
 test('when the popper changes the API is reregistered', function(assert) {
@@ -67,11 +48,11 @@ test('when the popper changes the API is reregistered', function(assert) {
 
   this.render(hbs`
     <div class='parent'>
-      {{#ember-popper class='popper-element'
+      {{#ember-popper-targeting-parent class='popper-element'
                       eventsEnabled=eventsEnabled
                       registerAPI='registerAPI'}}
         template block text
-      {{/ember-popper}}
+      {{/ember-popper-targeting-parent}}
     </div>
   `);
 
@@ -83,29 +64,34 @@ test('when the popper target changes the API reregisters with the new target', f
 
   this.on('registerAPI', ({ popperTarget }) => foundTarget = popperTarget);
 
-  this.set('target', '.initialTarget');
-
   this.render(hbs`
-    <div class='initialTarget'>
+    <div id='initialTarget'>
     </div>
 
-    <div class='newTarget'>
+    <div id='newTarget'>
     </div>
 
-    {{#ember-popper class='popper-element' registerAPI='registerAPI' popperTarget=target}}
-      template block text
-    {{/ember-popper}}
+    {{#if show}}
+      {{#ember-popper class='popper-element' registerAPI='registerAPI' popperTarget=popperTarget}}
+        template block text
+      {{/ember-popper}}
+    {{/if}}
   `);
 
-  const initialTarget = document.querySelector('.initialTarget');
+  const initialTarget = document.getElementById('initialTarget');
+  const newTarget = document.getElementById('newTarget');
 
-  assert.equal(foundTarget, initialTarget);
+  this.set('popperTarget', initialTarget);
 
-  const newTarget = document.querySelector('.newTarget');
-
-  this.set('target', '.newTarget');
+  this.set('show', true);
 
   return wait().then(() => {
-    assert.equal(foundTarget, newTarget, 'the target changed');
+    assert.equal(foundTarget, initialTarget);
+
+    this.set('popperTarget', newTarget);
+
+    return wait().then(() => {
+      assert.equal(foundTarget, newTarget, 'the target changed');
+    });
   });
 });

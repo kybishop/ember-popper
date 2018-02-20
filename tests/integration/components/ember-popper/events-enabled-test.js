@@ -3,20 +3,20 @@ import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import { triggerEvent } from 'ember-native-dom-helpers';
 
-moduleForComponent('ember-popper', 'Integration | Component | eventsEnabled', {
+moduleForComponent('ember-popper-targeting-parent', 'Integration | Component | eventsEnabled', {
   integration: true
 });
 
 test('sets eventsEnabled in the Popper instance', function(assert) {
   this.render(hbs`
     <div class='parent' style='height: 100px; width: 100%;'>
-      {{#ember-popper placement='bottom' class='events-enabled'}}
+      {{#ember-popper-targeting-parent placement='bottom' class='events-enabled'}}
         eventsEnabled test
-      {{/ember-popper}}
+      {{/ember-popper-targeting-parent}}
 
-      {{#ember-popper eventsEnabled=false placement='bottom' class='events-disabled'}}
+      {{#ember-popper-targeting-parent eventsEnabled=false placement='bottom' class='events-disabled'}}
         eventsEnabled test
-      {{/ember-popper}}
+      {{/ember-popper-targeting-parent}}
     </div>
   `);
 
@@ -39,24 +39,23 @@ test('sets eventsEnabled in the Popper instance', function(assert) {
 
     parent.style.height = '200px';
 
-    // Trigger multiple scroll events and a wait because we need to make sure the update completes.
-    return triggerEvent(document.querySelector('body'), 'scroll').then(() => {
-      return triggerEvent(document.querySelector('body'), 'scroll').then(() => {
-        return wait().then(() => {
-          // Sanity check
-          assert.notEqual(initialBottomOfParent,
-                          parent.getBoundingClientRect().bottom,
-                          'the parent moved');
+    // Wait for repaint from style change, then trigger scroll
+    return wait()
+      .then(() => triggerEvent(document.querySelector('body'), 'scroll'))
+      .then(wait)
+      .then(() => {
+        // Sanity check
+        assert.notEqual(initialBottomOfParent,
+                        parent.getBoundingClientRect().bottom,
+                        'the parent moved');
 
-          assert.equal(eventsEnabledPopper.getBoundingClientRect().top,
-                       parent.getBoundingClientRect().bottom,
-                       'events enabled poppers move on scroll');
+        assert.equal(eventsEnabledPopper.getBoundingClientRect().top,
+                     parent.getBoundingClientRect().bottom,
+                     'events enabled poppers move on scroll');
 
-          assert.equal(eventsDisabledPopper.getBoundingClientRect().top,
-                       eventsDisabledInitialPosition,
-                       "events not enabled poppers don't move on scroll");
-        });
+        assert.equal(eventsDisabledPopper.getBoundingClientRect().top,
+                     eventsDisabledInitialPosition,
+                     "events not enabled poppers don't move on scroll");
       });
-    });
   });
 });

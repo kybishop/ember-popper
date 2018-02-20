@@ -1,16 +1,16 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('ember-popper', 'Integration | Component | renderInPlace', {
+moduleForComponent('ember-popper-targeting-parent', 'Integration | Component | renderInPlace', {
   integration: true
 });
 
 test('false: renders in the body', function(assert) {
   this.render(hbs`
     <div>
-      {{#ember-popper class='hello' renderInPlace=false}}
+      {{#ember-popper-targeting-parent class='hello' renderInPlace=false}}
         template block text
-      {{/ember-popper}}
+      {{/ember-popper-targeting-parent}}
     </div>
   `);
 
@@ -29,9 +29,9 @@ test('false with an explicit popperContainer: renders in the popperContainer', f
     </div>
 
     <div>
-      {{#ember-popper class='hello' popperContainer='.poppers-plz' renderInPlace=false}}
+      {{#ember-popper-targeting-parent class='hello' popperContainer='.poppers-plz' renderInPlace=false}}
         template block text
-      {{/ember-popper}}
+      {{/ember-popper-targeting-parent}}
     </div>
   `);
 
@@ -47,9 +47,9 @@ test('false with an explicit popperContainer: renders in the popperContainer', f
 test('true: renders in place', function(assert) {
   this.render(hbs`
     <div class='parent'>
-      {{#ember-popper class='hello' renderInPlace=true}}
+      {{#ember-popper-targeting-parent class='hello' renderInPlace=true}}
         template block text
-      {{/ember-popper}}
+      {{/ember-popper-targeting-parent}}
     </div>
   `);
 

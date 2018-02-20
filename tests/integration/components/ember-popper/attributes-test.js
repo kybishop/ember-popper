@@ -2,16 +2,16 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { find } from 'ember-native-dom-helpers';
 
-moduleForComponent('ember-popper', 'Integration | Component | attributes', {
+moduleForComponent('ember-popper-targeting-parent', 'Integration | Component | attributes', {
   integration: true
 });
 
 test('id is bound correctly', function(assert) {
   this.render(hbs`
     <div class='parent' style='position: fixed; bottom: 0; height: 100px; width: 100%;'>
-      {{#ember-popper placement='top' id='foo'}}
+      {{#ember-popper-targeting-parent placement='top' id='foo'}}
         test
-      {{/ember-popper}}
+      {{/ember-popper-targeting-parent}}
     </div>
   `);
 
@@ -21,9 +21,9 @@ test('id is bound correctly', function(assert) {
 test('class is bound correctly', function(assert) {
   this.render(hbs`
     <div class='parent' style='position: fixed; bottom: 0; height: 100px; width: 100%;'>
-      {{#ember-popper placement='top' class='foo'}}
+      {{#ember-popper-targeting-parent placement='top' class='foo'}}
         test
-      {{/ember-popper}}
+      {{/ember-popper-targeting-parent}}
     </div>
   `);
 
@@ -33,9 +33,9 @@ test('class is bound correctly', function(assert) {
 test('role is bound correctly', function(assert) {
   this.render(hbs`
     <div class='parent' style='position: fixed; bottom: 0; height: 100px; width: 100%;'>
-      {{#ember-popper id='foo' placement='top' ariaRole='tooltip'}}
+      {{#ember-popper-targeting-parent id='foo' placement='top' ariaRole='tooltip'}}
         test
-      {{/ember-popper}}
+      {{/ember-popper-targeting-parent}}
     </div>
   `);
 
