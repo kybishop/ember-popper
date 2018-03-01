@@ -18,7 +18,7 @@ test('undefined popperTarget: registerAPI returns the popper element', function(
 
   this.render(hbs`
     <div class='parent'>
-      {{#ember-popper class='popper-element' registerAPI='registerAPI'}}
+      {{#ember-popper class='popper-element' registerAPI=(action 'registerAPI')}}
         template block text
       {{/ember-popper}}
     </div>
@@ -33,7 +33,7 @@ test('undefined popperTarget: registerAPI returns the parent', function(assert) 
 
   this.render(hbs`
     <div class='parent'>
-      {{#ember-popper class='popper-element' registerAPI='registerAPI'}}
+      {{#ember-popper class='popper-element' registerAPI=(action 'registerAPI')}}
         template block text
       {{/ember-popper}}
     </div>
@@ -51,7 +51,7 @@ test('explicit popperTarget: registerAPI returns the explicit target', function(
     </div>
 
     {{#ember-popper class='popper-element'
-                    registerAPI='registerAPI'
+                    registerAPI=(action 'registerAPI')
                     popperTarget='.parent'}}
       template block text
     {{/ember-popper}}
@@ -69,7 +69,7 @@ test('when the popper changes the API is reregistered', function(assert) {
     <div class='parent'>
       {{#ember-popper class='popper-element'
                       eventsEnabled=eventsEnabled
-                      registerAPI='registerAPI'}}
+                      registerAPI=(action 'registerAPI')}}
         template block text
       {{/ember-popper}}
     </div>
@@ -92,7 +92,7 @@ test('when the popper target changes the API reregisters with the new target', f
     <div class='newTarget'>
     </div>
 
-    {{#ember-popper class='popper-element' registerAPI='registerAPI' popperTarget=target}}
+    {{#ember-popper class='popper-element' registerAPI=(action 'registerAPI') popperTarget=target}}
       template block text
     {{/ember-popper}}
   `);

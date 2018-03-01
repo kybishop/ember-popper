@@ -254,8 +254,8 @@ export default class EmberPopperBase extends Component {
       this._popper = new Popper(popperTarget, popperElement, options);
 
       // Execute the registerAPI hook last to ensure the Popper is initialized on the target
-      if (this.get('registerAPI') !== null) {
-        this.sendAction('registerAPI', this._getPublicAPI());
+      if (this.registerAPI) {
+        this.registerAPI(this._getPublicAPI());
       }
     }
   }
