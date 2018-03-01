@@ -7,14 +7,10 @@ import { tagName } from 'ember-decorators/component';
 import { type } from '@ember-decorators/argument/type';
 
 @tagName('div')
-export default class EmberPopper extends EmberPopperBase {
-
-  /**
-   * The element the popper will target.
-   */
+export default class EmberPopperTargetingParent extends EmberPopperBase {
   @argument
-  @type(Element)
-  popperTarget = null
+  @type(undefined)
+  popperTarget = undefined
 
   // ================== LIFECYCLE HOOKS ==================
 
@@ -86,5 +82,9 @@ export default class EmberPopper extends EmberPopperBase {
       scheduleUpdate: this.scheduleUpdate.bind(this),
       update: this.update.bind(this)
     };
+  }
+
+  _getPopperTarget() {
+    return this._initialParentNode;
   }
 }

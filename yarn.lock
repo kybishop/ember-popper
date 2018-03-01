@@ -2501,9 +2501,9 @@ ember-native-dom-event-dispatcher@^0.6.3:
   dependencies:
     ember-cli-babel "^6.4.1"
 
-ember-native-dom-helpers@^0.5.8:
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/ember-native-dom-helpers/-/ember-native-dom-helpers-0.5.8.tgz#34635c891474c640a63c4c4cf95a491b250edd6c"
+ember-native-dom-helpers@^0.5.10:
+  version "0.5.10"
+  resolved "https://registry.yarnpkg.com/ember-native-dom-helpers/-/ember-native-dom-helpers-0.5.10.tgz#9c7172e4ddfa5dd86830c46a936e2f8eca3e5896"
   dependencies:
     broccoli-funnel "^1.1.0"
     ember-cli-babel "^6.6.0"

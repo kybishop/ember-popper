@@ -1,17 +1,12 @@
-import { assert } from '@ember/debug';
-
 import Component from '@ember/component';
-
-import { action, computed } from 'ember-decorators/object';
-import { tagName } from 'ember-decorators/component';
-
-import { argument } from '@ember-decorators/argument';
-import { type, unionOf, optional } from '@ember-decorators/argument/type';
-import { Action, Element } from '@ember-decorators/argument/types';
-
-import { scheduler as raf } from 'ember-raf-scheduler';
-
 import layout from '../templates/components/ember-popper';
+import { Action, Element } from '@ember-decorators/argument/types';
+import { action, computed } from 'ember-decorators/object';
+import { argument } from '@ember-decorators/argument';
+import { assert } from '@ember/debug';
+import { scheduler as raf } from 'ember-raf-scheduler';
+import { tagName } from 'ember-decorators/component';
+import { type, unionOf, optional } from '@ember-decorators/argument/type';
 
 const Selector = unionOf('string', Element);
 
@@ -67,13 +62,6 @@ export default class EmberPopperBase extends Component {
   @argument({ defaultIfUndefined: true })
   @type(Selector)
   popperContainer = '.ember-application'
-
-  /**
-   * The element the popper will target. If left blank, will be set to the ember-popper's parent.
-   */
-  @argument
-  @type(optional(Selector))
-  popperTarget = null
 
   /**
    * An optional function to be called when a new target is located.
@@ -267,29 +255,8 @@ export default class EmberPopperBase extends Component {
     return self.document.getElementById(this.id);
   }
 
-  /**
-   * Used to get the popper target whenever updating the Popper
-   */
   _getPopperTarget() {
-    const targetSelector = this.get('popperTarget');
-
-    let popperTarget;
-
-    // If there is no target, set the target to the parent element
-    if (!targetSelector) {
-      popperTarget = this._initialParentNode;
-    } else if (targetSelector instanceof Element) {
-      popperTarget = targetSelector;
-    } else {
-      const nodes = document.querySelectorAll(targetSelector);
-
-      assert(`ember-popper with target selector "${targetSelector}" found ${nodes.length}`
-             + 'possible targets when there should be exactly 1', nodes.length === 1);
-
-      popperTarget = nodes[0];
-    }
-
-    return popperTarget;
+    return this.get('popperTarget');
   }
 
   _getPublicAPI() {
