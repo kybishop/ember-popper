@@ -1,11 +1,11 @@
 import Component from '@ember/component';
 import layout from '../templates/components/ember-popper';
 import { Action, Element } from '@ember-decorators/argument/types';
-import { action, computed } from 'ember-decorators/object';
+import { action, computed } from '@ember-decorators/object';
 import { argument } from '@ember-decorators/argument';
 import { assert } from '@ember/debug';
 import { scheduler as raf } from 'ember-raf-scheduler';
-import { tagName } from 'ember-decorators/component';
+import { tagName } from '@ember-decorators/component';
 import { type, unionOf, optional } from '@ember-decorators/argument/type';
 
 const Selector = unionOf('string', Element);
@@ -243,6 +243,7 @@ export default class EmberPopperBase extends Component {
 
       // Execute the registerAPI hook last to ensure the Popper is initialized on the target
       if (this.get('registerAPI') !== null) {
+        /* eslint-disable ember/closure-actions */
         this.sendAction('registerAPI', this._getPublicAPI());
       }
     }

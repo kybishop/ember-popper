@@ -2,8 +2,8 @@ import EmberPopperBase from './ember-popper-base';
 import { GTE_EMBER_1_13 } from 'ember-compatibility-helpers';
 import { addObserver, removeObserver } from '@ember/object/observers';
 import { argument } from '@ember-decorators/argument';
-import { computed } from 'ember-decorators/object';
-import { tagName } from 'ember-decorators/component';
+import { computed } from '@ember-decorators/object';
+import { tagName } from '@ember-decorators/component';
 import { type } from '@ember-decorators/argument/type';
 
 @tagName('div')

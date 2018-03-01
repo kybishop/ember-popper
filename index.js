@@ -1,4 +1,4 @@
-/* eslint-env node */
+/* eslint-disable ember-suave/prefer-destructuring */
 'use strict';
 
 const Funnel = require('broccoli-funnel');
