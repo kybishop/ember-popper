@@ -26,7 +26,7 @@
     "test:all": "ember try:each"
   },
   "dependencies": {
-    "@ember-decorators/argument": "^0.8.12",
+    "@ember-decorators/argument": "^0.8.13",
     "@ember-decorators/babel-transforms": "^2.0.0",
     "babel-eslint": "^8.0.3",
     "babel6-plugin-strip-class-callcheck": "^6.0.0",
