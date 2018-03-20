@@ -25,7 +25,7 @@ test('registerAPI returns the explicit target', function(assert) {
 
     {{#if show}}
       {{#ember-popper class='popper-element'
-                      registerAPI='registerAPI'
+                      registerAPI=(action 'registerAPI')
                       popperTarget=popperTarget}}
         template block text
       {{/ember-popper}}
@@ -50,7 +50,7 @@ test('when the popper changes the API is reregistered', function(assert) {
     <div class='parent'>
       {{#ember-popper-targeting-parent class='popper-element'
                       eventsEnabled=eventsEnabled
-                      registerAPI='registerAPI'}}
+                      registerAPI=(action 'registerAPI')}}
         template block text
       {{/ember-popper-targeting-parent}}
     </div>
@@ -72,7 +72,9 @@ test('when the popper target changes the API reregisters with the new target', f
     </div>
 
     {{#if show}}
-      {{#ember-popper class='popper-element' registerAPI='registerAPI' popperTarget=popperTarget}}
+      {{#ember-popper class='popper-element'
+                      registerAPI=(action 'registerAPI')
+                      popperTarget=popperTarget}}
         template block text
       {{/ember-popper}}
     {{/if}}
