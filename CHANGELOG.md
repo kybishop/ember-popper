@@ -1,5 +1,18 @@
 # Change Log
 
+## [v0.9.0](https://github.com/kybishop/ember-popper/tree/v0.9.0) (2018-03-20)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.3...v0.9.0)
+
+**Closed issues:**
+
+- Decorators import scoped to `@ember` [\#81](https://github.com/kybishop/ember-popper/issues/81)
+- Cannot read property 'browsers' of undefined [\#79](https://github.com/kybishop/ember-popper/issues/79)
+
+**Merged pull requests:**
+
+- ember 3.1 [\#80](https://github.com/kybishop/ember-popper/pull/80) ([kybishop](https://github.com/kybishop))
+- \[BREAKING\] ember-popper component now requires a target. new component, ember-popper-targeting-parent for those that need it [\#70](https://github.com/kybishop/ember-popper/pull/70) ([kybishop](https://github.com/kybishop))
+
 ## [v0.8.3](https://github.com/kybishop/ember-popper/tree/v0.8.3) (2018-02-05)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.2...v0.8.3)
 
