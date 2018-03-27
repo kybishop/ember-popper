@@ -24,16 +24,20 @@ test('false: renders in the body', function(assert) {
 });
 
 test('false with an explicit popperContainer: renders in the popperContainer', function(assert) {
+  this.set('show', false);
   this.render(hbs`
     <div class='poppers-plz'>
     </div>
-
+    {{#if show}}
     <div>
       {{#ember-popper-targeting-parent class='hello' popperContainer='.poppers-plz' renderInPlace=false}}
         template block text
       {{/ember-popper-targeting-parent}}
     </div>
+    {{/if}}
   `);
+  // ensure the container is in DOM before rendering the popper element
+  this.set('show', true);
 
   const popper = document.querySelector('.hello');
 

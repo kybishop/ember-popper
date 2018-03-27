@@ -12,28 +12,6 @@ module.exports = function() {
       useYarn: true,
       scenarios: [
         {
-          name: 'ember-1.11',
-          bower: {
-            dependencies: {
-              'ember': '~1.11.0',
-              'ember-cli-shims': '0.0.6'
-            },
-            resolutions: {
-              'ember': '~1.11.0',
-              'ember-cli-shims': '0.0.6'
-            }
-          },
-          npm: {
-            devDependencies: {
-              'ember-cli-fastboot': null,
-              'ember-cli-shims': null,
-              'ember-native-dom-event-dispatcher': null,
-              'ember-source': null,
-              'fastboot': null
-            }
-          }
-        },
-        {
           name: 'ember-1.13',
           bower: {
             dependencies: {
