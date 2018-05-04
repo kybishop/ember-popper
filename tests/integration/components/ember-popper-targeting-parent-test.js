@@ -25,6 +25,36 @@ test('it targets the parent', function(assert) {
   });
 });
 
+test('it passes ariaRole as role', async function(assert) {
+  await this.render(hbs`
+    <div id='parent'>
+      {{#ember-popper-targeting-parent ariaRole='tooltip' id='popper-element'}}
+        The tooltip
+      {{/ember-popper-targeting-parent}}
+    </div>
+  `);
+
+  const tooltip = document.querySelector('#popper-element');
+  assert.equal(tooltip.getAttribute('role'), 'tooltip');
+});
+
+test('it passes hidden', async function(assert) {
+  this.set('hidden', false);
+
+  await this.render(hbs`
+    <div id='parent'>
+      {{#ember-popper-targeting-parent id='popper-element' hidden=hidden}}
+        A possibly hidden popper
+      {{/ember-popper-targeting-parent}}
+    </div>
+  `);
+
+  const tooltip = document.querySelector('#popper-element');
+  assert.equal(tooltip.hidden, false);
+  this.set('hidden', true);
+  assert.equal(tooltip.hidden, true);
+});
+
 test('registerAPI returns the parent', function(assert) {
   this.on('registerAPI', ({ popperTarget }) => {
     const parent = document.querySelector('.parent');

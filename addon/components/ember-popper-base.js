@@ -24,6 +24,14 @@ export default class EmberPopperBase extends Component {
   eventsEnabled = true
 
   /**
+   * Whether the Popper element should be hidden. Use this and CSS for `[hidden]` instead of
+   * an `{{if}}` if you want to animate the Popper's entry and/or exit.
+   */
+  @argument({ defaultIfUndefined: false })
+  @type('boolean')
+  hidden = false
+
+  /**
    * Modifiers that will be merged into the Popper instance's options hash.
    * https://popper.js.org/popper-documentation.html#Popper.DEFAULTS
    */
