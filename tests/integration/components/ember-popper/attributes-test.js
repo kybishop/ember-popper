@@ -30,6 +30,18 @@ test('class is bound correctly', function(assert) {
   assert.ok(find('.foo'), 'class attribute bound correctly');
 });
 
+test('hidden is bound correctly', async function(assert) {
+  await this.render(hbs`
+    <div class='parent'>
+      {{#ember-popper-targeting-parent id='foo' hidden=true}}
+        test
+      {{/ember-popper-targeting-parent}}
+    </div>
+  `);
+
+  assert.equal(find('#foo').hidden, true, 'hidden attribute bound correctly');
+});
+
 test('role is bound correctly', function(assert) {
   this.render(hbs`
     <div class='parent' style='position: fixed; bottom: 0; height: 100px; width: 100%;'>
