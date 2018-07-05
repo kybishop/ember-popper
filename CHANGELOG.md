@@ -1,5 +1,20 @@
 # Change Log
 
+## [v0.9.1](https://github.com/kybishop/ember-popper/tree/v0.9.1) (2018-07-05)
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.9.0...v0.9.1)
+
+**Closed issues:**
+
+- "Attempting to change value of a readonly property" on Safari 9 [\#87](https://github.com/kybishop/ember-popper/issues/87)
+- misaligned if parent initially hidden [\#86](https://github.com/kybishop/ember-popper/issues/86)
+- Cleanup/Refactoring [\#71](https://github.com/kybishop/ember-popper/issues/71)
+
+**Merged pull requests:**
+
+- Move `babel-eslint` to dev dependencies [\#89](https://github.com/kybishop/ember-popper/pull/89) ([Turbo87](https://github.com/Turbo87))
+- feat\(api\): support hidden attribute [\#85](https://github.com/kybishop/ember-popper/pull/85) ([jamesarosen](https://github.com/jamesarosen))
+- refactor\(legacy support\): use unified component [\#83](https://github.com/kybishop/ember-popper/pull/83) ([simonihmig](https://github.com/simonihmig))
+
 ## [v0.9.0](https://github.com/kybishop/ember-popper/tree/v0.9.0) (2018-03-20)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.3...v0.9.0)
 
