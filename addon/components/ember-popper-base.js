@@ -252,7 +252,7 @@ export default class EmberPopperBase extends Component {
       // Execute the registerAPI hook last to ensure the Popper is initialized on the target
       if (this.get('registerAPI') !== null) {
         /* eslint-disable ember/closure-actions */
-        this.sendAction('registerAPI', this._getPublicAPI());
+        this.get('registerAPI')(this._getPublicAPI());
       }
     }
   }
