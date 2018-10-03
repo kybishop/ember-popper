@@ -25,6 +25,8 @@ if (hasEmberVersion(1, 13)) {
     `);
 
     return wait()
+      .then(() => triggerEvent(document.querySelector('body'), 'scroll'))
+      .then(() => wait())
       .then(() => assert.equal(called, 1, 'onCreate action has been called'));
   });
 
