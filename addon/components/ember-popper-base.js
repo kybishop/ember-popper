@@ -7,6 +7,8 @@ import { scheduler as raf } from 'ember-raf-scheduler';
 export default Component.extend({
   layout,
 
+  attributeBindings: ['hidden'],
+
   // ================== PUBLIC CONFIG OPTIONS ==================
 
   /**

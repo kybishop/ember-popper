@@ -14,8 +14,8 @@ export default EmberPopperBase.extend({
   },
 
   didInsertElement() {
-    this._initialParentNode = this._parentFinder.parentNode;
     this._super(...arguments);
+    this._initialParentNode = this._parentFinder.parentNode;
   },
 
   /**

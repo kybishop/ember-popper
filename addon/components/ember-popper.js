@@ -13,7 +13,6 @@ export default EmberPopperBase.extend({
 
   init() {
     this.id = this.id || `${guidFor(this)}-popper`;
-
     this._super(...arguments);
   }
 });
