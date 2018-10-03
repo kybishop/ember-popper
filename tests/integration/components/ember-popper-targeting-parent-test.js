@@ -63,7 +63,7 @@ test('registerAPI returns the parent', function(assert) {
 
   this.render(hbs`
     <div class='parent'>
-      {{#ember-popper-targeting-parent class='popper-element' registerAPI='registerAPI'}}
+      {{#ember-popper-targeting-parent class='popper-element' registerAPI=(action 'registerAPI')}}
         template block text
       {{/ember-popper-targeting-parent}}
     </div>
