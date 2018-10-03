@@ -1,175 +1,161 @@
 import Component from '@ember/component';
-import layout from '../templates/components/ember-popper';
-import { Action, Element } from '@ember-decorators/argument/types';
-import { action, computed } from '@ember-decorators/object';
-import { argument } from '@ember-decorators/argument';
+import { computed } from '@ember/object';
 import { assert } from '@ember/debug';
+import layout from '../templates/components/ember-popper';
 import { scheduler as raf } from 'ember-raf-scheduler';
-import { tagName } from '@ember-decorators/component';
-import { type, unionOf, optional } from '@ember-decorators/argument/type';
 
-const Selector = unionOf('string', Element);
-
-@tagName('')
-export default class EmberPopperBase extends Component {
-  layout = layout
+export default Component.extend({
+  layout,
 
   // ================== PUBLIC CONFIG OPTIONS ==================
 
   /**
    * Whether event listeners, resize and scroll, for repositioning the popper are initially enabled.
+   * @argument({ defaultIfUndefined: true })
+   * @type('boolean')
    */
-  @argument({ defaultIfUndefined: true })
-  @type('boolean')
-  eventsEnabled = true
+  eventsEnabled: true,
 
   /**
    * Whether the Popper element should be hidden. Use this and CSS for `[hidden]` instead of
    * an `{{if}}` if you want to animate the Popper's entry and/or exit.
+   * @argument({ defaultIfUndefined: false })
+   * @type('boolean')
    */
-  @argument({ defaultIfUndefined: false })
-  @type('boolean')
-  hidden = false
+  hidden: false,
 
   /**
    * Modifiers that will be merged into the Popper instance's options hash.
    * https://popper.js.org/popper-documentation.html#Popper.DEFAULTS
+   * @argument
+   * @type(optional('object'))
    */
-  @argument
-  @type(optional('object'))
-  modifiers = null
+  modifiers: null,
 
   /**
    * onCreate callback merged (if present) into the Popper instance's options hash.
    * https://popper.js.org/popper-documentation.html#Popper.Defaults.onCreate
+   * @argument
+   * @type(optional(Function))
    */
-  @argument
-  @type(optional(Function))
-  onCreate = null
+  onCreate: null,
 
   /**
    * onUpdate callback merged (if present) into the Popper instance's options hash.
    * https://popper.js.org/popper-documentation.html#Popper.Defaults.onUpdate
+   * @argument
+   * @type(optional(Function))
    */
-  @argument
-  @type(optional(Function))
-  onUpdate = null
+  onUpdate: null,
 
   /**
    * Placement of the popper. One of ['top', 'right', 'bottom', 'left'].
+   * @argument({ defaultIfUndefined: true })
+   * @type('string')
    */
-  @argument({ defaultIfUndefined: true })
-  @type('string')
-  placement = 'bottom'
+  placement: 'bottom',
 
   /**
    * The popper element needs to be moved higher in the DOM tree to avoid z-index issues.
    * See the block-comment in the template for more details. `.ember-application` is applied
    * to the root element of the ember app by default, so we move it up to there.
+   * @argument({ defaultIfUndefined: true })
+   * @type(Selector)
    */
-  @argument({ defaultIfUndefined: true })
-  @type(Selector)
-  popperContainer = '.ember-application'
+  popperContainer: '.ember-application',
 
   /**
    * An optional function to be called when a new target is located.
    * The target is passed in as an argument to the function.
+   * @argument
+   * @type(optional(Action))
    */
-  @argument
-  @type(optional(Action))
-  registerAPI = null
+  registerAPI: null,
 
   /**
    * If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
    * z-index issues where your popper will be overlapped by DOM elements that aren't nested as
    * deeply in the DOM tree.
+   * @argument({ defaultIfUndefined: true })
+   * @type('boolean')
    */
-  @argument({ defaultIfUndefined: true })
-  @type('boolean')
-  renderInPlace = false
+  renderInPlace: false,
 
   // ================== PRIVATE PROPERTIES ==================
 
   /**
    * Tracks current/previous state of `_renderInPlace`.
    */
-  _didRenderInPlace = false
+  _didRenderInPlace: false,
 
   /**
    * Tracks current/previous value of `eventsEnabled` option
    */
-  _eventsEnabled = null
+  _eventsEnabled: null,
 
   /**
    * Parent of the element on didInsertElement, before it may have been moved
    */
-  _initialParentNode = null
+  _initialParentNode: null,
 
   /**
    * Tracks current/previous value of `modifiers` option
    */
-  _modifiers = null
+  _modifiers: null,
 
   /**
    * Tracks current/previous value of `onCreate` callback
    */
-  _onCreate = null
+  _onCreate: null,
 
   /**
    * Tracks current/previous value of `onUpdate` callback
    */
-  _onUpdate = null
+  _onUpdate: null,
 
   /**
    * Tracks current/previous value of `placement` option
    */
-  _placement = null
+  _placement: null,
 
   /**
    * Set in didInsertElement() once the Popper is initialized.
    * Passed to consumers via a named yield.
    */
-  _popper = null
+  _popper: null,
 
   /**
    * Tracks current/previous value of popper target
    */
-  _popperTarget = null
+  _popperTarget: null,
 
   /**
    * Public API of the popper sent to external components in `registerAPI`
    */
-  _publicAPI = null
+  _publicAPI: null,
 
   /**
    * ID for the requestAnimationFrame used for updates, used to cancel
    * the RAF on component destruction
    */
-  _updateRAF = null
+  _updateRAF: null,
 
   // ================== LIFECYCLE HOOKS ==================
 
   didRender() {
     this._updatePopper();
-  }
+  },
 
   willDestroyElement() {
-    super.willDestroyElement(...arguments);
-
+    this._super(...arguments);
     this._popper.destroy();
     raf.forget(this._updateRAF);
-  }
+  },
 
-  /**
-   * ================== ACTIONS ==================
-   */
-
-  @action
   update() {
     this._popper.update();
-  }
+  },
 
-  @action
   scheduleUpdate() {
     if (this._updateRAF !== null) {
       return;
@@ -179,17 +165,37 @@ export default class EmberPopperBase extends Component {
       this._updateRAF = null;
       this._popper.update();
     });
-  }
+  },
 
-  @action
   enableEventListeners() {
     this._popper.enableEventListeners();
-  }
+  },
 
-  @action
   disableEventListeners() {
     this._popper.disableEventListeners();
-  }
+  },
+
+  /**
+   * ================== ACTIONS ==================
+   */
+
+  actions: {
+    update() {
+      this.update();
+    },
+
+    scheduleUpdate() {
+      this.scheduleUpdate();
+    },
+
+    enableEventListeners() {
+      this.enableEventListeners();
+    },
+
+    disableEventListeners() {
+      this.disableEventListeners();
+    }
+  },
 
   // ================== PRIVATE IMPLEMENTATION DETAILS ==================
 
@@ -255,18 +261,18 @@ export default class EmberPopperBase extends Component {
         this.sendAction('registerAPI', this._getPublicAPI());
       }
     }
-  }
+  },
 
   /**
    * Used to get the popper element
    */
   _getPopperElement() {
     return self.document.getElementById(this.id);
-  }
+  },
 
   _getPopperTarget() {
     return this.get('popperTarget');
-  }
+  },
 
   _getPublicAPI() {
     if (this._publicAPI === null) {
@@ -284,10 +290,9 @@ export default class EmberPopperBase extends Component {
     this._publicAPI.popperTarget = this._popperTarget;
 
     return this._publicAPI;
-  }
+  },
 
-  @computed('_renderInPlace', 'popperContainer')
-  get _popperContainer() {
+  _popperContainer: computed('_renderInPlace', 'popperContainer', function() {
     const renderInPlace = this.get('_renderInPlace');
     const maybeContainer = this.get('popperContainer');
 
@@ -309,12 +314,11 @@ export default class EmberPopperBase extends Component {
     }
 
     return popperContainer;
-  }
+  }),
 
-  @computed('renderInPlace')
-  get _renderInPlace() {
+  _renderInPlace: computed('renderInPlace', function() {
     // self.document is undefined in Fastboot, so we have to render in
     // place for the popper to show up at all.
     return self.document ? !!this.get('renderInPlace') : true;
-  }
-}
+  })
+});

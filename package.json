@@ -26,13 +26,10 @@
     "test:all": "ember try:each"
   },
   "dependencies": {
-    "@ember-decorators/argument": "^0.8.13",
-    "@ember-decorators/babel-transforms": "^2.0.0",
     "babel6-plugin-strip-class-callcheck": "^6.0.0",
     "ember-cli-babel": "^6.10.0",
     "ember-cli-htmlbars": "^2.0.3",
     "ember-cli-node-assets": "^0.2.2",
-    "ember-decorators": "^2.0.0-beta.2",
     "ember-in-element-polyfill": "^0.1.2",
     "ember-legacy-class-shim": "^1.0.3",
     "ember-maybe-in-element": "^0.1.3",

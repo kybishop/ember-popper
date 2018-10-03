@@ -13,7 +13,7 @@ Currently an alpha in active development. See the dummy app for examples
 ### Installation
 
 * `git clone` this repository
-* `yarn install`
+* `npm install`
 
 ### Running Tests
 
