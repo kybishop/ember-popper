@@ -43,6 +43,8 @@ test('sets eventsEnabled in the Popper instance', function(assert) {
     return wait()
       .then(() => triggerEvent(document.querySelector('body'), 'scroll'))
       .then(wait)
+      .then(() => triggerEvent(document.querySelector('body'), 'scroll'))
+      .then(wait)
       .then(() => {
         // Sanity check
         assert.notEqual(initialBottomOfParent,
