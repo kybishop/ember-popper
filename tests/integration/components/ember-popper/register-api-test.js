@@ -1,99 +1,106 @@
 import hbs from 'htmlbars-inline-precompile';
-import wait from 'ember-test-helpers/wait';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
 
-moduleForComponent('ember-popper-targeting-parent', 'Integration | Component | registerAPI', {
-  integration: true,
+import { render, settled } from '@ember/test-helpers';
 
-  beforeEach() {
-    this.set('foundTarget', null);
-    this.set('show', false);
-  }
-});
+module('Integration | Component | registerAPI', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('registerAPI returns the explicit target', function(assert) {
-  assert.expect(1);
-
-  this.on('registerAPI', ({ popperTarget }) => {
-    const expectedTarget = document.getElementById('parent');
-    assert.equal(popperTarget, expectedTarget);
+  hooks.beforeEach(function() {
+    this.actions = {};
+    this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
   });
 
-  this.render(hbs`
-    <div id='parent'>
-    </div>
+  hooks.beforeEach(function() {
+    this.set('foundTarget', null);
+    this.set('show', false);
+  });
 
-    {{#if show}}
-      {{#ember-popper class='popper-element'
-                      registerAPI=(action 'registerAPI')
-                      popperTarget=popperTarget}}
-        template block text
-      {{/ember-popper}}
-    {{/if}}
-  `);
+  test('registerAPI returns the explicit target', async function(assert) {
+    assert.expect(1);
 
-  const popperTarget = document.getElementById('parent');
-  this.set('popperTarget', popperTarget);
-  this.set('show', true);
+    this.actions.registerAPI = ({ popperTarget }) => {
+      const expectedTarget = document.getElementById('parent');
+      assert.equal(popperTarget, expectedTarget);
+    };
 
-  return wait();
-});
+    await render(hbs`
+      <div id='parent'>
+      </div>
 
-test('when the popper changes the API is reregistered', function(assert) {
-  assert.expect(2);
+      {{#if show}}
+        {{#ember-popper class='popper-element'
+                        registerAPI=(action 'registerAPI')
+                        popperTarget=popperTarget}}
+          template block text
+        {{/ember-popper}}
+      {{/if}}
+    `);
 
-  this.on('registerAPI', () => assert.ok('register API called'));
+    const popperTarget = document.getElementById('parent');
+    this.set('popperTarget', popperTarget);
+    this.set('show', true);
 
-  this.set('eventsEnabled', true);
+    return settled();
+  });
 
-  this.render(hbs`
-    <div class='parent'>
-      {{#ember-popper-targeting-parent class='popper-element'
-                      eventsEnabled=eventsEnabled
-                      registerAPI=(action 'registerAPI')}}
-        template block text
-      {{/ember-popper-targeting-parent}}
-    </div>
-  `);
+  test('when the popper changes the API is reregistered', async function(assert) {
+    assert.expect(2);
 
-  this.set('eventsEnabled', false);
-});
+    this.actions.registerAPI = () => assert.ok('register API called');
 
-test('when the popper target changes the API reregisters with the new target', function(assert) {
-  let foundTarget;
+    this.set('eventsEnabled', true);
 
-  this.on('registerAPI', ({ popperTarget }) => foundTarget = popperTarget);
+    await render(hbs`
+      <div class='parent'>
+        {{#ember-popper-targeting-parent class='popper-element'
+                        eventsEnabled=eventsEnabled
+                        registerAPI=(action 'registerAPI')}}
+          template block text
+        {{/ember-popper-targeting-parent}}
+      </div>
+    `);
 
-  this.render(hbs`
-    <div id='initialTarget'>
-    </div>
+    this.set('eventsEnabled', false);
+  });
 
-    <div id='newTarget'>
-    </div>
+  test('when the popper target changes the API reregisters with the new target', async function(assert) {
+    let foundTarget;
 
-    {{#if show}}
-      {{#ember-popper class='popper-element'
-                      registerAPI=(action 'registerAPI')
-                      popperTarget=popperTarget}}
-        template block text
-      {{/ember-popper}}
-    {{/if}}
-  `);
+    this.actions.registerAPI = ({ popperTarget }) => foundTarget = popperTarget;
 
-  const initialTarget = document.getElementById('initialTarget');
-  const newTarget = document.getElementById('newTarget');
+    await render(hbs`
+      <div id='initialTarget'>
+      </div>
 
-  this.set('popperTarget', initialTarget);
+      <div id='newTarget'>
+      </div>
 
-  this.set('show', true);
+      {{#if show}}
+        {{#ember-popper class='popper-element'
+                        registerAPI=(action 'registerAPI')
+                        popperTarget=popperTarget}}
+          template block text
+        {{/ember-popper}}
+      {{/if}}
+    `);
 
-  return wait().then(() => {
-    assert.equal(foundTarget, initialTarget);
+    const initialTarget = document.getElementById('initialTarget');
+    const newTarget = document.getElementById('newTarget');
 
-    this.set('popperTarget', newTarget);
+    this.set('popperTarget', initialTarget);
 
-    return wait().then(() => {
-      assert.equal(foundTarget, newTarget, 'the target changed');
+    this.set('show', true);
+
+    return settled().then(() => {
+      assert.equal(foundTarget, initialTarget);
+
+      this.set('popperTarget', newTarget);
+
+      return settled().then(() => {
+        assert.equal(foundTarget, newTarget, 'the target changed');
+      });
     });
   });
 });

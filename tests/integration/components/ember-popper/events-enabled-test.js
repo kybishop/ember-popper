@@ -1,30 +1,31 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import wait from 'ember-test-helpers/wait';
 import { triggerEvent } from 'ember-native-dom-helpers';
 
-moduleForComponent('ember-popper-targeting-parent', 'Integration | Component | eventsEnabled', {
-  integration: true
-});
+module('Integration | Component | eventsEnabled', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('sets eventsEnabled in the Popper instance', function(assert) {
-  this.render(hbs`
-    <div class='parent' style='height: 100px; width: 100%;'>
-      {{#ember-popper-targeting-parent placement='bottom' class='events-enabled'}}
-        eventsEnabled test
-      {{/ember-popper-targeting-parent}}
+  test('sets eventsEnabled in the Popper instance', async function(assert) {
+    await render(hbs`
+      <div class='parent' style='height: 100px; width: 100%;'>
+        {{#ember-popper-targeting-parent placement='bottom' class='events-enabled'}}
+          eventsEnabled test
+        {{/ember-popper-targeting-parent}}
 
-      {{#ember-popper-targeting-parent eventsEnabled=false placement='bottom' class='events-disabled'}}
-        eventsEnabled test
-      {{/ember-popper-targeting-parent}}
-    </div>
-  `);
+        {{#ember-popper-targeting-parent eventsEnabled=false placement='bottom' class='events-disabled'}}
+          eventsEnabled test
+        {{/ember-popper-targeting-parent}}
+      </div>
+    `);
 
-  const parent = document.querySelector('.parent');
-  const eventsEnabledPopper = document.querySelector('.events-enabled');
-  const eventsDisabledPopper = document.querySelector('.events-disabled');
+    const parent = document.querySelector('.parent');
+    const eventsEnabledPopper = document.querySelector('.events-enabled');
+    const eventsDisabledPopper = document.querySelector('.events-disabled');
 
-  return wait().then(() => {
+    await settled();
+
     const initialBottomOfParent = parent.getBoundingClientRect().bottom;
     const eventsEnabledInitialPosition = eventsEnabledPopper.getBoundingClientRect().top;
     const eventsDisabledInitialPosition = eventsDisabledPopper.getBoundingClientRect().top;
@@ -40,24 +41,24 @@ test('sets eventsEnabled in the Popper instance', function(assert) {
     parent.style.height = '200px';
 
     // Wait for repaint from style change, then trigger scroll
-    return wait()
-      .then(() => triggerEvent(document.querySelector('body'), 'scroll'))
-      .then(wait)
-      .then(() => triggerEvent(document.querySelector('body'), 'scroll'))
-      .then(wait)
-      .then(() => {
-        // Sanity check
-        assert.notEqual(initialBottomOfParent,
-                        parent.getBoundingClientRect().bottom,
-                        'the parent moved');
+    await settled();
+    await triggerEvent(document.querySelector('body'), 'scroll');
+    await settled();
+    await settled();
+    await triggerEvent(document.querySelector('body'), 'scroll');
+    await settled();
 
-        assert.equal(eventsEnabledPopper.getBoundingClientRect().top,
-                     parent.getBoundingClientRect().bottom,
-                     'events enabled poppers move on scroll');
+    // Sanity check
+    assert.notEqual(initialBottomOfParent,
+                    parent.getBoundingClientRect().bottom,
+                    'the parent moved');
 
-        assert.equal(eventsDisabledPopper.getBoundingClientRect().top,
-                     eventsDisabledInitialPosition,
-                     "events not enabled poppers don't move on scroll");
-      });
+    assert.equal(eventsEnabledPopper.getBoundingClientRect().top,
+                 parent.getBoundingClientRect().bottom,
+                 'events enabled poppers move on scroll');
+
+    assert.equal(eventsDisabledPopper.getBoundingClientRect().top,
+                 eventsDisabledInitialPosition,
+                 "events not enabled poppers don't move on scroll");
   });
 });

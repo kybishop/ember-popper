@@ -1,53 +1,60 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { triggerEvent } from 'ember-native-dom-helpers';
-import wait from 'ember-test-helpers/wait';
-import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 
-if (hasEmberVersion(1, 13)) {
-  moduleForComponent('ember-popper-targeting-parent', 'Integration | Component | actions', {
-    integration: true
+module('ember-popper-targeting-parent', 'Integration | Component | actions', function(hooks) {
+  setupRenderingTest(hooks);
+
+  hooks.beforeEach(function() {
+    this.actions = {};
+    this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
   });
 
-  test('it calls onCreate', function(assert) {
+  test('it calls onCreate', async function(assert) {
     assert.expect(2);
 
     let called = 0;
-    this.on('create', (data) => {
+
+    this.actions.create = (data) => {
       called++;
       assert.ok(data && data.instance, 'onCreate action is called with dataObject');
-    });
+    };
 
-    this.render(hbs`
+    render(hbs`
       {{#ember-popper-targeting-parent onCreate=(action "create")}}
         template block text
       {{/ember-popper-targeting-parent}}
     `);
 
-    return wait()
-      .then(() => assert.equal(called, 1, 'onCreate action has been called'));
+    await settled();
+
+    assert.equal(called, 1, 'onCreate action has been called');
   });
 
-  test('it calls onUpdate', function(assert) {
+  test('it calls onUpdate', async function(assert) {
     assert.expect(2);
 
     let called = 0;
-    this.on('update', (data) => {
+
+    this.actions.update = (data) => {
       called++;
       assert.ok(data && data.instance, 'onUpdate action is called with dataObject');
-    });
+    };
 
-    this.render(hbs`
+    render(hbs`
       {{#ember-popper-targeting-parent onUpdate=(action "update")}}
         template block text
       {{/ember-popper-targeting-parent}}
     `);
 
-    return wait()
-      .then(() => triggerEvent(document.querySelector('body'), 'scroll'))
-      .then(() => wait())
-      .then(() => {
-        assert.equal(called, 1, 'onUpdate action has been called after event');
-      });
+    await settled();
+
+    await triggerEvent(document.querySelector('body'), 'scroll');
+
+    await settled();
+
+    assert.equal(called, 1, 'onUpdate action has been called after event');
   });
-}
+});
