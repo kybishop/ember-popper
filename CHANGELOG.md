@@ -1,5 +1,19 @@
 # Change Log
 
+## [Unreleased](https://github.com/kybishop/ember-popper/tree/HEAD)
+
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.9.1...HEAD)
+
+**Closed issues:**
+
+- Deprecation warning on Ember 3.4 from use of sendAction [\#91](https://github.com/kybishop/ember-popper/issues/91)
+- no popper container in test mode with application-template-wrapper disabled [\#90](https://github.com/kybishop/ember-popper/issues/90)
+- Node 4 support [\#84](https://github.com/kybishop/ember-popper/issues/84)
+
+**Merged pull requests:**
+
+- Remove decorators [\#94](https://github.com/kybishop/ember-popper/pull/94) ([mhluska](https://github.com/mhluska))
+
 ## [v0.9.1](https://github.com/kybishop/ember-popper/tree/v0.9.1) (2018-07-05)
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.9.0...v0.9.1)
 
