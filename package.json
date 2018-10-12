@@ -1,6 +1,6 @@
 {
   "name": "ember-popper",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "An Ember-centric wrapper around Popper.js",
   "keywords": [
     "ember-addon",
