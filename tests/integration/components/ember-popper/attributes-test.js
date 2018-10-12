@@ -16,7 +16,7 @@ module('Integration | Component | attributes', function(hooks) {
       </div>
     `);
 
-    assert.ok(find('#foo'), 'id attribute bound correctly');
+    assert.dom('#foo').exists('id attribute bound correctly');
   });
 
   test('class is bound correctly', async function(assert) {
@@ -28,7 +28,7 @@ module('Integration | Component | attributes', function(hooks) {
       </div>
     `);
 
-    assert.ok(find('.foo'), 'class attribute bound correctly');
+    assert.dom('.foo').exists('class attribute bound correctly');
   });
 
   test('hidden is bound correctly', async function(assert) {
@@ -52,6 +52,6 @@ module('Integration | Component | attributes', function(hooks) {
       </div>
     `);
 
-    assert.equal(find('#foo').getAttribute('role'), 'tooltip', 'role attribute bound correctly');
+    assert.dom('#foo').hasAttribute('role', 'tooltip', 'role attribute bound correctly');
   });
 });
