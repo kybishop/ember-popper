@@ -5,7 +5,7 @@ const StripClassCallCheck = require('babel6-plugin-strip-class-callcheck');
 const fastbootTransform = require('fastboot-transform');
 
 module.exports = {
-  name: 'ember-popper',
+  name: require('./package').name,
 
   options: {
     nodeAssets: {
