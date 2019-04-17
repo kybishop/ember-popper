@@ -12,6 +12,13 @@ export default Component.extend({
   // ================== PUBLIC CONFIG OPTIONS ==================
 
   /**
+   * Set this to true if you want popper to position it self in 'fixed' mode
+   * @argument({ defaultIfUndefined: true })
+   * @type('boolean')
+   */
+  positionFixed: false,
+
+  /**
    * Whether event listeners, resize and scroll, for repositioning the popper are initially enabled.
    * @argument({ defaultIfUndefined: true })
    * @type('boolean')
@@ -213,6 +220,7 @@ export default Component.extend({
     const placement = this.get('placement');
     const popperTarget = this._getPopperTarget();
     const renderInPlace = this.get('_renderInPlace');
+    const positionFixed = this.get('positionFixed');
 
     // Compare against previous values to see if anything has changed
     const didChange = renderInPlace !== this._didRenderInPlace
@@ -221,7 +229,8 @@ export default Component.extend({
       || modifiers !== this._modifiers
       || placement !== this._placement
       || onCreate !== this._onCreate
-      || onUpdate !== this._onUpdate;
+      || onUpdate !== this._onUpdate
+      || positionFixed !== this._positionFixed;
 
     if (didChange === true) {
       if (this._popper !== null) {
@@ -238,11 +247,13 @@ export default Component.extend({
       this._onUpdate = onUpdate;
       this._placement = placement;
       this._popperTarget = popperTarget;
+      this._positionFixed = positionFixed;
 
       const options = {
         eventsEnabled,
         modifiers,
-        placement
+        placement,
+        positionFixed
       };
 
       if (onCreate) {
