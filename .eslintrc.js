@@ -25,16 +25,17 @@ module.exports = {
     'ember-suave/no-direct-property-access': 1,
     'ember-suave/require-access-in-comments': 0,
     'indent': ['error', 2, {
-      "CallExpression": { 'arguments': 'first' },
+      'CallExpression': { 'arguments': 'first' },
       'FunctionDeclaration': { 'parameters': 'first' },
       'FunctionExpression': { 'parameters': 'first' }
     }],
-    'prefer-const': 2,
+    'prefer-const': 2
   },
   overrides: [
     // node files
     {
       files: [
+        '.eslintrc.js',
         '.template-lintrc.js',
         'ember-cli-build.js',
         'index.js',
