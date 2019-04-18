@@ -1,38 +1,33 @@
-# Ember Popper
+Ember Popper
+==============================================================================
 
 An Ember-centric wrapper around Popper.js.
 
 Currently an alpha in active development. See the dummy app for examples
 
-## Installation
+Compatibility
+------------------------------------------------------------------------------
 
-`ember install ember-popper`
+* Ember.js v2.18 or above
+* Ember CLI v2.13 or above
 
-# Development setup
 
-### Installation
+Installation
+------------------------------------------------------------------------------
 
-* `git clone` this repository
-* `yarn install`
+```
+ember install ember-popper
+``
 
-### Running Tests
 
-* `ember test`
-* `ember test --serve`
+Contributing
+------------------------------------------------------------------------------
 
-This addon uses ember-try to test against multiple versions of Ember:
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
-* `ember try:each`
-* `ember try:one ember-release --- ember test --serve`
 
-### Running the dummy app
-
-* `ember server`
-* Visit your app at http://localhost:4200.
-
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
-
-# Credits
+Credits
+------------------------------------------------------------------------------
 
 - [popper.js](https://github.com/FezVrasta/popper.js), the library that powers ember-popper
 - [ember-tether](https://github.com/yapplabs/ember-tether), the addon that inspired ember-popper
