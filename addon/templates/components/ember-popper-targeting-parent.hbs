@@ -7,7 +7,7 @@
       on the document body, giving it the highest default z-index value. --}}
 {{#maybe-in-element _popperContainer renderInPlace}}
 {{!-- Add a wrapper around the yielded block so we have something for the Popper to target --}}
-  <div id={{id}} class={{class}} hidden={{hidden}} role={{ariaRole}}>
+  <div id={{id}} class={{class}} hidden={{hidden}} role={{ariaRole}} ...attributes>
     {{yield (hash
       disableEventListeners=(action 'disableEventListeners')
       enableEventListeners=(action 'enableEventListeners')
