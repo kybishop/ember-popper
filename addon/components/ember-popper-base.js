@@ -127,6 +127,21 @@ export default Component.extend({
   _popper: null,
 
   /**
+   * Tracks popper element
+   */
+  _popperElement: computed({
+    get() {
+      return null;
+    },
+    set(key, el) {
+      if (el) {
+        this._updatePopper(el);
+      }
+      return el;
+    }
+  }),
+
+  /**
    * Tracks current/previous value of popper target
    */
   _popperTarget: null,
@@ -201,8 +216,8 @@ export default Component.extend({
 
   // ================== PRIVATE IMPLEMENTATION DETAILS ==================
 
-  _updatePopper() {
-    if (this.isDestroying || this.isDestroyed) {
+  _updatePopper(popperElement = this._getPopperElement()) {
+    if (this.isDestroying || this.isDestroyed || !popperElement) {
       return;
     }
 
@@ -227,8 +242,6 @@ export default Component.extend({
       if (this._popper !== null) {
         this._popper.destroy();
       }
-
-      const popperElement = this._getPopperElement();
 
       // Store current values to check against on updates
       this._didRenderInPlace = renderInPlace;
@@ -269,7 +282,7 @@ export default Component.extend({
    * Used to get the popper element
    */
   _getPopperElement() {
-    return self.document.getElementById(this.id);
+    return this.get('_popperElement');
   },
 
   _getPopperTarget() {
