@@ -1,6 +1,28 @@
 # Change Log
 
+## [v0.10.0](https://github.com/kybishop/ember-popper/tree/v0.10.0) (2019-06-08)
+
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.9.2...v0.10.0)
+
+**Implemented enhancements:**
+
+- Support angle bracket invocation [\#101](https://github.com/kybishop/ember-popper/pull/101) ([simonihmig](https://github.com/simonihmig))
+
+**Closed issues:**
+
+- Support Angle Bracket Invocation [\#98](https://github.com/kybishop/ember-popper/issues/98)
+
+**Merged pull requests:**
+
+- Remove ember-native-dom-helpers [\#104](https://github.com/kybishop/ember-popper/pull/104) ([simonihmig](https://github.com/simonihmig))
+- Drop ember-in-element-polyfill [\#103](https://github.com/kybishop/ember-popper/pull/103) ([simonihmig](https://github.com/simonihmig))
+- Drop node 6 support [\#102](https://github.com/kybishop/ember-popper/pull/102) ([simonihmig](https://github.com/simonihmig))
+- Drop support for Ember \<2.18 [\#100](https://github.com/kybishop/ember-popper/pull/100) ([simonihmig](https://github.com/simonihmig))
+- TravisCI: Remove deprecated `sudo: false` option [\#97](https://github.com/kybishop/ember-popper/pull/97) ([Turbo87](https://github.com/Turbo87))
+- ember 3.4 [\#96](https://github.com/kybishop/ember-popper/pull/96) ([kybishop](https://github.com/kybishop))
+
 ## [v0.9.2](https://github.com/kybishop/ember-popper/tree/v0.9.2) (2018-10-12)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.9.1...v0.9.2)
 
 **Closed issues:**
@@ -14,6 +36,7 @@
 - Remove decorators [\#94](https://github.com/kybishop/ember-popper/pull/94) ([mhluska](https://github.com/mhluska))
 
 ## [v0.9.1](https://github.com/kybishop/ember-popper/tree/v0.9.1) (2018-07-05)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.9.0...v0.9.1)
 
 **Closed issues:**
@@ -29,6 +52,7 @@
 - refactor\(legacy support\): use unified component [\#83](https://github.com/kybishop/ember-popper/pull/83) ([simonihmig](https://github.com/simonihmig))
 
 ## [v0.9.0](https://github.com/kybishop/ember-popper/tree/v0.9.0) (2018-03-20)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.3...v0.9.0)
 
 **Closed issues:**
@@ -42,6 +66,7 @@
 - \[BREAKING\] ember-popper component now requires a target. new component, ember-popper-targeting-parent for those that need it [\#70](https://github.com/kybishop/ember-popper/pull/70) ([kybishop](https://github.com/kybishop))
 
 ## [v0.8.3](https://github.com/kybishop/ember-popper/tree/v0.8.3) (2018-02-05)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.2...v0.8.3)
 
 **Closed issues:**
@@ -56,6 +81,7 @@
 - chore\(alphabetize unordered properties\) [\#68](https://github.com/kybishop/ember-popper/pull/68) ([kybishop](https://github.com/kybishop))
 
 ## [v0.8.2](https://github.com/kybishop/ember-popper/tree/v0.8.2) (2017-12-03)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.1...v0.8.2)
 
 **Closed issues:**
@@ -69,6 +95,7 @@
 - chore\(tests\): Adds a production test scenario [\#66](https://github.com/kybishop/ember-popper/pull/66) ([pzuraq](https://github.com/pzuraq))
 
 ## [v0.8.1](https://github.com/kybishop/ember-popper/tree/v0.8.1) (2017-12-03)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.8.0...v0.8.1)
 
 **Merged pull requests:**
@@ -76,6 +103,7 @@
 - chore\(bump deps\) ember 2.17, etc. [\#63](https://github.com/kybishop/ember-popper/pull/63) ([kybishop](https://github.com/kybishop))
 
 ## [v0.8.0](https://github.com/kybishop/ember-popper/tree/v0.8.0) (2017-12-01)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.3...v0.8.0)
 
 **Merged pull requests:**
@@ -84,6 +112,7 @@
 - update\(argument\): Updates @argument and types [\#61](https://github.com/kybishop/ember-popper/pull/61) ([pzuraq](https://github.com/pzuraq))
 
 ## [v0.7.3](https://github.com/kybishop/ember-popper/tree/v0.7.3) (2017-11-04)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.2...v0.7.3)
 
 **Closed issues:**
@@ -95,6 +124,7 @@
 - chore\(bump deps\) @ember-decorators/argument bugfix [\#59](https://github.com/kybishop/ember-popper/pull/59) ([kybishop](https://github.com/kybishop))
 
 ## [v0.7.2](https://github.com/kybishop/ember-popper/tree/v0.7.2) (2017-11-03)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.1...v0.7.2)
 
 **Closed issues:**
@@ -106,6 +136,7 @@
 - fix\(toggling renderInPlace\) [\#58](https://github.com/kybishop/ember-popper/pull/58) ([kybishop](https://github.com/kybishop))
 
 ## [v0.7.1](https://github.com/kybishop/ember-popper/tree/v0.7.1) (2017-11-01)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.7.0...v0.7.1)
 
 **Merged pull requests:**
@@ -113,6 +144,7 @@
 - bugfix\(legacy\): Bumps ember-legacy-class-transform [\#55](https://github.com/kybishop/ember-popper/pull/55) ([pzuraq](https://github.com/pzuraq))
 
 ## [v0.7.0](https://github.com/kybishop/ember-popper/tree/v0.7.0) (2017-11-01)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.6...v0.7.0)
 
 **Merged pull requests:**
@@ -123,6 +155,7 @@
 - refactor\(decorators\): Refactor to use ember-argument-decorators [\#51](https://github.com/kybishop/ember-popper/pull/51) ([pzuraq](https://github.com/pzuraq))
 
 ## [v0.6.6](https://github.com/kybishop/ember-popper/tree/v0.6.6) (2017-10-20)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.5...v0.6.6)
 
 **Merged pull requests:**
@@ -130,6 +163,7 @@
 - Remove unused debug helpers [\#50](https://github.com/kybishop/ember-popper/pull/50) ([simonihmig](https://github.com/simonihmig))
 
 ## [v0.6.5](https://github.com/kybishop/ember-popper/tree/v0.6.5) (2017-10-19)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.4...v0.6.5)
 
 **Closed issues:**
@@ -145,6 +179,7 @@
 - Fix node 4 support [\#45](https://github.com/kybishop/ember-popper/pull/45) ([simonihmig](https://github.com/simonihmig))
 
 ## [v0.6.4](https://github.com/kybishop/ember-popper/tree/v0.6.4) (2017-09-16)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.3...v0.6.4)
 
 **Merged pull requests:**
@@ -153,6 +188,7 @@
 - Fix version detection for Ember beta and alpha \(canary\) [\#41](https://github.com/kybishop/ember-popper/pull/41) ([simonihmig](https://github.com/simonihmig))
 
 ## [v0.6.3](https://github.com/kybishop/ember-popper/tree/v0.6.3) (2017-09-09)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.2...v0.6.3)
 
 **Merged pull requests:**
@@ -160,6 +196,7 @@
 - Check for destroyed component [\#40](https://github.com/kybishop/ember-popper/pull/40) ([simonihmig](https://github.com/simonihmig))
 
 ## [v0.6.2](https://github.com/kybishop/ember-popper/tree/v0.6.2) (2017-09-08)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.1...v0.6.2)
 
 **Merged pull requests:**
@@ -169,6 +206,7 @@
 - fix\(flakey eventsEnabled test\) [\#37](https://github.com/kybishop/ember-popper/pull/37) ([kybishop](https://github.com/kybishop))
 
 ## [v0.6.1](https://github.com/kybishop/ember-popper/tree/v0.6.1) (2017-09-02)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.6.0...v0.6.1)
 
 **Merged pull requests:**
@@ -177,6 +215,7 @@
 - chore\(remove jquery\) [\#35](https://github.com/kybishop/ember-popper/pull/35) ([kybishop](https://github.com/kybishop))
 
 ## [v0.6.0](https://github.com/kybishop/ember-popper/tree/v0.6.0) (2017-08-26)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.5.1...v0.6.0)
 
 **Merged pull requests:**
@@ -184,6 +223,7 @@
 - feat\(onFoundTarget\) hook executed if a new target is found [\#32](https://github.com/kybishop/ember-popper/pull/32) ([kybishop](https://github.com/kybishop))
 
 ## [v0.5.1](https://github.com/kybishop/ember-popper/tree/v0.5.1) (2017-07-27)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.5.0...v0.5.1)
 
 **Merged pull requests:**
@@ -191,6 +231,7 @@
 - feature\(update\): Adds sync update action [\#30](https://github.com/kybishop/ember-popper/pull/30) ([pzuraq](https://github.com/pzuraq))
 
 ## [v0.5.0](https://github.com/kybishop/ember-popper/tree/v0.5.0) (2017-07-21)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.4.0...v0.5.0)
 
 **Closed issues:**
@@ -202,6 +243,7 @@
 - bugfix\(update/id\): Makes id work and less aggressively updates [\#29](https://github.com/kybishop/ember-popper/pull/29) ([pzuraq](https://github.com/pzuraq))
 
 ## [v0.4.0](https://github.com/kybishop/ember-popper/tree/v0.4.0) (2017-07-20)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.3.2...v0.4.0)
 
 **Closed issues:**
@@ -221,6 +263,7 @@
 - feat\(popperContainer\) allow popperContainer to be set via selector + chore\(tests\) renderInPlace [\#21](https://github.com/kybishop/ember-popper/pull/21) ([kybishop](https://github.com/kybishop))
 
 ## [v0.3.2](https://github.com/kybishop/ember-popper/tree/v0.3.2) (2017-07-08)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.3.1...v0.3.2)
 
 **Merged pull requests:**
@@ -228,6 +271,7 @@
 - fix\[babel options\] don't overwrite existing options [\#19](https://github.com/kybishop/ember-popper/pull/19) ([kybishop](https://github.com/kybishop))
 
 ## [v0.3.1](https://github.com/kybishop/ember-popper/tree/v0.3.1) (2017-07-08)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.3.0...v0.3.1)
 
 **Merged pull requests:**
@@ -236,6 +280,7 @@
 - popper.js to v1.10.8 and upgrade ember-cli [\#17](https://github.com/kybishop/ember-popper/pull/17) ([kybishop](https://github.com/kybishop))
 
 ## [v0.3.0](https://github.com/kybishop/ember-popper/tree/v0.3.0) (2017-06-22)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.2.0...v0.3.0)
 
 **Closed issues:**
@@ -247,6 +292,7 @@
 - feat\(fastboot\) fastboot compat and popper bump to 1.10.2 [\#16](https://github.com/kybishop/ember-popper/pull/16) ([kybishop](https://github.com/kybishop))
 
 ## [v0.2.0](https://github.com/kybishop/ember-popper/tree/v0.2.0) (2017-05-23)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.1.1...v0.2.0)
 
 **Closed issues:**
@@ -259,6 +305,7 @@
 - feat\(flatten top-level options\) placement, modifiers, eventsEnabled [\#11](https://github.com/kybishop/ember-popper/pull/11) ([kybishop](https://github.com/kybishop))
 
 ## [v0.1.1](https://github.com/kybishop/ember-popper/tree/v0.1.1) (2017-05-17)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.1.0...v0.1.1)
 
 **Merged pull requests:**
@@ -267,6 +314,7 @@
 - recalculate popper class when dependent props change [\#8](https://github.com/kybishop/ember-popper/pull/8) ([kybishop](https://github.com/kybishop))
 
 ## [v0.1.0](https://github.com/kybishop/ember-popper/tree/v0.1.0) (2017-05-17)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.0.3...v0.1.0)
 
 **Closed issues:**
@@ -278,6 +326,7 @@
 - fix\(missing import warning\) for popper.js sourcemap [\#7](https://github.com/kybishop/ember-popper/pull/7) ([kybishop](https://github.com/kybishop))
 
 ## [v0.0.3](https://github.com/kybishop/ember-popper/tree/v0.0.3) (2017-05-02)
+
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.0.2...v0.0.3)
 
 **Merged pull requests:**
@@ -286,6 +335,9 @@
 - fix\(z-index issues\) render poppers in the body by default [\#4](https://github.com/kybishop/ember-popper/pull/4) ([kybishop](https://github.com/kybishop))
 
 ## [v0.0.2](https://github.com/kybishop/ember-popper/tree/v0.0.2) (2017-04-20)
+
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/358058191632eaf18ee0e4d2605ba48bf4ebcbd8...v0.0.2)
+
 **Merged pull requests:**
 
 - feature\(asserts\): Adds asserts and other strippable debug helpers [\#1](https://github.com/kybishop/ember-popper/pull/1) ([pzuraq](https://github.com/pzuraq))
