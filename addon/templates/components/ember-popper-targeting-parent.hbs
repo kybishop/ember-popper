@@ -1,13 +1,13 @@
-{{unbound _parentFinder}}
+{{unbound this._parentFinder}}
 
 {{!-- Elements that exist deep within the document tree are given an implicitly lower z-index
       value than elements that aren't as deep in the tree; this has the effect of hiding our
       ember-popper behind less-nested elements. Due to the way z-indexing works, we cannot simply
       add a higher z-index value to our ember-popper. To avoid this issue, we render the element
       on the document body, giving it the highest default z-index value. --}}
-{{#maybe-in-element _popperContainer renderInPlace}}
+{{#maybe-in-element this._popperContainer this.renderInPlace}}
 {{!-- Add a wrapper around the yielded block so we have something for the Popper to target --}}
-  <div id={{id}} class={{class}} hidden={{hidden}} role={{ariaRole}} ...attributes>
+  <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}} ...attributes {{ref this '_popperElement'}}>
     {{yield (hash
       disableEventListeners=(action 'disableEventListeners')
       enableEventListeners=(action 'enableEventListeners')
