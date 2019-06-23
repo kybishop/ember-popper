@@ -46,11 +46,10 @@ module('Integration | Component | registerAPI', function(hooks) {
   });
 
   test('registerAPI returns the explicit popper element', async function(assert) {
-    assert.expect(1);
+    let registeredPopperElement;
 
     this.actions.registerAPI = ({ popperElement }) => {
-      const expectedPopperElement = document.querySelector('.popper-element');
-      assert.equal(popperElement, expectedPopperElement);
+      registeredPopperElement = popperElement;
     };
 
     await render(hbs`
@@ -62,7 +61,11 @@ module('Integration | Component | registerAPI', function(hooks) {
       </div>
     `);
 
-    return settled();
+    await settled();
+
+    const expectedPopperElement = document.querySelector('.popper-element');
+    assert.ok(registeredPopperElement, 'registerAPI has provided popperElement');
+    assert.equal(registeredPopperElement, expectedPopperElement, `popperElement matches expected element`);
   });
 
   test('when the popper changes the API is reregistered', async function(assert) {
