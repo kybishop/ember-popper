@@ -1,5 +1,14 @@
 # Change Log
 
+## [v0.10.1](https://github.com/kybishop/ember-popper/tree/v0.10.1) (2019-06-24)
+
+[Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.10.0...v0.10.1)
+
+**Fixed bugs:**
+
+- api.\_popperElement is undefined [\#105](https://github.com/kybishop/ember-popper/issues/105)
+- Pass correct popper element in the registerAPI \#105 [\#106](https://github.com/kybishop/ember-popper/pull/106) ([urbany](https://github.com/urbany))
+
 ## [v0.10.0](https://github.com/kybishop/ember-popper/tree/v0.10.0) (2019-06-08)
 
 [Full Changelog](https://github.com/kybishop/ember-popper/compare/v0.9.2...v0.10.0)
