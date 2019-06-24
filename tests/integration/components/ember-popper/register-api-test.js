@@ -45,6 +45,29 @@ module('Integration | Component | registerAPI', function(hooks) {
     return settled();
   });
 
+  test('registerAPI returns the explicit popper element', async function(assert) {
+    let registeredPopperElement;
+
+    this.actions.registerAPI = ({ popperElement }) => {
+      registeredPopperElement = popperElement;
+    };
+
+    await render(hbs`
+      <div id='parent'>
+        {{#ember-popper-targeting-parent class='popper-element'
+                        registerAPI=(action 'registerAPI')}}
+          template block text
+        {{/ember-popper-targeting-parent}}
+      </div>
+    `);
+
+    await settled();
+
+    const expectedPopperElement = document.querySelector('.popper-element');
+    assert.ok(registeredPopperElement, 'registerAPI has provided popperElement');
+    assert.equal(registeredPopperElement, expectedPopperElement, `popperElement matches expected element`);
+  });
+
   test('when the popper changes the API is reregistered', async function(assert) {
     assert.expect(2);
 

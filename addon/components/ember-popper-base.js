@@ -273,7 +273,7 @@ export default Component.extend({
       // Execute the registerAPI hook last to ensure the Popper is initialized on the target
       if (this.get('registerAPI') !== null) {
         /* eslint-disable ember/closure-actions */
-        this.get('registerAPI')(this._getPublicAPI());
+        this.get('registerAPI')(this._getPublicAPI(popperElement));
       }
     }
   },
@@ -289,7 +289,7 @@ export default Component.extend({
     return this.get('popperTarget');
   },
 
-  _getPublicAPI() {
+  _getPublicAPI(popperElement = this._getPopperElement()) {
     if (this._publicAPI === null) {
       // bootstrap the public API with fields that are guaranteed to be static,
       // such as imperative actions
@@ -301,7 +301,7 @@ export default Component.extend({
       };
     }
 
-    this._publicAPI.popperElement = this._getPopperElement();
+    this._publicAPI.popperElement = popperElement;
     this._publicAPI.popperTarget = this._popperTarget;
 
     return this._publicAPI;
