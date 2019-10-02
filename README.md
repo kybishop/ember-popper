@@ -17,7 +17,7 @@ Installation
 
 ```
 ember install ember-popper
-``
+```
 
 
 Contributing
