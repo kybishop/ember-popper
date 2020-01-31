@@ -34,7 +34,7 @@
     "ember-maybe-in-element": "^0.4.0",
     "ember-named-arguments-polyfill": "^1.0.0",
     "ember-raf-scheduler": "^0.1.0",
-    "ember-ref-modifier": "^0.1.2",
+    "ember-ref-modifier": "^1.0.0",
     "fastboot-transform": "^0.1.0",
     "popper.js": "^1.14.1"
   },
