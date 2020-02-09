@@ -115,6 +115,7 @@ module('Integration | Component | registerAPI', function(hooks) {
     this.set('popperTarget', initialTarget);
 
     this.set('show', true);
+    await settled();
 
     return settled().then(() => {
       assert.equal(foundTarget, initialTarget);

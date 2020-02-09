@@ -28,6 +28,7 @@ module('Integration | Component | target', function(hooks) {
 
     // Show the ember-popper-targeted now that we have a target to pass it
     this.set('show', true);
+    await settled();
 
     const popper = document.getElementById('attachment');
 
