@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | renderInPlace', function(hooks) {
@@ -39,6 +39,7 @@ module('Integration | Component | renderInPlace', function(hooks) {
     `);
     // ensure the container is in DOM before rendering the popper element
     this.set('show', true);
+    await settled();
 
     const popper = document.querySelector('.hello');
 
