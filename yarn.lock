@@ -2957,11 +2957,6 @@ babel-types@^6.19.0, babel-types@^6.24.1, babel-types@^6.26.0:
     lodash "^4.17.4"
     to-fast-properties "^1.0.3"
 
-babel6-plugin-strip-class-callcheck@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/babel6-plugin-strip-class-callcheck/-/babel6-plugin-strip-class-callcheck-6.0.0.tgz#de841c1abebbd39f78de0affb2c9a52ee228fddf"
-  integrity sha1-3oQcGr6705943gr/ssmlLuIo/d8=
-
 babylon@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
@@ -5120,16 +5115,6 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-ember-angle-bracket-invocation-polyfill@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/ember-angle-bracket-invocation-polyfill/-/ember-angle-bracket-invocation-polyfill-2.0.2.tgz#117ab5238305f11046a2eb3a5bc026c98d2cf5c1"
-  integrity sha512-HkG0xyTHtAhWVjU0Q5V/i4xe4FRvNIOaiUEgIvN815F3TIUboV/J0xhYgivm0uDZp9lAYUVF+U5PI1sCnlC3Og==
-  dependencies:
-    ember-cli-babel "^6.17.0"
-    ember-cli-version-checker "^2.1.2"
-    ember-compatibility-helpers "^1.0.2"
-    silent-error "^1.1.1"
-
 ember-assign-polyfill@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/ember-assign-polyfill/-/ember-assign-polyfill-2.6.0.tgz#07847e3357ee35b33f886a0b5fbec6873f6860eb"
@@ -5196,7 +5181,7 @@ ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.6.0, ember-cli-babel@^6.7.2, e
     ember-cli-version-checker "^2.1.0"
     semver "^5.4.1"
 
-ember-cli-babel@^6.16.0, ember-cli-babel@^6.17.0:
+ember-cli-babel@^6.16.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.18.0.tgz#3f6435fd275172edeff2b634ee7b29ce74318957"
   integrity sha512-7ceC8joNYxY2wES16iIBlbPSxwKDBhYwC8drU3ZEvuPDMwVv1KzxCNu1fvxyFEBWhwaRNTUxSCsEVoTd9nosGA==
@@ -5624,7 +5609,7 @@ ember-cli@~3.15.2:
     watch-detector "^1.0.0"
     yam "^1.0.0"
 
-ember-compatibility-helpers@^1.0.2, ember-compatibility-helpers@^1.1.2, ember-compatibility-helpers@^1.2.0:
+ember-compatibility-helpers@^1.1.2, ember-compatibility-helpers@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ember-compatibility-helpers/-/ember-compatibility-helpers-1.2.0.tgz#feee16c5e9ef1b1f1e53903b241740ad4b01097e"
   integrity sha512-pUW4MzJdcaQtwGsErYmitFRs0rlCYBAnunVzlFFUBr4xhjlCjgHJo0b53gFnhTgenNM3d3/NqLarzRhDTjXRTg==
@@ -5676,14 +5661,6 @@ ember-modifier-manager-polyfill@^1.0.1:
     ember-cli-babel "^7.4.2"
     ember-cli-version-checker "^2.1.2"
     ember-compatibility-helpers "^1.2.0"
-
-ember-named-arguments-polyfill@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/ember-named-arguments-polyfill/-/ember-named-arguments-polyfill-1.0.0.tgz#0b81fb81a7cef2c89e9e1d0278b579e708bf4ded"
-  integrity sha1-C4H7gafO8sienh0CeLV55wi/Te0=
-  dependencies:
-    ember-cli-babel "^6.6.0"
-    ember-cli-version-checker "^2.1.2"
 
 ember-qunit@^4.6.0:
   version "4.6.0"
