@@ -21,13 +21,11 @@ module('ember-popper-targeting-parent', 'Integration | Component | actions', fun
       assert.ok(data && data.instance, 'onCreate action is called with dataObject');
     };
 
-    render(hbs`
+    await render(hbs`
       {{#ember-popper-targeting-parent onCreate=(action "create")}}
         template block text
       {{/ember-popper-targeting-parent}}
     `);
-
-    await settled();
 
     assert.equal(called, 1, 'onCreate action has been called');
   });
@@ -42,17 +40,17 @@ module('ember-popper-targeting-parent', 'Integration | Component | actions', fun
       assert.ok(data && data.instance, 'onUpdate action is called with dataObject');
     };
 
-    render(hbs`
+    await render(hbs`
       {{#ember-popper-targeting-parent onUpdate=(action "update")}}
         template block text
       {{/ember-popper-targeting-parent}}
     `);
 
-    await settled();
-
     await triggerEvent(document.querySelector('body'), 'scroll');
 
     await settled();
+    // this seems to fix the previous flakiness in this test, not sure why though...
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     assert.equal(called, 1, 'onUpdate action has been called after event');
   });
