@@ -40,16 +40,16 @@ jobs:
         - yarn lint:js
         - yarn test
 
-    - stage: "Additional Tests"
-      name: "Floating Dependencies"
+    - name: "Floating Dependencies"
       install:
-        - yarn install --no-lockfile --non-interactive<
+        - yarn install --no-lockfile --non-interactive
       script:
         - yarn test
 
     # we recommend new addons test the current and previous LTS
     # as well as latest stable release (bonus points to beta/canary)
-    - env: EMBER_TRY_SCENARIO=ember-lts-2.18
+    - stage: "Additional Tests"
+      env: EMBER_TRY_SCENARIO=ember-lts-2.18
     - env: EMBER_TRY_SCENARIO=ember-lts-3.4
     - env: EMBER_TRY_SCENARIO=ember-lts-3.8
     - env: EMBER_TRY_SCENARIO=ember-lts-3.12
