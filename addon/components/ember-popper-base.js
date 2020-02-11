@@ -165,7 +165,9 @@ export default Component.extend({
 
   willDestroyElement() {
     this._super(...arguments);
-    this._popper.destroy();
+    if (this._popper !== null) {
+      this._popper.destroy();
+    }
     raf.forget(this._updateRAF);
   },
 
