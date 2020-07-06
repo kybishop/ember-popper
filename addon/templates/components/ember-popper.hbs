@@ -5,7 +5,10 @@
       on the document body, giving it the highest default z-index value. --}}
 {{#if this.renderInPlace}}
   {{!-- Add a wrapper around the yielded block so we have something for the Popper to target --}}
-  <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}} ...attributes {{ref this '_popperElement'}}>
+  <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}}
+       {{did-insert (action 'didInsertPopperElement')}}
+       {{will-destroy (action 'willDestroyPopperElement')}}
+       ...attributes>
     {{yield (hash
       disableEventListeners=(action 'disableEventListeners')
       enableEventListeners=(action 'enableEventListeners')
@@ -15,7 +18,10 @@
   </div>
 {{else}}
   {{#in-element this._popperContainer insertBefore=null}}
-    <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}} ...attributes {{ref this '_popperElement'}}>
+    <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}}
+         {{did-insert (action 'didInsertPopperElement')}}
+         {{will-destroy (action 'willDestroyPopperElement')}}
+         ...attributes>
       {{yield (hash
         disableEventListeners=(action 'disableEventListeners')
         enableEventListeners=(action 'enableEventListeners')
