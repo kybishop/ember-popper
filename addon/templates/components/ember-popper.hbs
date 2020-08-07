@@ -8,6 +8,7 @@
   <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}}
        {{did-insert (action 'didInsertPopperElement')}}
        {{will-destroy (action 'willDestroyPopperElement')}}
+       {{did-update (action 'didUpdatePopperSettings') this.eventsEnabled this.modifiers this.onCreate this.onUpdate this.placement this.popperTarget this.renderInPlace}}
        ...attributes>
     {{yield (hash
       disableEventListeners=(action 'disableEventListeners')
@@ -21,6 +22,7 @@
     <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}}
          {{did-insert (action 'didInsertPopperElement')}}
          {{will-destroy (action 'willDestroyPopperElement')}}
+         {{did-update (action 'didUpdatePopperSettings') this.eventsEnabled this.modifiers this.onCreate this.onUpdate this.placement this.popperTarget this.renderInPlace}}
          ...attributes>
       {{yield (hash
         disableEventListeners=(action 'disableEventListeners')

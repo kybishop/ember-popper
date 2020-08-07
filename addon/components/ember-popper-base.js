@@ -149,10 +149,6 @@ export default Component.extend({
 
   // ================== LIFECYCLE HOOKS ==================
 
-  didRender() {
-    this._updatePopper();
-  },
-
   willDestroyElement() {
     this._super(...arguments);
     if (this._popper !== null) {
@@ -212,6 +208,10 @@ export default Component.extend({
 
     willDestroyPopperElement() {
       this._popperElement = null
+    },
+
+    didUpdatePopperSettings() {
+      this._updatePopper()
     }
   },
 
