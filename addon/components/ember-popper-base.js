@@ -129,17 +129,7 @@ export default Component.extend({
   /**
    * Tracks popper element
    */
-  _popperElement: computed({
-    get() {
-      return null;
-    },
-    set(key, el) {
-      if (el) {
-        this._updatePopper(el);
-      }
-      return el;
-    }
-  }),
+  _popperElement: null,
 
   /**
    * Tracks current/previous value of popper target
@@ -158,10 +148,6 @@ export default Component.extend({
   _updateRAF: null,
 
   // ================== LIFECYCLE HOOKS ==================
-
-  didRender() {
-    this._updatePopper();
-  },
 
   willDestroyElement() {
     this._super(...arguments);
@@ -213,13 +199,26 @@ export default Component.extend({
 
     disableEventListeners() {
       this.disableEventListeners();
+    },
+
+    didInsertPopperElement(element) {
+      this._popperElement = element
+      this._updatePopper();
+    },
+
+    willDestroyPopperElement() {
+      this._popperElement = null
+    },
+
+    didUpdatePopperSettings() {
+      this._updatePopper()
     }
   },
 
   // ================== PRIVATE IMPLEMENTATION DETAILS ==================
 
-  _updatePopper(popperElement = this._getPopperElement()) {
-    if (this.isDestroying || this.isDestroyed || !popperElement) {
+  _updatePopper() {
+    if (this.isDestroying || this.isDestroyed || !this._popperElement) {
       return;
     }
 
@@ -270,28 +269,21 @@ export default Component.extend({
         options.onUpdate = onUpdate;
       }
 
-      this._popper = new Popper(popperTarget, popperElement, options);
+      this._popper = new Popper(popperTarget, this._popperElement, options);
 
       // Execute the registerAPI hook last to ensure the Popper is initialized on the target
       if (this.get('registerAPI') !== null) {
         /* eslint-disable ember/closure-actions */
-        this.get('registerAPI')(this._getPublicAPI(popperElement));
+        this.get('registerAPI')(this._getPublicAPI());
       }
     }
-  },
-
-  /**
-   * Used to get the popper element
-   */
-  _getPopperElement() {
-    return this.get('_popperElement');
   },
 
   _getPopperTarget() {
     return this.get('popperTarget');
   },
 
-  _getPublicAPI(popperElement = this._getPopperElement()) {
+  _getPublicAPI() {
     if (this._publicAPI === null) {
       // bootstrap the public API with fields that are guaranteed to be static,
       // such as imperative actions
@@ -303,7 +295,7 @@ export default Component.extend({
       };
     }
 
-    this._publicAPI.popperElement = popperElement;
+    this._publicAPI.popperElement = this._popperElement;
     this._publicAPI.popperTarget = this._popperTarget;
 
     return this._publicAPI;
