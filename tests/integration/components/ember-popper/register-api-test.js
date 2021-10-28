@@ -29,7 +29,7 @@ module('Integration | Component | registerAPI', function(hooks) {
       <div id='parent'>
       </div>
 
-      {{#if show}}
+      {{#if this.show}}
         {{#ember-popper class='popper-element'
                         registerAPI=(action 'registerAPI')
                         popperTarget=popperTarget}}
@@ -100,7 +100,7 @@ module('Integration | Component | registerAPI', function(hooks) {
       <div id='newTarget'>
       </div>
 
-      {{#if show}}
+      {{#if this.show}}
         {{#ember-popper class='popper-element'
                         registerAPI=(action 'registerAPI')
                         popperTarget=popperTarget}}
