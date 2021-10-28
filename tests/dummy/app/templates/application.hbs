@@ -17,8 +17,8 @@
   <div class="right"></div>
 </div>
 
-{{#if showTargetedPopper}}
-  {{#ember-popper class="popper" popperTarget=_popperTarget}}
+{{#if this.showTargetedPopper}}
+  {{#ember-popper class="popper" popperTarget=this._popperTarget}}
     Hello from the right!
     <br>
     I explicitly target the right div

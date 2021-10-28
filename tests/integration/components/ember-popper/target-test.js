@@ -15,7 +15,7 @@ module('Integration | Component | target', function(hooks) {
         the target
       </div>
 
-      {{#if show}}
+      {{#if this.show}}
         {{#ember-popper id='attachment' popperTarget=popperTarget}}
           template block text
         {{/ember-popper}}
