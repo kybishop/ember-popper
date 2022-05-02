@@ -1,34 +1,34 @@
 <div class="row">
   <div class="left">
-    {{#ember-popper-targeting-parent id='parent' class='popper' eventsEnabled=eventsEnabled}}
+    <EmberPopperTargetingParent @id="parent" class="popper" @eventsEnabled={{this.eventsEnabled}}>
       Hello from the left! I have no explicit target.
       <div class="popper-arrow" x-arrow></div>
-
-      {{#ember-popper-targeting-parent class="popper" renderInPlace=true}}
+      <EmberPopperTargetingParent class="popper" @renderInPlace={{true}}>
+        {{! template-lint-disable no-inline-styles }}
         <span style="white-space: nowrap">P O P P E R C E P T I O N</span>
         <br>
         I also have no explicit target,
         <br>
         but am a child of the popper above
         <div class="popper-arrow" x-arrow></div>
-      {{/ember-popper-targeting-parent}}
-    {{/ember-popper-targeting-parent}}
+      </EmberPopperTargetingParent>
+    </EmberPopperTargetingParent>
   </div>
   <div class="right"></div>
 </div>
 
-{{#if showTargetedPopper}}
-  {{#ember-popper class="popper" popperTarget=_popperTarget}}
+{{#if this.showTargetedPopper}}
+  <EmberPopper class="popper" @popperTarget={{this._popperTarget}}>
     Hello from the right!
     <br>
     I explicitly target the right div
     <div class="popper-arrow" x-arrow></div>
-  {{/ember-popper}}
+  </EmberPopper>
 {{/if}}
 
 <div class="row">
-  <button {{action "toggleShowTargetedPopper"}}>toggle show targeted popper</button>
+  <button type="button" {{on "click" this.toggleShowTargetedPopper}}>toggle show targeted popper</button>
 </div>
 <div class="row">
-  <button {{action "toggleEventsEnabled"}}>toggle eventsEnabled on parent popper</button>
+  <button type="button" {{on "click" this.toggleEventsEnabled}}>toggle eventsEnabled on parent popper</button>
 </div>

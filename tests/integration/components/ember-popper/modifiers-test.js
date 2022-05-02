@@ -3,24 +3,25 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | modifiers', function(hooks) {
+module('Integration | Component | modifiers', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it passes the modifiers to the Popper.js instance', async function(assert) {
-    this.set('arrowsEnabledModifier', { arrow: { enabled: true } });
-    this.set('arrowsDisabledModifier', { arrow: { enabled: false } });
+  test('it passes the modifiers to the Popper.js instance', async function (assert) {
+    assert.expect(2);
+    this.arrowsEnabledModifier = { arrow: { enabled: true } };
+    this.arrowsDisabledModifier = { arrow: { enabled: false } };
 
     await render(hbs`
       <div class='parent'>
-        {{#ember-popper-targeting-parent class='arrow-enabled' modifiers=arrowsEnabledModifier}}
+        <EmberPopperTargetingParent class='arrow-enabled' @modifiers={{this.arrowsEnabledModifier}}>
           modifiers test
           <div class='popper-arrow' x-arrow></div>
-        {{/ember-popper-targeting-parent}}
+        </EmberPopperTargetingParent>
 
-        {{#ember-popper-targeting-parent class='arrow-disabled' modifiers=arrowsDisabledModifier}}
+        <EmberPopperTargetingParent class='arrow-disabled' @modifiers={{this.arrowsDisabledModifier}}>
           modifiers test
           <div class='popper-arrow' x-arrow></div>
-        {{/ember-popper-targeting-parent}}
+        </EmberPopperTargetingParent>
       </div>
     `);
 
@@ -28,10 +29,14 @@ module('Integration | Component | modifiers', function(hooks) {
     const arrowDisabledPopper = document.querySelector('.arrow-disabled');
 
     return settled().then(() => {
-      assert.ok(arrowEnabledPopper.querySelector('.popper-arrow').hasAttribute('style'));
+      assert.ok(
+        arrowEnabledPopper.querySelector('.popper-arrow').hasAttribute('style')
+      );
 
       // Note the '!': this popper's arrow div should not receive any styles
-      assert.ok(!arrowDisabledPopper.querySelector('.popper-arrow').hasAttribute('style'));
+      assert.notOk(
+        arrowDisabledPopper.querySelector('.popper-arrow').hasAttribute('style')
+      );
     });
   });
 });

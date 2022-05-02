@@ -5,30 +5,30 @@
       on the document body, giving it the highest default z-index value. --}}
 {{#if this.renderInPlace}}
   {{!-- Add a wrapper around the yielded block so we have something for the Popper to target --}}
-  <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}}
-       {{did-insert (action 'didInsertPopperElement')}}
-       {{will-destroy (action 'willDestroyPopperElement')}}
-       {{did-update (action 'didUpdatePopperSettings') this.eventsEnabled this.modifiers this.onCreate this.onUpdate this.placement this.popperTarget this.renderInPlace}}
+  <div id={{@id}} hidden={{this.hidden}} role={{@ariaRole}}
+       {{did-insert this.didInsertPopperElement}}
+       {{will-destroy this.willDestroyPopperElement}}
+       {{did-update (action this.didUpdatePopperSettings) @eventsEnabled @modifiers @onCreate @onUpdate @placement @popperTarget @renderInPlace}}
        ...attributes>
     {{yield (hash
-      disableEventListeners=(action 'disableEventListeners')
-      enableEventListeners=(action 'enableEventListeners')
-      scheduleUpdate=(action 'scheduleUpdate')
-      update=(action 'update')
+      disableEventListeners=this.disableEventListeners
+      enableEventListeners=this.enableEventListeners
+      scheduleUpdate=this.scheduleUpdate
+      update=this.update
     )}}
   </div>
 {{else}}
   {{#in-element this._popperContainer insertBefore=null}}
-    <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}}
-         {{did-insert (action 'didInsertPopperElement')}}
-         {{will-destroy (action 'willDestroyPopperElement')}}
-         {{did-update (action 'didUpdatePopperSettings') this.eventsEnabled this.modifiers this.onCreate this.onUpdate this.placement this.popperTarget this.renderInPlace}}
+    <div id={{@id}} hidden={{this.hidden}} role={{@ariaRole}}
+         {{did-insert this.didInsertPopperElement}}
+         {{will-destroy this.willDestroyPopperElement}}
+         {{did-update (action this.didUpdatePopperSettings) @eventsEnabled @modifiers @onCreate @onUpdate @placement @popperTarget @renderInPlace}}
          ...attributes>
       {{yield (hash
-        disableEventListeners=(action 'disableEventListeners')
-        enableEventListeners=(action 'enableEventListeners')
-        scheduleUpdate=(action 'scheduleUpdate')
-        update=(action 'update')
+        disableEventListeners=this.disableEventListeners
+        enableEventListeners=this.enableEventListeners
+        scheduleUpdate=this.scheduleUpdate
+        update=this.update
       )}}
     </div>
   {{/in-element}}

@@ -3,10 +3,11 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | target', function(hooks) {
+module('Integration | Component | target', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it targets the explicit target', async function(assert) {
+  test('it targets the explicit target', async function (assert) {
+    assert.expect(4);
     // wait to show the ember-popper until we have set the popperTarget property.
     this.set('show', false);
 
@@ -15,10 +16,10 @@ module('Integration | Component | target', function(hooks) {
         the target
       </div>
 
-      {{#if show}}
-        {{#ember-popper id='attachment' popperTarget=popperTarget}}
+      {{#if this.show}}
+        <EmberPopper @id='attachment' @popperTarget={{this.popperTarget}}>
           template block text
-        {{/ember-popper}}
+        </EmberPopper>
       {{/if}}
     `);
 
@@ -35,11 +36,16 @@ module('Integration | Component | target', function(hooks) {
     assert.equal(popper.innerHTML.trim(), 'template block text');
     assert.ok(popper.hasAttribute('x-placement'));
 
-    assert.equal(popper.parentElement, document.querySelector('.ember-application'));
+    assert.equal(
+      popper.parentElement,
+      document.querySelector('.ember-application')
+    );
 
     return settled().then(() => {
-      assert.equal(popperTarget.getBoundingClientRect().bottom,
-                   popper.getBoundingClientRect().top);
+      assert.equal(
+        popperTarget.getBoundingClientRect().bottom,
+        popper.getBoundingClientRect().top
+      );
     });
   });
 });
