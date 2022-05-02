@@ -4,20 +4,21 @@ import { setupRenderingTest } from 'ember-qunit';
 
 import { render, settled } from '@ember/test-helpers';
 
-module('Integration | Component | registerAPI', function(hooks) {
+module('Integration | Component | registerAPI', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
+    this.send = (actionName, ...args) =>
+      this.actions[actionName].apply(this, args);
   });
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.set('foundTarget', null);
     this.set('show', false);
   });
 
-  test('registerAPI returns the explicit target', async function(assert) {
+  test('registerAPI returns the explicit target', async function (assert) {
     assert.expect(1);
 
     this.actions.registerAPI = ({ popperTarget }) => {
@@ -29,12 +30,14 @@ module('Integration | Component | registerAPI', function(hooks) {
       <div id='parent'>
       </div>
 
-      {{#if show}}
-        {{#ember-popper class='popper-element'
-                        registerAPI=(action 'registerAPI')
-                        popperTarget=popperTarget}}
+      {{#if this.show}}
+        <EmberPopper
+          class='popper-element'
+          @registerAPI={{this.actions.registerAPI}}
+          @popperTarget={{this.popperTarget}}
+        >
           template block text
-        {{/ember-popper}}
+        </EmberPopper>
       {{/if}}
     `);
 
@@ -45,7 +48,7 @@ module('Integration | Component | registerAPI', function(hooks) {
     return settled();
   });
 
-  test('registerAPI returns the explicit popper element', async function(assert) {
+  test('registerAPI returns the explicit popper element', async function (assert) {
     let registeredPopperElement;
 
     this.actions.registerAPI = ({ popperElement }) => {
@@ -54,21 +57,28 @@ module('Integration | Component | registerAPI', function(hooks) {
 
     await render(hbs`
       <div id='parent'>
-        {{#ember-popper-targeting-parent class='popper-element'
-                        registerAPI=(action 'registerAPI')}}
+        <EmberPopperTargetingParent
+          class='popper-element'
+          @registerAPI={{this.actions.registerAPI}}
+        >
           template block text
-        {{/ember-popper-targeting-parent}}
+        </EmberPopperTargetingParent>
       </div>
     `);
 
-    await settled();
-
     const expectedPopperElement = document.querySelector('.popper-element');
-    assert.ok(registeredPopperElement, 'registerAPI has provided popperElement');
-    assert.equal(registeredPopperElement, expectedPopperElement, `popperElement matches expected element`);
+    assert.ok(
+      registeredPopperElement,
+      'registerAPI has provided popperElement'
+    );
+    assert.equal(
+      registeredPopperElement,
+      expectedPopperElement,
+      `popperElement matches expected element`
+    );
   });
 
-  test('when the popper changes the API is reregistered', async function(assert) {
+  test('when the popper changes the API is reregistered', async function (assert) {
     assert.expect(2);
 
     this.actions.registerAPI = () => assert.ok('register API called');
@@ -77,21 +87,25 @@ module('Integration | Component | registerAPI', function(hooks) {
 
     await render(hbs`
       <div class='parent'>
-        {{#ember-popper-targeting-parent class='popper-element'
-                        eventsEnabled=eventsEnabled
-                        registerAPI=(action 'registerAPI')}}
+        <EmberPopperTargetingParent
+          class='popper-element'
+          @eventsEnabled={{this.eventsEnabled}}
+          @registerAPI={{this.actions.registerAPI}}
+        >
           template block text
-        {{/ember-popper-targeting-parent}}
+        </EmberPopperTargetingParent>
       </div>
     `);
 
     this.set('eventsEnabled', false);
   });
 
-  test('when the popper target changes the API reregisters with the new target', async function(assert) {
+  test('when the popper target changes the API reregisters with the new target', async function (assert) {
+    assert.expect(2);
     let foundTarget;
 
-    this.actions.registerAPI = ({ popperTarget }) => foundTarget = popperTarget;
+    this.actions.registerAPI = ({ popperTarget }) =>
+      (foundTarget = popperTarget);
 
     await render(hbs`
       <div id='initialTarget'>
@@ -101,11 +115,13 @@ module('Integration | Component | registerAPI', function(hooks) {
       </div>
 
       {{#if show}}
-        {{#ember-popper class='popper-element'
-                        registerAPI=(action 'registerAPI')
-                        popperTarget=popperTarget}}
+        <EmberPopper
+          class='popper-element'
+          @registerAPI={{this.actions.registerAPI}}
+          @popperTarget={{this.popperTarget}}
+        >
           template block text
-        {{/ember-popper}}
+        </EmberPopper>
       {{/if}}
     `);
 
