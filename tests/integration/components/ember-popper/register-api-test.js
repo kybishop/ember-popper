@@ -114,7 +114,7 @@ module('Integration | Component | registerAPI', function (hooks) {
       <div id='newTarget'>
       </div>
 
-      {{#if show}}
+      {{#if this.show}}
         <EmberPopper
           class='popper-element'
           @registerAPI={{this.actions.registerAPI}}

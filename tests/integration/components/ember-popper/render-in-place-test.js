@@ -32,7 +32,7 @@ module('Integration | Component | renderInPlace', function (hooks) {
     await render(hbs`
       <div class='poppers-plz'>
       </div>
-      {{#if show}}
+      {{#if this.show}}
       <div>
         <EmberPopperTargetingParent class='hello' @popperContainer='.poppers-plz' @renderInPlace={{false}}>
           template block text

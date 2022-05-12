@@ -207,6 +207,7 @@ export default class EmberPopperBaseComponent extends Component {
     this._popperElement = null;
   }
 
+  @action
   didUpdatePopperSettings() {
     this._updatePopper();
   }
