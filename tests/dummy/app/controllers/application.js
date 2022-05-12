@@ -1,27 +1,28 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  fastboot: service(),
+export default class ApplicationController extends Controller {
+  @service fastboot;
 
-  eventsEnabled: true,
-  showTargetedPopper: true,
+  @tracked eventsEnabled = true;
+  @tracked showTargetedPopper = true;
 
-  _popperTarget: computed(function() {
-    if (this.get('fastboot.isFastBoot')) {
-      return;
+  get _popperTarget() {
+    if (this.fastboot.isFastBoot) {
+      return null;
     }
     return document.querySelector('.right');
-  }),
-
-  actions: {
-    toggleShowTargetedPopper() {
-      this.toggleProperty('showTargetedPopper');
-    },
-
-    toggleEventsEnabled() {
-      this.toggleProperty('eventsEnabled');
-    }
   }
-});
+
+  @action
+  toggleShowTargetedPopper() {
+    this.showTargetedPopper = !this.showTargetedPopper;
+  }
+
+  @action
+  toggleEventsEnabled() {
+    this.eventsEnabled = !this.eventsEnabled;
+  }
+}

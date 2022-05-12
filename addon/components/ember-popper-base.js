@@ -1,22 +1,18 @@
-import Component from '@ember/component';
-import { computed } from '@ember/object';
+import Component from '@glimmer/component';
 import { assert } from '@ember/debug';
-import layout from '../templates/components/ember-popper';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import { scheduler as raf } from 'ember-raf-scheduler';
 
-export default Component.extend({
-  layout,
-
-  tagName: '',
-
-  // ================== PUBLIC CONFIG OPTIONS ==================
-
+export default class EmberPopperBaseComponent extends Component {
   /**
    * Whether event listeners, resize and scroll, for repositioning the popper are initially enabled.
    * @argument({ defaultIfUndefined: true })
    * @type('boolean')
    */
-  eventsEnabled: true,
+  get eventsEnabled() {
+    return this.args.eventsEnabled ?? true;
+  }
 
   /**
    * Whether the Popper element should be hidden. Use this and CSS for `[hidden]` instead of
@@ -24,7 +20,9 @@ export default Component.extend({
    * @argument({ defaultIfUndefined: false })
    * @type('boolean')
    */
-  hidden: false,
+  get hidden() {
+    return this.args.hidden ?? false;
+  }
 
   /**
    * Modifiers that will be merged into the Popper instance's options hash.
@@ -32,7 +30,9 @@ export default Component.extend({
    * @argument
    * @type(optional('object'))
    */
-  modifiers: null,
+  get modifiers() {
+    return this.args.modifiers ?? null;
+  }
 
   /**
    * onCreate callback merged (if present) into the Popper instance's options hash.
@@ -40,7 +40,9 @@ export default Component.extend({
    * @argument
    * @type(optional(Function))
    */
-  onCreate: null,
+  get onCreate() {
+    return this.args.onCreate ?? null;
+  }
 
   /**
    * onUpdate callback merged (if present) into the Popper instance's options hash.
@@ -48,14 +50,18 @@ export default Component.extend({
    * @argument
    * @type(optional(Function))
    */
-  onUpdate: null,
+  get onUpdate() {
+    return this.args.onUpdate ?? null;
+  }
 
   /**
    * Placement of the popper. One of ['top', 'right', 'bottom', 'left'].
    * @argument({ defaultIfUndefined: true })
    * @type('string')
    */
-  placement: 'bottom',
+  get placement() {
+    return this.args.placement ?? 'bottom';
+  }
 
   /**
    * The popper element needs to be moved higher in the DOM tree to avoid z-index issues.
@@ -64,7 +70,9 @@ export default Component.extend({
    * @argument({ defaultIfUndefined: true })
    * @type(Selector)
    */
-  popperContainer: '.ember-application',
+  get popperContainer() {
+    return this.args.popperContainer ?? '.ember-application';
+  }
 
   /**
    * An optional function to be called when a new target is located.
@@ -72,7 +80,9 @@ export default Component.extend({
    * @argument
    * @type(optional(Action))
    */
-  registerAPI: null,
+  get registerAPI() {
+    return this.args.registerAPI ?? null;
+  }
 
   /**
    * If `true`, the popper element will not be moved to popperContainer. WARNING: This can cause
@@ -81,85 +91,87 @@ export default Component.extend({
    * @argument({ defaultIfUndefined: true })
    * @type('boolean')
    */
-  renderInPlace: false,
+  get renderInPlace() {
+    return this.args.renderInPlace ?? false;
+  }
 
   // ================== PRIVATE PROPERTIES ==================
 
   /**
    * Tracks current/previous state of `_renderInPlace`.
    */
-  _didRenderInPlace: false,
+  @tracked _didRenderInPlace = false;
 
   /**
    * Tracks current/previous value of `eventsEnabled` option
    */
-  _eventsEnabled: null,
+  @tracked _eventsEnabled = null;
 
   /**
    * Parent of the element on didInsertElement, before it may have been moved
    */
-  _initialParentNode: null,
+  @tracked _initialParentNode = null;
 
   /**
    * Tracks current/previous value of `modifiers` option
    */
-  _modifiers: null,
+  @tracked _modifiers = null;
 
   /**
    * Tracks current/previous value of `onCreate` callback
    */
-  _onCreate: null,
+  @tracked _onCreate = null;
 
   /**
    * Tracks current/previous value of `onUpdate` callback
    */
-  _onUpdate: null,
+  @tracked _onUpdate = null;
 
   /**
    * Tracks current/previous value of `placement` option
    */
-  _placement: null,
+  @tracked _placement = null;
 
   /**
    * Set in didInsertElement() once the Popper is initialized.
    * Passed to consumers via a named yield.
    */
-  _popper: null,
+  @tracked _popper = null;
 
   /**
    * Tracks popper element
    */
-  _popperElement: null,
+  @tracked _popperElement = null;
 
   /**
    * Tracks current/previous value of popper target
    */
-  _popperTarget: null,
+  @tracked _popperTarget = null;
 
   /**
    * Public API of the popper sent to external components in `registerAPI`
    */
-  _publicAPI: null,
+  @tracked _publicAPI = null;
 
   /**
    * ID for the requestAnimationFrame used for updates, used to cancel
    * the RAF on component destruction
    */
-  _updateRAF: null,
+  @tracked _updateRAF = null;
 
-  // ================== LIFECYCLE HOOKS ==================
-
-  willDestroyElement() {
-    this._super(...arguments);
+  willDestroy() {
     if (this._popper !== null) {
       this._popper.destroy();
     }
     raf.forget(this._updateRAF);
-  },
+    super.willDestroy(...arguments);
+  }
+
+  // ================== LIFECYCLE HOOKS ==================
 
   update() {
     this._popper.update();
-  },
+  }
 
   scheduleUpdate() {
     if (this._updateRAF !== null) {
@@ -170,50 +182,35 @@ export default Component.extend({
       this._updateRAF = null;
       this._popper.update();
     });
-  },
+  }
 
   enableEventListeners() {
     this._popper.enableEventListeners();
-  },
+  }
 
   disableEventListeners() {
     this._popper.disableEventListeners();
-  },
+  }
 
   /**
    * ================== ACTIONS ==================
    */
 
-  actions: {
-    update() {
-      this.update();
-    },
+  @action
+  didInsertPopperElement(element) {
+    this._popperElement = element;
+    this._updatePopper();
+  }
 
-    scheduleUpdate() {
-      this.scheduleUpdate();
-    },
+  @action
+  willDestroyPopperElement() {
+    this._popperElement = null;
+  }
 
-    enableEventListeners() {
-      this.enableEventListeners();
-    },
-
-    disableEventListeners() {
-      this.disableEventListeners();
-    },
-
-    didInsertPopperElement(element) {
-      this._popperElement = element
-      this._updatePopper();
-    },
-
-    willDestroyPopperElement() {
-      this._popperElement = null
-    },
-
-    didUpdatePopperSettings() {
-      this._updatePopper()
-    }
-  },
+  @action
+  didUpdatePopperSettings() {
+    this._updatePopper();
+  }
 
   // ================== PRIVATE IMPLEMENTATION DETAILS ==================
 
@@ -222,22 +219,19 @@ export default Component.extend({
       return;
     }
 
-    const eventsEnabled = this.get('eventsEnabled');
-    const modifiers = this.get('modifiers');
-    const onCreate = this.get('onCreate');
-    const onUpdate = this.get('onUpdate');
-    const placement = this.get('placement');
+    const { eventsEnabled, placement, modifiers, onCreate, onUpdate } = this;
     const popperTarget = this._getPopperTarget();
-    const renderInPlace = this.get('_renderInPlace');
+    const renderInPlace = this._renderInPlace;
 
     // Compare against previous values to see if anything has changed
-    const didChange = renderInPlace !== this._didRenderInPlace
-      || popperTarget !== this._popperTarget
-      || eventsEnabled !== this._eventsEnabled
-      || modifiers !== this._modifiers
-      || placement !== this._placement
-      || onCreate !== this._onCreate
-      || onUpdate !== this._onUpdate;
+    const didChange =
+      renderInPlace !== this._didRenderInPlace ||
+      popperTarget !== this._popperTarget ||
+      eventsEnabled !== this._eventsEnabled ||
+      modifiers !== this._modifiers ||
+      placement !== this._placement ||
+      onCreate !== this._onCreate ||
+      onUpdate !== this._onUpdate;
 
     if (didChange === true) {
       if (this._popper !== null) {
@@ -256,32 +250,35 @@ export default Component.extend({
       const options = {
         eventsEnabled,
         modifiers,
-        placement
+        placement,
       };
 
       if (onCreate) {
-        assert('onCreate of ember-popper must be a function', typeof onCreate === 'function');
+        assert(
+          'onCreate of ember-popper must be a function',
+          typeof onCreate === 'function'
+        );
         options.onCreate = onCreate;
       }
 
       if (onUpdate) {
-        assert('onUpdate of ember-popper must be a function', typeof onUpdate === 'function');
+        assert(
+          'onUpdate of ember-popper must be a function',
+          typeof onUpdate === 'function'
+        );
         options.onUpdate = onUpdate;
       }
 
       this._popper = new Popper(popperTarget, this._popperElement, options);
 
       // Execute the registerAPI hook last to ensure the Popper is initialized on the target
-      if (this.get('registerAPI') !== null) {
-        /* eslint-disable ember/closure-actions */
-        this.get('registerAPI')(this._getPublicAPI());
-      }
+      this.args.registerAPI && this.args.registerAPI(this._getPublicAPI());
     }
-  },
+  }
 
   _getPopperTarget() {
-    return this.get('popperTarget');
-  },
+    return this.popperTarget;
+  }
 
   _getPublicAPI() {
     if (this._publicAPI === null) {
@@ -291,19 +288,18 @@ export default Component.extend({
         disableEventListeners: this.disableEventListeners.bind(this),
         enableEventListeners: this.enableEventListeners.bind(this),
         scheduleUpdate: this.scheduleUpdate.bind(this),
-        update: this.update.bind(this)
+        update: this.update.bind(this),
       };
     }
 
     this._publicAPI.popperElement = this._popperElement;
     this._publicAPI.popperTarget = this._popperTarget;
-
     return this._publicAPI;
-  },
+  }
 
-  _popperContainer: computed('_renderInPlace', 'popperContainer', function() {
-    const renderInPlace = this.get('_renderInPlace');
-    const maybeContainer = this.get('popperContainer');
+  get _popperContainer() {
+    const renderInPlace = this._renderInPlace;
+    const maybeContainer = this.popperContainer;
 
     let popperContainer;
 
@@ -315,19 +311,21 @@ export default Component.extend({
       const selector = maybeContainer;
       const possibleContainers = self.document.querySelectorAll(selector);
 
-      assert(`ember-popper with popperContainer selector "${selector}" found `
-             + `${possibleContainers.length} possible containers when there should be exactly 1`,
-             possibleContainers.length === 1);
+      assert(
+        `ember-popper with popperContainer selector "${selector}" found ` +
+          `${possibleContainers.length} possible containers when there should be exactly 1`,
+        possibleContainers.length === 1
+      );
 
       popperContainer = possibleContainers[0];
     }
 
     return popperContainer;
-  }),
+  }
 
-  _renderInPlace: computed('renderInPlace', function() {
+  get _renderInPlace() {
     // self.document is undefined in Fastboot, so we have to render in
     // place for the popper to show up at all.
-    return self.document ? !!this.get('renderInPlace') : true;
-  })
-});
+    return self.document ? !!this.renderInPlace : true;
+  }
+}

@@ -3,15 +3,15 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | renderInPlace', function(hooks) {
+module('Integration | Component | renderInPlace', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('false: renders in the body', async function(assert) {
+  test('false: renders in the body', async function (assert) {
     await render(hbs`
       <div>
-        {{#ember-popper-targeting-parent class='hello' renderInPlace=false}}
+        <EmberPopperTargetingParent class='hello' @renderInPlace={{false}}>
           template block text
-        {{/ember-popper-targeting-parent}}
+        </EmberPopperTargetingParent>
       </div>
     `);
 
@@ -21,19 +21,22 @@ module('Integration | Component | renderInPlace', function(hooks) {
     assert.equal(popper.innerHTML.trim(), 'template block text');
     assert.ok(popper.hasAttribute('x-placement'));
 
-    assert.equal(popper.parentElement, document.querySelector('.ember-application'));
+    assert.equal(
+      popper.parentElement,
+      document.querySelector('.ember-application')
+    );
   });
 
-  test('false with an explicit popperContainer: renders in the popperContainer', async function(assert) {
+  test('false with an explicit popperContainer: renders in the popperContainer', async function (assert) {
     this.set('show', false);
     await render(hbs`
       <div class='poppers-plz'>
       </div>
-      {{#if show}}
+      {{#if this.show}}
       <div>
-        {{#ember-popper-targeting-parent class='hello' popperContainer='.poppers-plz' renderInPlace=false}}
+        <EmberPopperTargetingParent class='hello' @popperContainer='.poppers-plz' @renderInPlace={{false}}>
           template block text
-        {{/ember-popper-targeting-parent}}
+        </EmberPopperTargetingParent>
       </div>
       {{/if}}
     `);
@@ -50,12 +53,12 @@ module('Integration | Component | renderInPlace', function(hooks) {
     assert.equal(popper.parentElement, document.querySelector('.poppers-plz'));
   });
 
-  test('true: renders in place', async function(assert) {
+  test('true: renders in place', async function (assert) {
     await render(hbs`
       <div class='parent'>
-        {{#ember-popper-targeting-parent class='hello' renderInPlace=true}}
+        <EmberPopperTargetingParent class='hello' @renderInPlace={{true}}>
           template block text
-        {{/ember-popper-targeting-parent}}
+        </EmberPopperTargetingParent>
       </div>
     `);
 

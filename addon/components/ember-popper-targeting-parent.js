@@ -1,22 +1,19 @@
 import EmberPopperBase from './ember-popper-base';
-import layout from '../templates/components/ember-popper-targeting-parent';
 import { guidFor } from '@ember/object/internals';
+import { action } from '@ember/object';
 
-export default EmberPopperBase.extend({
-  layout,
-
-  // ================== LIFECYCLE HOOKS ==================
-
-  init() {
-    this.id = this.id || `${guidFor(this)}-popper`;
+export default class EmberPopperTargetingParentComponent extends EmberPopperBase {
+  constructor() {
+    super(...arguments);
+    this.id = this.args.id || `${guidFor(this)}-popper`;
     this._parentFinder = self.document ? self.document.createTextNode('') : '';
-    this._super(...arguments);
-  },
+  }
 
-  didInsertElement() {
-    this._super(...arguments);
+  @action
+  didInsert(element) {
     this._initialParentNode = this._parentFinder.parentNode;
-  },
+    this.didInsertPopperElement(element);
+  }
 
   /**
    * Used to get the popper target whenever updating the Popper
@@ -24,4 +21,4 @@ export default EmberPopperBase.extend({
   _getPopperTarget() {
     return this._initialParentNode;
   }
-});
+}

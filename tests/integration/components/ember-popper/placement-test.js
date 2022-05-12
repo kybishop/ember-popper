@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | placement', function(hooks) {
+module('Integration | Component | placement', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it places the popper appropriately', async function(assert) {
+  test('it places the popper appropriately', async function (assert) {
     await render(hbs`
       <div
         style="position: absolute;
@@ -17,18 +17,18 @@ module('Integration | Component | placement', function(hooks) {
                margin: auto;
                width: 1px;
                height: 1px;">
-        {{#ember-popper-targeting-parent id='left-plz' placement="left"}}
+        <EmberPopperTargetingParent @id='left-plz' @placement="left">
           template block text
-        {{/ember-popper-targeting-parent}}
-        {{#ember-popper-targeting-parent id='right-plz' placement="right"}}
+        </EmberPopperTargetingParent>
+        <EmberPopperTargetingParent @id='right-plz' @placement="right">
           template block text
-        {{/ember-popper-targeting-parent}}
-        {{#ember-popper-targeting-parent id='top-plz' placement="top"}}
+        </EmberPopperTargetingParent>
+        <EmberPopperTargetingParent @id='top-plz' @placement="top">
           template block text
-        {{/ember-popper-targeting-parent}}
-        {{#ember-popper-targeting-parent id='bottom-plz' placement="bottom"}}
+        </EmberPopperTargetingParent>
+        <EmberPopperTargetingParent @id='bottom-plz' @placement="bottom">
           template block text
-        {{/ember-popper-targeting-parent}}
+        </EmberPopperTargetingParent>
       </div>
     `);
 

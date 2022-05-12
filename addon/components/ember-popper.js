@@ -1,18 +1,20 @@
 import EmberPopperBase from './ember-popper-base';
 import { guidFor } from '@ember/object/internals';
 
-export default EmberPopperBase.extend({
+export default class EmberPopperComponent extends EmberPopperBase {
   /**
    * The element the popper will target.
    * @argument
    * @type(Element)
    */
-  popperTarget: null,
+  get popperTarget() {
+    return this.args.popperTarget ?? null;
+  }
 
   // ================== LIFECYCLE HOOKS ==================
 
-  init() {
-    this.id = this.id || `${guidFor(this)}-popper`;
-    this._super(...arguments);
+  constructor() {
+    super(...arguments);
+    this.id = this.args.id || `${guidFor(this)}-popper`;
   }
-});
+}
