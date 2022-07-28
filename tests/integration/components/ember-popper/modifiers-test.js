@@ -7,19 +7,19 @@ module('Integration | Component | modifiers', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it passes the modifiers to the Popper.js instance', async function(assert) {
-    this.set('arrowsEnabledModifier', { arrow: { enabled: true } });
-    this.set('arrowsDisabledModifier', { arrow: { enabled: false } });
+    this.set('arrowsEnabledModifier', [{ name: 'arrow', enabled: true }]);
+    this.set('arrowsDisabledModifier', [{ name: 'arrow', enabled: false }]);
 
     await render(hbs`
       <div class='parent'>
         {{#ember-popper-targeting-parent class='arrow-enabled' modifiers=arrowsEnabledModifier}}
           modifiers test
-          <div class='popper-arrow' x-arrow></div>
+          <div class='popper-arrow' data-popper-arrow></div>
         {{/ember-popper-targeting-parent}}
 
         {{#ember-popper-targeting-parent class='arrow-disabled' modifiers=arrowsDisabledModifier}}
           modifiers test
-          <div class='popper-arrow' x-arrow></div>
+          <div class='popper-arrow' data-popper-arrow></div>
         {{/ember-popper-targeting-parent}}
       </div>
     `);

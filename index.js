@@ -8,7 +8,7 @@ module.exports = {
 
   options: {
     nodeAssets: {
-      'popper.js': {
+      '@popperjs/core': {
         srcDir: 'dist/umd',
         import: {
           include: ['popper.js'],

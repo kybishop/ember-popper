@@ -13,7 +13,11 @@ module('Integration | Component | eventsEnabled', function(hooks) {
           eventsEnabled test
         {{/ember-popper-targeting-parent}}
 
-        {{#ember-popper-targeting-parent eventsEnabled=false placement='bottom' class='events-disabled'}}
+        {{#ember-popper-targeting-parent
+            modifiers=(array (hash name='eventListeners' enabled=false))
+            placement='bottom'
+            class='events-disabled'
+        }}
           eventsEnabled test
         {{/ember-popper-targeting-parent}}
       </div>

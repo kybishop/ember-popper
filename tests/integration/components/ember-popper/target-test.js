@@ -33,7 +33,7 @@ module('Integration | Component | target', function(hooks) {
     const popper = document.getElementById('attachment');
 
     assert.equal(popper.innerHTML.trim(), 'template block text');
-    assert.ok(popper.hasAttribute('x-placement'));
+    assert.ok(popper.hasAttribute('data-popper-placement'));
 
     assert.equal(popper.parentElement, document.querySelector('.ember-application'));
 

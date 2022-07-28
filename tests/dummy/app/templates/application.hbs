@@ -1,8 +1,8 @@
 <div class="row">
   <div class="left">
-    {{#ember-popper-targeting-parent id='parent' class='popper' eventsEnabled=eventsEnabled}}
+    {{#ember-popper-targeting-parent id='parent' class='popper' modifiers=parentPopperModifiers}}
       Hello from the left! I have no explicit target.
-      <div class="popper-arrow" x-arrow></div>
+      <div class="popper-arrow" data-popper-arrow></div>
 
       {{#ember-popper-targeting-parent class="popper" renderInPlace=true}}
         <span style="white-space: nowrap">P O P P E R C E P T I O N</span>
@@ -10,7 +10,7 @@
         I also have no explicit target,
         <br>
         but am a child of the popper above
-        <div class="popper-arrow" x-arrow></div>
+        <div class="popper-arrow" data-popper-arrow></div>
       {{/ember-popper-targeting-parent}}
     {{/ember-popper-targeting-parent}}
   </div>
@@ -22,7 +22,7 @@
     Hello from the right!
     <br>
     I explicitly target the right div
-    <div class="popper-arrow" x-arrow></div>
+    <div class="popper-arrow" data-popper-arrow></div>
   {{/ember-popper}}
 {{/if}}
 
@@ -30,5 +30,5 @@
   <button {{action "toggleShowTargetedPopper"}}>toggle show targeted popper</button>
 </div>
 <div class="row">
-  <button {{action "toggleEventsEnabled"}}>toggle eventsEnabled on parent popper</button>
+  <button {{action "toggleEventsEnabled"}}>toggle eventListeners modifier on parent popper</button>
 </div>
