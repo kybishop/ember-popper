@@ -34,34 +34,4 @@ module('Integration | Component | modifiers', function(hooks) {
       assert.ok(!arrowDisabledPopper.querySelector('.popper-arrow').hasAttribute('style'));
     });
   });
-
-  /**
-   *
-   *   test('it calls afterWrite', async function(assert) {
-   *     assert.expect(2);
-   *
-   *     let called = 0;
-   *
-   *     this.actions.update = (state) => {
-   *       console.log("UPDATE CALLED", state)
-   *       debugger
-   *       called++;
-   *       assert.ok(state && state.placement, 'afterWrite action is called with dataObject');
-   *     };
-   *
-   *     await render(hbs`
-   *       {{#ember-popper-targeting-parent afterWrite=(action "update")}}
-   *         template block text
-   *       {{/ember-popper-targeting-parent}}
-   *     `);
-   *
-   *     await triggerEvent(document.querySelector('body'), 'scroll');
-   *
-   *     await settled();
-   *     // this seems to fix the previous flakiness in this test, not sure why though...
-   *     await new Promise((resolve) => setTimeout(resolve, 50));
-   *
-   *     assert.equal(called, 1, 'afterWrite action has been called after event');
-   *   });
-   */
 });
