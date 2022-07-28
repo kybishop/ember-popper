@@ -10,12 +10,10 @@
   <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}}
        {{did-insert (action 'didInsertPopperElement')}}
        {{will-destroy (action 'willDestroyPopperElement')}}
-       {{did-update (action 'didUpdatePopperSettings') this.eventsEnabled this.modifiers this.onCreate this.onUpdate this.placement this.popperTarget this.renderInPlace}}
+       {{did-update (action 'didUpdatePopperSettings') this.eventsEnabled this.modifiers this.onFirstUpdate this.placement this.popperTarget this.renderInPlace}}
        ...attributes>
     {{yield (hash
-      disableEventListeners=(action 'disableEventListeners')
-      enableEventListeners=(action 'enableEventListeners')
-      scheduleUpdate=(action 'scheduleUpdate')
+      forceUpdate=(action 'forceUpdate')
       update=(action 'update')
     )}}
   </div>
@@ -24,12 +22,10 @@
     <div id={{@id}} class={{@class}} hidden={{this.hidden}} role={{@ariaRole}}
          {{did-insert (action 'didInsertPopperElement')}}
          {{will-destroy (action 'willDestroyPopperElement')}}
-         {{did-update (action 'didUpdatePopperSettings') this.eventsEnabled this.modifiers this.onCreate this.onUpdate this.placement this.popperTarget this.renderInPlace}}
+         {{did-update (action 'didUpdatePopperSettings') this.eventsEnabled this.modifiers this.onFirstUpdate this.placement this.popperTarget this.renderInPlace}}
          ...attributes>
       {{yield (hash
-        disableEventListeners=(action 'disableEventListeners')
-        enableEventListeners=(action 'enableEventListeners')
-        scheduleUpdate=(action 'scheduleUpdate')
+        forceUpdate=(action 'forceUpdate')
         update=(action 'update')
       )}}
     </div>

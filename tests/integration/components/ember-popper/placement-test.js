@@ -37,9 +37,9 @@ module('Integration | Component | placement', function(hooks) {
     const topPopper = document.getElementById('top-plz');
     const bottomPopper = document.getElementById('bottom-plz');
 
-    assert.equal(leftPopper.getAttribute('x-placement'), 'left');
-    assert.equal(rightPopper.getAttribute('x-placement'), 'right');
-    assert.equal(topPopper.getAttribute('x-placement'), 'top');
-    assert.equal(bottomPopper.getAttribute('x-placement'), 'bottom');
+    assert.equal(leftPopper.getAttribute('data-popper-placement'), 'left');
+    assert.equal(rightPopper.getAttribute('data-popper-placement'), 'right');
+    assert.equal(topPopper.getAttribute('data-popper-placement'), 'top');
+    assert.equal(bottomPopper.getAttribute('data-popper-placement'), 'bottom');
   });
 });

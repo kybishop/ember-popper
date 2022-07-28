@@ -6,9 +6,18 @@ export default Controller.extend({
   fastboot: service(),
 
   eventsEnabled: true,
+
+  parentPopperModifiers: computed('eventsEnabled', function () {
+    return [
+      {name: 'eventListeners', enabled: this.get('eventsEnabled')},
+      {name: 'offset', options: {offset: [0, 5]}},
+      { name: 'arrow', enabled: false }
+    ]
+  }),
+
   showTargetedPopper: true,
 
-  _popperTarget: computed(function() {
+  _popperTarget: computed(function () {
     if (this.get('fastboot.isFastBoot')) {
       return;
     }

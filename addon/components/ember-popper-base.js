@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { assert } from '@ember/debug';
 import layout from '../templates/components/ember-popper';
-import { scheduler as raf } from 'ember-raf-scheduler';
 
 export default Component.extend({
   layout,
@@ -10,14 +9,6 @@ export default Component.extend({
   tagName: '',
 
   // ================== PUBLIC CONFIG OPTIONS ==================
-
-  /**
-   * Whether event listeners, resize and scroll, for repositioning the popper are initially enabled.
-   * @argument({ defaultIfUndefined: true })
-   * @type('boolean')
-   */
-  eventsEnabled: true,
-
   /**
    * Whether the Popper element should be hidden. Use this and CSS for `[hidden]` instead of
    * an `{{if}}` if you want to animate the Popper's entry and/or exit.
@@ -28,34 +19,38 @@ export default Component.extend({
 
   /**
    * Modifiers that will be merged into the Popper instance's options hash.
-   * https://popper.js.org/popper-documentation.html#Popper.DEFAULTS
+   * https://popper.js.org/docs/v2/modifiers
    * @argument
    * @type(optional('object'))
    */
-  modifiers: null,
+  /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
+  modifiers: [],
 
   /**
-   * onCreate callback merged (if present) into the Popper instance's options hash.
-   * https://popper.js.org/popper-documentation.html#Popper.Defaults.onCreate
+   * onFirstUpdate callback merged (if present) into the Popper instance's options hash.
+   * https://popper.js.org/docs/v2/lifecycle/#hook-into-the-lifecycle
    * @argument
    * @type(optional(Function))
    */
-  onCreate: null,
+  onFirstUpdate: null,
 
   /**
-   * onUpdate callback merged (if present) into the Popper instance's options hash.
-   * https://popper.js.org/popper-documentation.html#Popper.Defaults.onUpdate
-   * @argument
-   * @type(optional(Function))
-   */
-  onUpdate: null,
-
-  /**
-   * Placement of the popper. One of ['top', 'right', 'bottom', 'left'].
+   * Placement of the popper. One of ['auto', 'top', 'right', 'bottom', 'left'].
+   * Each placement can have a variation from this list: ['-start', '-end']
+   * https://popper.js.org/docs/v2/constructors/#placement
    * @argument({ defaultIfUndefined: true })
    * @type('string')
    */
   placement: 'bottom',
+
+  /**
+   * Describes the positioning strategy to use. One of ['absolute', 'fixed']
+   * By default, it is absolute, which in the simplest cases does not require repositioning of the popper.
+   * https://popper.js.org/docs/v2/constructors/#strategy
+   * @argument({ defaultIfUndefined: true })
+   * @type('string')
+   */
+  strategy: 'absolute',
 
   /**
    * The popper element needs to be moved higher in the DOM tree to avoid z-index issues.
@@ -91,11 +86,6 @@ export default Component.extend({
   _didRenderInPlace: false,
 
   /**
-   * Tracks current/previous value of `eventsEnabled` option
-   */
-  _eventsEnabled: null,
-
-  /**
    * Parent of the element on didInsertElement, before it may have been moved
    */
   _initialParentNode: null,
@@ -106,19 +96,19 @@ export default Component.extend({
   _modifiers: null,
 
   /**
-   * Tracks current/previous value of `onCreate` callback
+   * Tracks current/previous value of `onFirstUpdate` callback
    */
-  _onCreate: null,
-
-  /**
-   * Tracks current/previous value of `onUpdate` callback
-   */
-  _onUpdate: null,
+  _onFirstUpdate: null,
 
   /**
    * Tracks current/previous value of `placement` option
    */
   _placement: null,
+
+  /**
+   * Tracks current/previous value of `strategy` option
+   */
+  _strategy: null,
 
   /**
    * Set in didInsertElement() once the Popper is initialized.
@@ -141,12 +131,6 @@ export default Component.extend({
    */
   _publicAPI: null,
 
-  /**
-   * ID for the requestAnimationFrame used for updates, used to cancel
-   * the RAF on component destruction
-   */
-  _updateRAF: null,
-
   // ================== LIFECYCLE HOOKS ==================
 
   willDestroyElement() {
@@ -154,30 +138,18 @@ export default Component.extend({
     if (this._popper !== null) {
       this._popper.destroy();
     }
-    raf.forget(this._updateRAF);
+  },
+
+  forceUpdate() {
+    this._popper.forceUpdate();
   },
 
   update() {
-    this._popper.update();
+    return this._popper.update()
   },
 
-  scheduleUpdate() {
-    if (this._updateRAF !== null) {
-      return;
-    }
-
-    this._updateRAF = raf.schedule('affect', () => {
-      this._updateRAF = null;
-      this._popper.update();
-    });
-  },
-
-  enableEventListeners() {
-    this._popper.enableEventListeners();
-  },
-
-  disableEventListeners() {
-    this._popper.disableEventListeners();
+  setOptions(options) {
+    return this._popper.setOptions(options)
   },
 
   /**
@@ -186,19 +158,11 @@ export default Component.extend({
 
   actions: {
     update() {
-      this.update();
+      return this.update();
     },
 
-    scheduleUpdate() {
-      this.scheduleUpdate();
-    },
-
-    enableEventListeners() {
-      this.enableEventListeners();
-    },
-
-    disableEventListeners() {
-      this.disableEventListeners();
+    forceUpdate() {
+      this.forceUpdate();
     },
 
     didInsertPopperElement(element) {
@@ -222,22 +186,20 @@ export default Component.extend({
       return;
     }
 
-    const eventsEnabled = this.get('eventsEnabled');
     const modifiers = this.get('modifiers');
-    const onCreate = this.get('onCreate');
-    const onUpdate = this.get('onUpdate');
+    const onFirstUpdate = this.get('onFirstUpdate');
     const placement = this.get('placement');
+    const strategy = this.get('strategy');
     const popperTarget = this._getPopperTarget();
     const renderInPlace = this.get('_renderInPlace');
 
     // Compare against previous values to see if anything has changed
     const didChange = renderInPlace !== this._didRenderInPlace
       || popperTarget !== this._popperTarget
-      || eventsEnabled !== this._eventsEnabled
       || modifiers !== this._modifiers
       || placement !== this._placement
-      || onCreate !== this._onCreate
-      || onUpdate !== this._onUpdate;
+      || strategy !== this._strategy
+      || onFirstUpdate !== this._onFirstUpdate
 
     if (didChange === true) {
       if (this._popper !== null) {
@@ -246,30 +208,24 @@ export default Component.extend({
 
       // Store current values to check against on updates
       this._didRenderInPlace = renderInPlace;
-      this._eventsEnabled = eventsEnabled;
       this._modifiers = modifiers;
-      this._onCreate = onCreate;
-      this._onUpdate = onUpdate;
+      this._onFirstUpdate = onFirstUpdate;
       this._placement = placement;
+      this._strategy = strategy;
       this._popperTarget = popperTarget;
 
       const options = {
-        eventsEnabled,
         modifiers,
-        placement
+        placement,
+        strategy
       };
 
-      if (onCreate) {
-        assert('onCreate of ember-popper must be a function', typeof onCreate === 'function');
-        options.onCreate = onCreate;
+      if (onFirstUpdate) {
+        assert('onFirstUpdate of ember-popper must be a function', typeof onFirstUpdate === 'function');
+        options.onFirstUpdate = onFirstUpdate;
       }
 
-      if (onUpdate) {
-        assert('onUpdate of ember-popper must be a function', typeof onUpdate === 'function');
-        options.onUpdate = onUpdate;
-      }
-
-      this._popper = new Popper(popperTarget, this._popperElement, options);
+      this._popper = Popper.createPopper(popperTarget, this._popperElement, options);
 
       // Execute the registerAPI hook last to ensure the Popper is initialized on the target
       if (this.get('registerAPI') !== null) {
@@ -288,10 +244,9 @@ export default Component.extend({
       // bootstrap the public API with fields that are guaranteed to be static,
       // such as imperative actions
       this._publicAPI = {
-        disableEventListeners: this.disableEventListeners.bind(this),
-        enableEventListeners: this.enableEventListeners.bind(this),
-        scheduleUpdate: this.scheduleUpdate.bind(this),
-        update: this.update.bind(this)
+        forceUpdate: this.forceUpdate.bind(this),
+        update: this.update.bind(this),
+        setOptions: this.setOptions.bind(this)
       };
     }
 

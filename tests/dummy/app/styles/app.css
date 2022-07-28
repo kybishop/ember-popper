@@ -42,11 +42,7 @@
     border-color: #FFC107;
 }
 
-.popper[x-placement^="top"] {
-    margin-bottom: 5px;
-}
-
-.popper[x-placement^="top"] .popper-arrow {
+.popper[data-popper-placement^="top"] .popper-arrow {
     border-width: 5px 5px 0 5px;
     border-left-color: transparent;
     border-right-color: transparent;
@@ -57,11 +53,7 @@
     margin-bottom: 0;
 }
 
-.popper[x-placement^="bottom"] {
-    margin-top: 5px;
-}
-
-.popper[x-placement^="bottom"] .popper-arrow {
+.popper[data-popper-placement^="bottom"] .popper-arrow {
     border-width: 0 5px 5px 5px;
     border-left-color: transparent;
     border-right-color: transparent;
@@ -72,11 +64,7 @@
     margin-bottom: 0;
 }
 
-.popper[x-placement^="right"] {
-    margin-left: 5px;
-}
-
-.popper[x-placement^="right"] .popper-arrow {
+.popper[data-popper-placement^="right"] .popper-arrow {
     border-width: 5px 5px 5px 0;
     border-left-color: transparent;
     border-top-color: transparent;
@@ -87,11 +75,7 @@
     margin-right: 0;
 }
 
-.popper[x-placement^="left"] {
-    margin-right: 5px;
-}
-
-.popper[x-placement^="left"] .popper-arrow {
+.popper[data-popper-placement^="left"] .popper-arrow {
     border-width: 5px 0 5px 5px;
     border-top-color: transparent;
     border-right-color: transparent;

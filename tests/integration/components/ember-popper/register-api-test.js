@@ -73,19 +73,17 @@ module('Integration | Component | registerAPI', function(hooks) {
 
     this.actions.registerAPI = () => assert.ok('register API called');
 
-    this.set('eventsEnabled', true);
+    this.set('placement', 'bottom');
 
     await render(hbs`
       <div class='parent'>
-        {{#ember-popper-targeting-parent class='popper-element'
-                        eventsEnabled=eventsEnabled
-                        registerAPI=(action 'registerAPI')}}
+        {{#ember-popper-targeting-parent class='popper-element' placement=placement registerAPI=(action 'registerAPI')}}
           template block text
         {{/ember-popper-targeting-parent}}
       </div>
     `);
 
-    this.set('eventsEnabled', false);
+    this.set('placement', 'top');
   });
 
   test('when the popper target changes the API reregisters with the new target', async function(assert) {
